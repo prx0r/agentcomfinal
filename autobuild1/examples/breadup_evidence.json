@@ -1,0 +1,6 @@
+{
+  "sources": [
+    {"id": "ebay-sold", "class": "market", "as_of": "2026-09-13"},
+    {"id": "etsy-sold", "class": "market", "as_of": "2026-09-13"}
+  ]
+}

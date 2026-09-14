@@ -28,3 +28,10 @@ python -m pytest packages/campaign-control-plane -q
 - Thesis → `notes/scarcity-thesis-moving-scarcity-surface.md`
 
 See `AUDIT.md §7` for merge plan. Do not commit secrets — R2/GitHub tokens stay in env only.
+
+## Autobuild program
+
+- **Plan:** `DEV_PLAN.md` — zip review, qp/atask principles, frozen protocols, attempt roadmap, validation criteria
+- **Shared refs:** `autobuild0/` — local repo inventory, schema index, qp principles
+- **Attempt 1 (working):** `autobuild1/` — stdlib oneshot, 17/17 tests green
+- **Attempts 2–10:** hypotheses stubbed, see `DEV_PLAN.md §5`

@@ -1,0 +1,33 @@
+{
+  "id": "breadup-mini",
+  "goal": {
+    "statement": "Prove one executable BreadUp micro-business before October",
+    "acceptance": ["sold >= 1 item with realized P&L recorded", "strategy cost < £300"]
+  },
+  "features": [
+    {
+      "id": "photo-valuation-crosslist",
+      "description": "Photo in, valuation + cross-listing out, realized price recorded",
+      "acceptance": ["valuation within 20% of realized price on 5 lots"],
+      "evidence": [{"kind": "market-sold", "ref": "ebay-sold:botanical-plates"}, {"kind": "market-sold", "ref": "etsy-sold:botanical-plates"}],
+      "moat": {"exclusivity": 3, "externality": 4, "feedback": 3, "network": 2, "trust": 3, "ai_beta": 2},
+      "cost": 2,
+      "software_substitutable": false
+    },
+    {
+      "id": "listing-copy",
+      "description": "AI listing copy generation",
+      "acceptance": ["copy renders without errors"],
+      "evidence": [{"kind": "doc", "ref": "notes:copy-spec"}],
+      "software_substitutable": true
+    },
+    {
+      "id": "generic-dashboard",
+      "description": "Generic sales dashboard UI",
+      "acceptance": ["page loads"],
+      "evidence": [{"kind": "doc", "ref": "notes:dashboard-spec"}],
+      "cost": 100,
+      "software_substitutable": true
+    }
+  ]
+}

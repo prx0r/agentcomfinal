@@ -12,12 +12,12 @@
     {
       "id": "records",
       "status": "PASS",
-      "note": "34 passed"
+      "note": "35 passed"
     },
     {
       "id": "suite-green",
       "status": "PASS",
-      "note": "34/0"
+      "note": "35/0"
     },
     {
       "id": "hygiene",
@@ -27,11 +27,11 @@
   ],
   "tests": {
     "ok": true,
-    "passed": 34,
+    "passed": 35,
     "failed": 0,
     "tail": [
-      "..................................                                       [100%]",
-      "34 passed in 0.07s"
+      "...................................                                      [100%]",
+      "35 passed, 1 skipped in 0.09s"
     ]
   },
   "files": [
@@ -93,6 +93,14 @@
     },
     {
       "path": "tests/test_loop.py",
+      "ok": true
+    },
+    {
+      "path": "tests/test_tracing_live.py",
+      "ok": true
+    },
+    {
+      "path": "../autobuild0/vendor_docs/openai-agents/PROVENANCE.md",
       "ok": true
     }
   ],

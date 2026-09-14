@@ -30,6 +30,18 @@ except where a file says so. Checked 2026-09-14.
 NOT on ubuntu (remote only): `prx0r/atask` ✓ exists, `prx0r/plugin` ✓
 exists — cloned 2026-09-14 to the paths above.
 
+## OpenAI Agents SDK (live dependency, outside the kernel)
+
+- Package: `openai-agents==0.22.2` in `/home/ubuntu/.venvs/agentcom`
+  (matches `~/acom-openai/requirements.txt` pin). System python does NOT
+  have it — factory suites stay stdlib-only and skip live tests there.
+- SDK repo (source + docs): `/home/ubuntu/openai-agents-python`.
+- Vendored reference docs: `autobuild0/vendor_docs/openai-agents/`
+  (`tracing.md` + `ref/tracing/*` + PROVENANCE.md).
+- Consumer: `agentloop/src/loop/tracing.py` (lazy import, mirror fallback);
+  live wire-compat proven by `agentloop/tests/test_tracing_live.py` under
+  the venv (trace + nested custom spans reach a real TracingProcessor).
+
 ## In this repo
 
 - Raw R2 dump: `/agentcomfinal/docs/` + `_manifest.json`

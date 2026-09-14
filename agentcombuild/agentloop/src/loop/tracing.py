@@ -129,37 +129,41 @@ class TraceSession(object):
         if not self.include_sensitive:
             data.pop("input", None)
             data.pop("output", None)
+        # Local mirror ALWAYS records (dual custody: provider copy plus
+        # hash-chainable local copy for cross-checking).
+        m = MirrorSpan(name, data, self.trace_id,
+                       parent[1] if parent else None)
+        handles = [("mirror", name, m)]
         if self.sdk_trace is not None:
             try:
                 from agents.tracing import custom_span
                 ctx = custom_span(name, data)
                 ctx.__enter__()
-                self.spans.append(("sdk", name, ctx))
-                return ("sdk", name)
+                handles.append(("sdk", name, ctx))
             except Exception:  # noqa: BLE001 - mirror still records
                 pass
-        m = MirrorSpan(name, data, self.trace_id,
-                       parent[1] if parent else None)
-        self.spans.append(("mirror", name, m))
+        self.spans.extend(handles)
         return ("mirror", name)
 
     def finish_span(self, handle, error=None):
         kind, name = handle
+        done = False
         for k, n, ref in self.spans:
-            if (k, n) == (kind, name) and hasattr(ref, "finish"):
-                try:
-                    if kind == "sdk":
-                        if error:
-                            ref.set_error({"message": str(error)[:200],
-                                           "data": {}})
-                        ref.__exit__(None, None, None)
-                    else:
-                        ref.finish(error={"message": str(error)[:200]}
-                                   if error else None)
-                except Exception:  # noqa: BLE001
-                    pass
-                return True
-        return False
+            if n != name or not hasattr(ref, "finish"):
+                continue
+            try:
+                if k == "sdk":
+                    if error:
+                        ref.set_error({"message": str(error)[:200],
+                                       "data": {}})
+                    ref.__exit__(None, None, None)
+                else:
+                    ref.finish(error={"message": str(error)[:200]}
+                               if error else None)
+                done = True
+            except Exception:  # noqa: BLE001
+                pass
+        return done
 
     def export_mirror(self):
         return [ref.export() for k, _, ref in self.spans

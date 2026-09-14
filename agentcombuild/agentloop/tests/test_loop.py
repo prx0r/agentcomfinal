@@ -376,12 +376,23 @@ def test_sensitive_io_dropped_by_default():
 
 def test_binding_and_degraded_mode():
     from loop import tracing
-    s = tracing.TraceSession("wf", "proj", use_sdk=True)  # no SDK on box
-    assert s.mode.startswith("mirror:sdk-unavailable")
+    s = tracing.TraceSession("wf", "proj", use_sdk=True)  # live if SDK present
     s.span("attempt/ATT-0", {"exit": 0})
-    assert len(s.export_mirror()) == 1  # mirror still records everything
+    assert len(s.export_mirror()) == 1  # mirror records in every mode
     rec = s.bind({"run_id": "run:1"})
     assert rec["trace_id"] == s.trace_id and "telemetry_mode" in rec
+    s.finish()
+
+
+def test_degraded_without_sdk(monkeypatch):
+    import sys
+    from loop import tracing
+    monkeypatch.setitem(sys.modules, "agents", None)
+    monkeypatch.setitem(sys.modules, "agents.tracing", None)
+    s = tracing.TraceSession("wf", "proj", use_sdk=True)
+    assert s.mode.startswith("mirror:sdk-unavailable")
+    s.span("attempt/ATT-0", {"exit": 0})
+    assert len(s.export_mirror()) == 1
     s.finish()
 
 

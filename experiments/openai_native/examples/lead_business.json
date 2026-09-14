@@ -1,0 +1,24 @@
+{
+  "project": "agentcom-uk",
+  "campaign": "lead-reply-v3",
+  "contract_root": "contract:lead-reply-one",
+  "plan_root": "plan:lead-reply-sim0",
+  "policy_id": "autobuild-worker-v1",
+  "model": "gpt-6-astra",
+  "claim": "one real inbound lead receives one bounded booking reply",
+  "goals": ["maximize profitable booked jobs"],
+  "capabilities": ["answer_email", "qualify_lead", "quote", "book"],
+  "actuality_leaves": [
+    {"id": "lead-observed", "probe": "cmail.read", "judge": "record-exists"},
+    {"id": "reply-sent", "probe": "company.send_email", "judge": "provider-202"},
+    {"id": "readback-agrees", "probe": "provider.readback", "judge": "id-match"}
+  ],
+  "authority": {
+    "email.send": {"autonomous": false, "grant": "required"},
+    "cmail.read": {"autonomous": true}
+  },
+  "skills": ["uk-trade-compliance", "quoting", "customer-service"],
+  "environment": {"network": "strict-allowlist", "skills": ["business-operator"]},
+  "voice": {"persona": {"tone": "direct"}, "call_policy": {"human_handoff": true}, "escalation": {"human": true}},
+  "retention": {"default_days": 90}
+}

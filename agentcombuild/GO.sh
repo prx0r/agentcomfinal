@@ -41,5 +41,8 @@ step "agentloop review"
 step "core suite (E0 canonical)"
 (cd "$ROOT/.." && PYTHONPATH=/agentcomfinal python3 -m pytest core/tests/ -q) && ok "core suite" || no "core suite"
 
+step "openai-native-0 suite"
+(cd "$ROOT/../experiments/openai_native" && PYTHONPATH=src:/agentcomfinal/agentcombuild/agentloop/src:/agentcomfinal python3 -m pytest tests/ -q) && ok "openai-native suite" || no "openai-native suite"
+
 echo "--- chain: $pass ok, $miss miss ---"
 [ "$miss" -eq 0 ]

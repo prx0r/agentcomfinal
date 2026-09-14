@@ -2,7 +2,7 @@
   {
     "candidate": {
       "policy": "direct",
-      "rev": "a097c313af60f6cd40d51cdcb070f3268f1f7a1b",
+      "rev": "59f2cdc3a23f37aa3f5ad60326810d2512f2d33d",
       "contract": "QP cannot settle a consequential claim before independent readback establishes the postcondition"
     },
     "results": [
@@ -14,7 +14,7 @@
       {
         "node": "experiments/openai_native/tests/test_openai_native.py::test_settle_unreachable_on_false_readback",
         "passed": true,
-        "tail": ".                                                                        [100%]\n1 passed in 0.05s\n"
+        "tail": ".                                                                        [100%]\n1 passed in 0.06s\n"
       },
       {
         "node": "experiments/openai_native/tests/test_openai_native.py::test_chain_acceptance",
@@ -28,6 +28,6 @@
       }
     ],
     "passed": true,
-    "wall_ms": 1449
+    "wall_ms": 1453
   }
 ]

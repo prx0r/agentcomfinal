@@ -68,3 +68,38 @@ def test_otel_span_shape():
     assert s["attributes"]["gen_ai.request.model"] == "m"
     assert s["attributes"]["gen_ai.usage.input_tokens"] == 10
     assert otel.to_spans([{"attempt_id": "X"}])[0]["status"] == {"code": "UNSET"}
+
+
+def test_bank_files_all_views(tmp_path):
+    from trajectory import bank, trajectory as _t
+    t = _t.build("cr", "pr", "policy.seeker3",
+                 [{"attempt_id": "ATT-0",
+                   "action": {"description": "probe"},
+                   "observed_effect": {"verdict": "PASS", "reasons": []},
+                   "cost": {}}],
+                 {"x": "U"}, {"x": "T"},
+                 cost={"tokens": 1, "wall_ms": 2, "usd": 0.01,
+                       "human_minutes": 0})
+    out = bank.file_trajectory(str(tmp_path), t, agent={"name": "w"},
+                               session_id="s")
+    assert len(out["files"]) == 3
+    assert all(os.path.exists(p) for p in out["files"])
+    idx = open(os.path.join(str(tmp_path), "index.jsonl")).read()
+    assert "reduction" in idx
+
+
+def test_bank_refuses_on_fidelity_loss(monkeypatch):
+    import trajectory.bank as _b
+    import trajectory.memory as _m
+    atts = [{"attempt_id": "ATT-9",
+             "observed_effect": {"verdict": "PASS"},
+             "action": {}, "cost": {}}]
+    ok, missing = _m.fidelity(
+        atts, {"records": [{"role": "observation", "content": "unrelated"}]})
+    assert not ok and missing
+    monkeypatch.setattr(_m, "project",
+                        lambda *a, **k: {"records": [], "reduction": 0})
+    with pytest.raises(_b.FidelityRefused):
+        _b.file_trajectory("/tmp/never-written-zz",
+                           {"trajectory_id": "t", "attempts": atts,
+                            "policy_id": "p"})

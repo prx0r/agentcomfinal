@@ -125,3 +125,32 @@ def cluster(ideas_bank):
     return {"by_theme": {k: sorted(set(v)) for k, v in by_theme.items()},
             "reinforcing": sorted(set(reinforcing)),
             "primitive_candidates": sorted(set(prims))}
+
+
+def to_memory_view(compiled):
+    """Compiler banks -> memory-projector input: every ranked task and banked
+    idea becomes a compact observation (attempt-shaped) for the next run's
+    context. Returns the projector output (with measured reduction)."""
+    import sys as _sys
+    import os as _os
+    _root = _os.path.normpath(_os.path.join(
+        _os.path.dirname(_os.path.abspath(__file__)),
+        "..", "..", "..", ".."))
+    if _root not in _sys.path:
+        _sys.path.insert(0, _root)
+    from trajectory import memory as _mem
+    recs = []
+    for t in (compiled.get("next10") or []):
+        recs.append({"attempt_id": "task:%s" % (t.get("task") or "?")[:40],
+                     "action": {"description": t.get("justification", "")},
+                     "observed_effect": {"verdict": "UNKNOWN",
+                                         "reasons": ["not-yet-attempted"]},
+                     "cost": {}})
+    for idea in (compiled.get("ideas_bank") or []):
+        recs.append({"attempt_id": "idea:%s" % (idea.get("idea") or "?")[:40],
+                     "action": {"description": "; ".join(
+                         idea.get("themes", []))},
+                     "observed_effect": {"verdict": "UNKNOWN",
+                                         "reasons": ["speculative"]},
+                     "cost": {}})
+    return _mem.project(recs, source="compiler-bank")

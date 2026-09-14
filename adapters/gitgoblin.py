@@ -17,7 +17,8 @@ import subprocess
 
 GG_ROOT = "/home/ubuntu/gitgoblin"
 LOCAL_ROOTS = ("/agentcomfinal/packages", "/agentcomfinal/autobuild",
-               "/agentcomfinal/core", "/agentcomfinal/adapters")
+               "/agentcomfinal/core", "/agentcomfinal/adapters",
+               "/home/ubuntu/gg-as/gitgoblin")
 
 
 def version():

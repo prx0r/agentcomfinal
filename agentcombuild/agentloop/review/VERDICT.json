@@ -12,12 +12,12 @@
     {
       "id": "records",
       "status": "PASS",
-      "note": "37 passed"
+      "note": "38 passed"
     },
     {
       "id": "suite-green",
       "status": "PASS",
-      "note": "37/0"
+      "note": "38/0"
     },
     {
       "id": "hygiene",
@@ -27,11 +27,11 @@
   ],
   "tests": {
     "ok": true,
-    "passed": 37,
+    "passed": 38,
     "failed": 0,
     "tail": [
-      ".....................................                                    [100%]",
-      "37 passed, 1 skipped in 0.08s"
+      "......................................                                   [100%]",
+      "38 passed, 1 skipped in 0.09s"
     ]
   },
   "files": [

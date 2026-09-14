@@ -438,3 +438,14 @@ def test_usage_record_unknowns_null():
     u = tracing.usage_record(input_tokens=10, output_tokens=5)
     assert u["cached_tokens"] is None and u["cost"] is None
     assert u["input_tokens"] == 10
+
+
+def test_memory_view_covers_bank():
+    from loop import compile as comp
+    rec = good_record()
+    compiled = comp.compile_runs([rec])
+    mv = comp.to_memory_view(compiled)
+    assert len(mv["records"]) > 10  # tasks + ideas + meta
+    assert mv["reduction"] >= 1.0
+    blob = " ".join(x.get("content", "") for x in mv["records"])
+    assert "task-0" in blob

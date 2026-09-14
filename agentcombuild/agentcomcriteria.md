@@ -69,6 +69,18 @@ Owner `machine` = checked by `review/check.py`; `human` = judged at review.
 | G4 | GitHub commits alone yield CODE_PRESENT, never PROVEN | test `test_commits_not_proof` | machine |
 | G5 | Receipts are signed (attempt ≥2) and tampered copies fail verification | test `test_signed_tamper_fails` | machine |
 
+## ACT — actuality axiom (actuality.md; attempt ≥3)
+
+| ID | Statement | Verification | Owner |
+|---|---|---|---|
+| ACT1 | No log, no claim: uncovered acceptance never passes | test `test_claim_without_log_nogo`, `test_uncovered_index_nogo` | machine |
+| ACT2 | Probes emit observations only; only judges decide (probe verdicts ignored) | test `test_disallowed_command_refused`, probe-lies red-team | machine |
+| ACT3 | Judges are pure/total/terminating: malformed evidence and eval errors yield UNKNOWN, judges never raise | test `test_cel_unknowns`, `test_schema_l0` | machine |
+| ACT4 | DAG is AND over TRUE/FALSE/UNKNOWN leaves; UNKNOWN blocks progress | test `test_dag_unknown_blocks`, `test_dag_false_wins` | machine |
+| ACT5 | Consequential actions require independent postcondition readback; missing readback is UNKNOWN, mismatch is FALSE | test `test_readback` | machine |
+| ACT6 | A(C,E)=1 records carry claim/actuality/contract/evidence/validator roots + environment + proof class | test `test_actuality_record` | machine |
+| ACT7 | Agent telemetry is re-executed at judgment: forged/mismatched lines fail, planted verdicts ignored, secrets refused | tests `test_forged_line_nogo` … `test_secret_evidence_refused`, `test_planted_verdict_ignored` | machine |
+
 ## D — done (idea §21, §27)
 
 | ID | Statement | Verification | Owner |
@@ -78,4 +90,4 @@ Owner `machine` = checked by `review/check.py`; `human` = judged at review.
 | D3 | Worker model is replaceable without changing the hard system (same contracts, same receipts shape) | review: no model id inside contract/receipt bytes | human |
 | D4 | Real pilot DONE = 12 linked artifacts (campaign→…→reallocation), else IMPLEMENTED_UNVERIFIED | human sign-off against lineage trace | human |
 
-Scope rule (from seed0): out-of-scope items are logged in the attempt README, never gated. Attempt 1 scope = B4, C2(partial), G5(unsigned→deferred to attempt 2), W5, H2(partial). Attempt 2 scope = G1, G2, G5, T1.
+Scope rule (from seed0): out-of-scope items are logged in the attempt README, never gated. Attempt 1 scope = B4, C2(partial), G5(unsigned→deferred to attempt 2), W5, H2(partial). Attempt 2 scope = G1, G2, G5, T1. Attempt 3 scope = ACT1–ACT7, A-log A1–A6 (criteria A-section folded into ACT), chain no-regression.

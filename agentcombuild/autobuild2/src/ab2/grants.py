@@ -94,6 +94,8 @@ def verify_grant(grant, action, facts, now_iso):
                 return False, "unknown-constraint:%s" % k
         facts = facts or {}
         if "max_risk_usd" in cons:
+            if "amount_usd" not in facts:
+                return False, "amount-unknown"
             try:
                 if float(facts.get("amount_usd", 0)) > float(
                         cons["max_risk_usd"]):

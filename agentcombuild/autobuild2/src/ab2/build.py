@@ -7,10 +7,16 @@ from . import gates2  # noqa: F401 - registers L1 gates  # pylint: disable=unuse
 
 
 def consequential_actions(plan):
+    """Capabilities required. Consequential features WITHOUT a capability are
+    listed as UNSCOPED:<id> so the grant gate can never pass them (fail closed:
+    unscopable authority is refused, never assumed)."""
     out = []
     for f in plan.get("features", []):
-        if isinstance(f, dict) and f.get("consequential") and f.get("capability"):
-            out.append(f["capability"])
+        if isinstance(f, dict) and f.get("consequential"):
+            if f.get("capability"):
+                out.append(f["capability"])
+            else:
+                out.append("UNSCOPED:" + str(f.get("id", "?")))
     return sorted(set(out))
 
 

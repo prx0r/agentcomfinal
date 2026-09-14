@@ -1,8 +1,17 @@
-# review/ — the runtime that will judge this attempt
+# review/ — the runtime that judges the attempt
 
-Status: NOT STARTED (see `../README.md` for the hypothesis).
+`check.py` measures this attempt against its scope rows in
+`../agentcomcriteria.md` and writes two outputs:
 
-When the attempt is built, add `check.py` (thin scope wrapper over
-`../../autobuild0/reviewkit.py`, following `autobuild2/review/check.py`)
-so `GO.sh` picks it up. It must write `VERDICT.json` + `NEXT.md` and exit
-nonzero on any FAIL — promotion stays blocked until green.
+- `VERDICT.json` — machine verdict (criteria statuses, test counts, banned hits)
+- `NEXT.md` — what the next run should do (carried debt + next scope)
+
+Run it:
+
+```bash
+cd /agentcomfinal/agentcombuild/autobuildN
+python3 review/check.py
+```
+
+Statuses: PASS / PARTIAL / DEFERRED / FAIL. Any FAIL (or red suite) blocks
+promotion — fix the link, don't add features.

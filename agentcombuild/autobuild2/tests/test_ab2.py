@@ -91,6 +91,27 @@ def test_grant_unsigned():
     assert not ok
 
 
+def test_grant_amount_unknown_denied():
+    no_amount = {k: v for k, v in FACTS.items() if k != "amount_usd"}
+    ok, reason = grants.verify_grant(good_grant(), "email.send", no_amount,
+                                     NOW)
+    assert not ok and reason == "amount-unknown"
+
+
+def test_unscoped_consequential_refused():
+    import copy
+    p = copy.deepcopy(plan())
+    p["features"][1] = {"id": "rogue-send", "description": "send with no capability",
+                        "acceptance": ["sent"], "consequential": True,
+                        "evidence": [{"kind": "doc", "ref": "notes:x"}]}
+    view = ab2build.build(p, ev(), {"email.send": {"grant": good_grant(),
+                                                   "facts": FACTS}},
+                          SECRET, PUB, NOW)
+    assert not view["receipt"]["passed"]
+    proofs = " ".join(g["proof"] for g in view["receipt"]["gates"])
+    assert "UNSCOPED:rogue-send" in proofs
+
+
 def test_consequential_without_grant_refused():
     view = ab2build.build(plan(), ev(), {}, None, PUB, NOW)
     assert not view["receipt"]["passed"]

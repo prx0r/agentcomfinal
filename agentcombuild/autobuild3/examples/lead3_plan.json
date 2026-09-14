@@ -1,0 +1,23 @@
+{
+  "id": "lead-reply-one",
+  "goal": {
+    "statement": "Reply to one lead with a booking offer",
+    "acceptance": ["reply delivered to lead-123", "outcome read back"]
+  },
+  "features": [
+    {
+      "id": "qualify-lead",
+      "description": "Score lead-123 against qualification rubric",
+      "acceptance": ["score recorded"],
+      "evidence": [{"kind": "doc", "ref": "notes:rubric"}],
+      "covers": [0]
+    },
+    {
+      "id": "send-lead-reply",
+      "description": "Send one bounded booking-offer reply to lead-123",
+      "acceptance": ["reply delivered"],
+      "evidence": [{"kind": "doc", "ref": "notes:template"}],
+      "covers": [0]
+    }
+  ]
+}

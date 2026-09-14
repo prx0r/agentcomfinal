@@ -57,12 +57,14 @@ def check_required_files(attempt_dir, relpaths):
 
 
 def grep_ban_py(attempt_dir, banned):
-    """Banned literal strings must not appear in src/**/*.py. Returns hits.
+    """Banned patterns must not appear in src/**/*.py. Returns hits.
 
-    Files with 'vendored' in the name are skipped: vendoring external code
-    with a provenance header is allowed (never copy schemas silently), and
-    the header itself names the source repo.
+    Patterns starting with 're:' are regex-searched per line; others are
+    plain substrings. Files with 'vendored' in the name are skipped:
+    vendoring external code with a provenance header is allowed (never copy
+    schemas silently), and the header itself names the source repo.
     """
+    import re as _re
     hits = []
     src = os.path.join(attempt_dir, "src")
     for root, _, files in os.walk(src):
@@ -77,7 +79,11 @@ def grep_ban_py(attempt_dir, banned):
                 continue
             rel = os.path.relpath(full, attempt_dir)
             for pat in banned:
-                if pat in text:
+                if pat.startswith("re:"):
+                    if any(_re.search(pat[3:], ln) for ln in
+                           text.splitlines()):
+                        hits.append({"pattern": pat, "file": rel})
+                elif pat in text:
                     hits.append({"pattern": pat, "file": rel})
     return hits
 

@@ -23,5 +23,15 @@ step "ab2 review"
 step "ab2 demo"
 (cd "$ROOT/autobuild2" && PYTHONPATH=../autobuild1/src:src python3 -m ab2.cli demo > /dev/null) && ok "ab2 demo" || no "ab2 demo"
 
+step "ab3 suite"
+(cd "$ROOT/autobuild3" && PYTHONPATH=../autobuild1/src:src python3 -m pytest tests/ -q) && ok "ab3 suite" || no "ab3 suite"
+step "ab3 review"
+(cd "$ROOT/autobuild3" && python3 review/check.py) && ok "ab3 review" || no "ab3 review"
+step "ab3 demo"
+(cd "$ROOT/autobuild3" && PYTHONPATH=../autobuild1/src:src python3 -m ab3.cli demo > /dev/null) && ok "ab3 demo" || no "ab3 demo"
+
+step "redteam"
+(cd "$ROOT" && python3 autobuild0/redteam_ab12.py > /dev/null) && ok "redteam" || no "redteam"
+
 echo "--- chain: $pass ok, $miss miss ---"
 [ "$miss" -eq 0 ]

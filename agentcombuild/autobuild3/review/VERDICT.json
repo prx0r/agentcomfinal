@@ -1,0 +1,115 @@
+{
+  "attempt": "autobuild3",
+  "date": "2026-09-14",
+  "scope": [
+    "ACT1",
+    "ACT2",
+    "ACT3",
+    "ACT4",
+    "ACT5",
+    "ACT6",
+    "ACT7",
+    "chain-no-regression",
+    "suite-green"
+  ],
+  "overall": "PASS",
+  "criteria": [
+    {
+      "id": "ACT1-ACT7",
+      "status": "PASS",
+      "note": "29 passed, 0 failed (27-test axiom matrix)"
+    },
+    {
+      "id": "chain-no-regression",
+      "status": "PASS",
+      "note": "ab1 17/ab2 15 suites green"
+    },
+    {
+      "id": "suite-green",
+      "status": "PASS",
+      "note": "29 passed"
+    },
+    {
+      "id": "no-qp-fabrication",
+      "status": "PASS",
+      "note": "clean"
+    }
+  ],
+  "tests": {
+    "ok": true,
+    "passed": 29,
+    "failed": 0,
+    "tail": [
+      ".............................                                            [100%]",
+      "29 passed in 1.34s"
+    ]
+  },
+  "files": [
+    {
+      "path": "SPEC.md",
+      "ok": true
+    },
+    {
+      "path": "VALIDATION.md",
+      "ok": true
+    },
+    {
+      "path": "VALIDATION.json",
+      "ok": true
+    },
+    {
+      "path": "src/ab3/alog.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab3/stoplight.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab3/gates3.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab3/judges.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab3/actuality.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab3/readback.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab3/registry.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab3/cli.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab3/demo_worker.py",
+      "ok": true
+    },
+    {
+      "path": "tests/test_ab3.py",
+      "ok": true
+    },
+    {
+      "path": "examples/lead3_plan.json",
+      "ok": true
+    },
+    {
+      "path": "validators/send-lead-reply.py",
+      "ok": true
+    },
+    {
+      "path": "validators/registry.json",
+      "ok": true
+    }
+  ],
+  "banned_hits": [],
+  "fails": []
+}

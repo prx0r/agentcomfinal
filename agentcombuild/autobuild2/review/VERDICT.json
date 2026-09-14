@@ -39,7 +39,7 @@
     {
       "id": "suite-green",
       "status": "PASS",
-      "note": "13 passed, 0 failed"
+      "note": "15 passed, 0 failed"
     },
     {
       "id": "no-qp-fabrication",
@@ -49,11 +49,11 @@
   ],
   "tests": {
     "ok": true,
-    "passed": 13,
+    "passed": 15,
     "failed": 0,
     "tail": [
-      ".............                                                            [100%]",
-      "13 passed in 0.22s"
+      "...............                                                          [100%]",
+      "15 passed in 0.26s"
     ]
   },
   "files": [

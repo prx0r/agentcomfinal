@@ -32,11 +32,13 @@ See `AUDIT.md §7` for merge plan. Do not commit secrets — R2/GitHub tokens st
 ## Autobuild program (`agentcombuild/` — the factory)
 
 - **Idea:** `agentcombuild/agentcomidea.md` — founding brief
+- **Axiom:** `agentcombuild/actuality.md` — Actuality: progress only via externally produced evidence satisfying frozen gates
 - **Criteria:** `agentcombuild/agentcomcriteria.md` — binary rubric, seed0 style
 - **Gates:** `agentcombuild/GATES.md` — full gate catalog L0–L4
 - **Plan:** `agentcombuild/DEV_PLAN.md` — zip review, qp/atask principles, protocols, roadmap
-- **Shared refs:** `agentcombuild/autobuild0/` — repo inventory, schema index, qp principles, reviewkit
+- **Shared refs:** `agentcombuild/autobuild0/` — repo inventory, schema index, qp principles, reviewkit, red-team
 - **Attempt 1 (working):** `agentcombuild/autobuild1/` — stdlib oneshot, 17/17 green
-- **Attempt 2 (working):** `agentcombuild/autobuild2/` — signed receipts + grant gates, 13/13 green
-- **Attempts 3–10:** hypotheses stubbed, see `agentcombuild/DEV_PLAN.md §5`
-- **Click go:** `bash agentcombuild/GO.sh` — simulated chain (reviews + suites + demos)
+- **Attempt 2 (working):** `agentcombuild/autobuild2/` — signed receipts + grant gates, 15/15 green
+- **Attempt 3 (working):** `agentcombuild/autobuild3/` — a-log telemetry + Actuality core (probe/judge, CEL, DAG, readback, registry), 29/29 green
+- **Attempts 4–10:** hypotheses stubbed, see `agentcombuild/DEV_PLAN.md §5`
+- **Click go:** `bash agentcombuild/GO.sh` — simulated chain (reviews + suites + demos + redteam)

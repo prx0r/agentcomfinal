@@ -327,3 +327,72 @@ def test_holdout_opacity():
     assert v["winner"] in ("sol-1", "sol-2")
     # ...yet the candidates themselves carry no trace of the rule
     assert all("holdout" not in json.dumps(c) for c in v["candidates"])
+
+
+# ---- provider-native telemetry ----
+
+def test_trace_id_shape():
+    from loop import tracing
+    tid = tracing.gen_trace_id()
+    assert tid.startswith("trace_") and len(tid) == 38
+
+
+def test_mirror_export_shape():
+    from loop import tracing
+    s = tracing.TraceSession("wf", "proj", trace_id="trace_" + "ab" * 16)
+    h = s.span("attempt/ATT-0", {"observation": "echo ok", "exit": 0})
+    assert s.finish_span(h) is True
+    (payload,) = s.export_mirror()
+    assert payload["object"] == "trace.span"
+    for k in ("id", "trace_id", "parent_id", "started_at", "ended_at",
+              "span_data", "error"):
+        assert k in payload, k
+    assert payload["span_data"]["data"]["exit"] == 0
+    assert payload["trace_id"] == "trace_" + "ab" * 16
+
+
+def test_scrub_defense_in_depth():
+    from loop import tracing
+    dirty = {"api_key": "ghp_fakelymadeup0000000000000000000000",
+             "nested": {"token": "xox no", "ok": 1},
+             "note": "nothing secret here", "big": "z" * 2500}
+    clean = tracing.scrub(dirty)
+    assert clean["api_key"] == "<redacted>"
+    assert clean["nested"]["token"] == "<redacted>"
+    assert clean["nested"]["ok"] == 1 and clean["note"] == dirty["note"]
+    assert len(clean["big"]) == 2000
+
+
+def test_sensitive_io_dropped_by_default():
+    from loop import tracing
+    s = tracing.TraceSession("wf", "proj")
+    s.span("gen", {"input": "user secrets here", "exit": 0})
+    (payload,) = s.export_mirror()
+    assert "input" not in payload["span_data"]["data"]
+    s2 = tracing.TraceSession("wf", "proj", include_sensitive_data=True)
+    s2.span("gen", {"input": "hello", "exit": 0})
+    assert s2.export_mirror()[0]["span_data"]["data"]["input"] == "hello"
+
+
+def test_binding_and_degraded_mode():
+    from loop import tracing
+    s = tracing.TraceSession("wf", "proj", use_sdk=True)  # no SDK on box
+    assert s.mode.startswith("mirror:sdk-unavailable")
+    s.span("attempt/ATT-0", {"exit": 0})
+    assert len(s.export_mirror()) == 1  # mirror still records everything
+    rec = s.bind({"run_id": "run:1"})
+    assert rec["trace_id"] == s.trace_id and "telemetry_mode" in rec
+    s.finish()
+
+
+def test_verdicts_pass_through_unredacted():
+    from loop import tracing
+    out = tracing.scrub({"verdict": "PASS", "reasons": ["shape-ok"]})
+    assert out == {"verdict": "PASS", "reasons": ["shape-ok"]}
+
+
+def test_usage_record_unknowns_null():
+    from loop import tracing
+    u = tracing.usage_record(input_tokens=10, output_tokens=5)
+    assert u["cached_tokens"] is None and u["cost"] is None
+    assert u["input_tokens"] == 10

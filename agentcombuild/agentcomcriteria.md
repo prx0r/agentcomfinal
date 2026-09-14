@@ -81,6 +81,15 @@ Owner `machine` = checked by `review/check.py`; `human` = judged at review.
 | ACT6 | A(C,E)=1 records carry claim/actuality/contract/evidence/validator roots + environment + proof class | test `test_actuality_record` | machine |
 | ACT7 | Agent telemetry is re-executed at judgment: forged/mismatched lines fail, planted verdicts ignored, secrets refused | tests `test_forged_line_nogo` … `test_secret_evidence_refused`, `test_planted_verdict_ignored` | machine |
 
+## TR — provider-native telemetry (OpenAI Agents API)
+
+| ID | Statement | Verification | Owner |
+|---|---|---|---|
+| TR1 | RUN telemetry maps 1:1 onto native Traces/Spans (run→trace, attempt/validation/research/grant→custom spans, usage→generation-compatible) | test `test_mirror_export_shape` | machine |
+| TR2 | Secrets never reach the provider: refusal at log time AND scrub before export, sensitive I/O off by default | tests `test_scrub_defense_in_depth`, `test_sensitive_io_dropped_by_default` | machine |
+| TR3 | Every RUN binds local + provider copies (`run_id` ↔ `trace_id`); SDK absence degrades loudly to a same-shaped mirror, never silently | test `test_binding_and_degraded_mode` | machine |
+| TR4 | Unknown telemetry stays null; calibration joins provider usage against local records (opencode_db pattern) | test `test_usage_record_unknowns_null` | machine |
+
 ## D — done (idea §21, §27)
 
 | ID | Statement | Verification | Owner |

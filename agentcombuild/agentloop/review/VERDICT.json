@@ -12,12 +12,12 @@
     {
       "id": "records",
       "status": "PASS",
-      "note": "27 passed"
+      "note": "34 passed"
     },
     {
       "id": "suite-green",
       "status": "PASS",
-      "note": "27/0"
+      "note": "34/0"
     },
     {
       "id": "hygiene",
@@ -27,11 +27,11 @@
   ],
   "tests": {
     "ok": true,
-    "passed": 27,
+    "passed": 34,
     "failed": 0,
     "tail": [
-      "...........................                                              [100%]",
-      "27 passed in 0.07s"
+      "..................................                                       [100%]",
+      "34 passed in 0.07s"
     ]
   },
   "files": [
@@ -85,6 +85,10 @@
     },
     {
       "path": "src/loop/blocker.py",
+      "ok": true
+    },
+    {
+      "path": "src/loop/tracing.py",
       "ok": true
     },
     {

@@ -27,7 +27,7 @@ jobs:
       - name: agentloop suite
         run: PYTHONPATH=../autobuild1/src:src python3 -m pytest tests/ -q
         working-directory: ${{ github.workspace }}/agentcombuild/agentloop
-      - name: openai-native offline suite (real)
+      - name: openai-native offline suite
         run: PYTHONPATH=src:$GITHUB_WORKSPACE/agentcombuild/agentloop/src:$GITHUB_WORKSPACE python3 -m pytest tests/test_openai_native.py -q
         working-directory: ${{ github.workspace }}/experiments/openai_native
       - name: redteam

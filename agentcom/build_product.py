@@ -230,10 +230,12 @@ def build(spec_path, out_root):
     lint["world_codes"] = world_codes
 
     # 8-9. routing evals
+    # P9: the router is a local keyword heuristic, not ChatGPT routing.
+    # Leaf names say so; host leaves stay UNKNOWN until ChatGPT evidence.
     pos = sum(1 for q in POSITIVE_CORPUS if route(q))
     neg = sum(1 for q in NEGATIVE_CORPUS if not route(q))
-    step("routing-positive", pos == 5, "%d/5 route" % pos)
-    step("routing-negative", neg == 3, "%d/3 stay out" % neg)
+    step("local-routing-positive", pos == 5, "%d/5 route" % pos)
+    step("local-routing-negative", neg == 3, "%d/3 stay out" % neg)
 
     # 10-12. skill + package + catalog
     from opennative import skill as _skill
@@ -266,8 +268,8 @@ def build(spec_path, out_root):
         ("mcp-starts", "TRUE"), ("client-connects", "TRUE"),
         ("tools-list", "TRUE"), ("lookup-returns", "TRUE"),
         ("invalid-bounded-error", "TRUE"), ("spec-validates", "TRUE"),
-        ("lint-offline-clean", "TRUE"), ("routing-positive", "TRUE"),
-        ("routing-negative", "TRUE"), ("skill-builds", "TRUE"),
+        ("lint-offline-clean", "TRUE"), ("local-routing-positive", "TRUE"),
+        ("local-routing-negative", "TRUE"), ("skill-builds", "TRUE"),
         ("package-builds", "TRUE"), ("catalog-validates", "TRUE"),
         ("lint-final-gates", "UNKNOWN"),
         ("host-install", "UNKNOWN"), ("host-invocation", "UNKNOWN"),
@@ -284,5 +286,13 @@ def build(spec_path, out_root):
               "world_codes": lint.get("world_codes", []),
               "contract": "contract:uk-business-profile",
               "ok": local_ok and dag["false"] == 0}
+    # P7 statuses: offline success with UNKNOWN leaves is LOCAL_PASS, never
+    # proven. PRODUCT_PROVEN requires every hard leaf TRUE (needs the host).
+    if not report["ok"]:
+        report["status"] = "FAILED"
+    elif dag["unknown"] == 0 and dag["false"] == 0:
+        report["status"] = "PRODUCT_PROVEN"
+    else:
+        report["status"] = "LOCAL_PASS"
     json.dump(report, open(os.path.join(work, "report.json"), "w"), indent=2)
     return report

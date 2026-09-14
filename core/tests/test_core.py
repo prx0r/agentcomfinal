@@ -279,6 +279,32 @@ def test_cg_adapter_live():
     assert m["scenario"]["contract_root"] == "cr:1"
 
 
+def test_agentcom_lane_calls_real_cg_runner():
+    """P2: instrument CG AsyncRunner; AgentCom must invoke it (not mint its
+    own receipt-shaped dict). Same seed twice => identical run_id."""
+    import asyncio as _asyncio
+    from adapters import cg as A_cg
+    A_cg.smoke()  # ensures /cg import path is registered
+    import cogym_kernel.kernel.runner as _R
+    calls = []
+    orig = _R.AsyncRunner.run_episode
+
+    async def spy(self, *a, **k):
+        calls.append((a, k))
+        return await orig(self, *a, **k)
+
+    _R.AsyncRunner.run_episode = spy
+    try:
+        r1 = A_cg.run_episode("cr:1", "abc123")
+        r2 = A_cg.run_episode("cr:1", "abc123")
+    finally:
+        _R.AsyncRunner.run_episode = orig
+    assert calls, "AsyncRunner.run_episode was never invoked"
+    assert r1["run_id"] == r2["run_id"]  # deterministic receipt identity
+    assert set(r1["metrics"]) >= {"correct", "cash_cost"}
+    assert r1["mode"] == "CG_REAL_RUNNER_TOY_DOMAIN"
+
+
 def test_cg_runs_scripted_openai_lane():
     """P2 minimal: AgentCom lane -> cg run_lane -> scripted OpenAI executor
     -> CG-style receipt stored in trajectory. Same shape the live executor

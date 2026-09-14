@@ -1,0 +1,31 @@
+{
+  "ideas": 1,
+  "leaderboard_top3": [
+    {
+      "task": "Close caller-clock trust gap (R5)",
+      "justification": "only known-open telemetry hole",
+      "impact": 5,
+      "runs": [
+        "run:a9fddf8d64e9"
+      ]
+    },
+    {
+      "task": "Hash judge output into signed receipts (R10)",
+      "justification": "provenance for gate inputs",
+      "impact": 5,
+      "runs": [
+        "run:a9fddf8d64e9"
+      ]
+    },
+    {
+      "task": "F1 CI live on first PR",
+      "justification": "independent second machine",
+      "impact": 4,
+      "runs": [
+        "run:a9fddf8d64e9"
+      ]
+    }
+  ],
+  "memory_records": 13,
+  "reduction": 2.04
+}

@@ -1,10 +1,12 @@
-"""Session banker: execute everything real, bank every result, log every step.
+"""Session banker: execute suites, bank results, log every step.
 
-No mocks: pytest suites, E4 tournament (real gates), UK compile (real
-hashes), redteam (real attacks), venv live wire tests (real SDK/MCP).
-Outputs: trajectory/verified/* (full+ATIF+compact, fidelity-gated),
-runs/session-*.jsonl (RUN records), SESSION_LOG.md (human-readable log).
-Exit nonzero if anything fails — a green bank with a red step is a lie.
+Modes per step (P5): LOCAL (this machine), SIMULATED (fixtures standing in
+for providers), LIVE (real provider). A step that needs a missing key is
+recorded LIVE/UNKNOWN (NOT_CONFIGURED), never PASS. Overall status is
+LOCAL_GREEN (all local green) or FAILURES_PRESENT; PROVEN requires every
+hard LIVE leg executed (see live-readiness record). pytest suites, E4
+tournament gates, UK compile hashes, redteam attacks, venv wire checks —
+all executed for real locally; provider legs honestly labeled.
 """
 import json
 import os
@@ -29,13 +31,13 @@ from trajectory import trajectory as _traj  # noqa: E402
 LOG = []
 
 
-def sh(name, cmd, cwd=ROOT, env=None):
+def sh(name, cmd, cwd=ROOT, env=None, mode="LOCAL"):
     t0 = time.monotonic()
     p = subprocess.run(cmd, capture_output=True, text=True, timeout=900,
                        cwd=cwd, env=env)
     wall_ms = int((time.monotonic() - t0) * 1000)
     tail = (p.stdout + p.stderr).strip().splitlines()[-4:]
-    rec = {"step": name, "cmd": " ".join(cmd), "rc": p.returncode,
+    rec = {"step": name, "mode": mode, "cmd": " ".join(cmd), "rc": p.returncode,
            "wall_ms": wall_ms, "tail": tail}
     LOG.append(rec)
     print("[%s] rc=%d %dms :: %s" % (name, p.returncode, wall_ms,
@@ -96,8 +98,9 @@ def main():
         ok = bank_suite(name, "contract:suite-green-" + name, rec)
         all_ok = all_ok and ok and rec["rc"] == 0
 
-    # E4 tournament (real gates) + bank winner trajectory
-    rec = sh("e4", [py, "experiments/policies/tournament_e4.py"], ROOT)
+    # E4 tournament (real gates, synthetic lanes) + bank winner trajectory
+    rec = sh("e4", [py, "experiments/policies/tournament_e4.py"], ROOT,
+             mode="SIMULATED")
     all_ok = all_ok and rec["rc"] == 0
 
     # UK compile (real hashes) filed as candidate artifact
@@ -114,18 +117,27 @@ def main():
     rec = sh("redteam", [py, "agentcombuild/autobuild0/redteam_ab12.py"], ROOT)
     all_ok = all_ok and rec["rc"] == 0
 
-    # venv live wire (real SDK + MCP, keyless)
+    # venv wire checks (real SDK/MCP objects, keyless) + live readiness
     venv = "/home/ubuntu/.venvs/agentcom/bin/python"
     if os.path.exists(venv):
         rec = sh("live-wire", [venv, "-m", "pytest",
                                 "agentcombuild/agentloop/tests/test_tracing_live.py",
                                 "experiments/policies/test_sdk_policy.py",
                                 "experiments/openai_native/tests/test_wire_live.py",
-                                "-q"], ROOT)
+                                "-q"], ROOT, mode="LOCAL")
         all_ok = all_ok and rec["rc"] == 0
     else:
-        LOG.append({"step": "live-wire", "cmd": "SKIP no venv", "rc": 0,
+        LOG.append({"step": "live-wire", "mode": "LOCAL",
+                    "cmd": "SKIP no venv", "rc": 0,
                     "wall_ms": 0, "tail": []})
+    import os as _os2
+    key_present = bool(_os2.environ.get("OPENAI_API_KEY"))
+    LOG.append({"step": "live-agents-session", "mode": "LIVE",
+                "cmd": "managed session (key-gated)",
+                "configured": key_present, "executed": False,
+                "result": "UNKNOWN", "rc": 0, "wall_ms": 0, "tail": [
+                    "NOT_CONFIGURED" if not key_present
+                    else "manual live run required"]})
 
     with open(os.path.join(SESSDIR, "steps.jsonl"), "w") as fh:
         for r in LOG:
@@ -168,13 +180,16 @@ def main():
 
     with open(os.path.join(ROOT, "agentcombuild", "SESSION_LOG.md"), "w") as fh:
         fh.write("# SESSION LOG %s\n\n" % STAMP)
-        fh.write("Steps: %d, failures: %d. Bank: `%s`. All artifacts below.\n\n"
-                 % (len(LOG), sum(1 for r in LOG if r["rc"] != 0), SESSDIR))
+        fh.write("Status: %s. Steps: %d, failures: %d. Bank: `%s`.\n\n"
+                 % ("LOCAL_GREEN / LIVE_INCOMPLETE" if all_ok else "FAILURES_PRESENT",
+                    len(LOG), sum(1 for r in LOG if r["rc"] != 0), SESSDIR))
+        fh.write("Modes: LOCAL = this machine; SIMULATED = fixtures standing in "
+                 "for providers; LIVE = real provider (UNKNOWN until executed).\n\n")
         for r in LOG:
             fh.write("## %s rc=%d %dms\n```\n%s\n```\n%s\n\n" % (
                 r["step"], r["rc"], r.get("wall_ms", 0), r["cmd"],
                 "\n".join(r.get("tail", []))))
-    print("ALL_OK" if all_ok else "FAILURES_PRESENT")
+    print("LOCAL_GREEN / LIVE_INCOMPLETE" if all_ok else "FAILURES_PRESENT")
     return 0 if all_ok else 2
 
 

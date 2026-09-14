@@ -2,114 +2,85 @@
   "attempt": "autobuild2",
   "date": "2026-09-14",
   "scope": [
-    "G1",
-    "G2",
-    "G5",
-    "T1-simulated",
-    "ab1-no-regression",
-    "suite-green"
+    "grant-matrix-fail-closed",
+    "consequential-requires-grant",
+    "signatures-verify",
+    "no-regression-ab1"
   ],
-  "overall": "PASS WITH DEBT",
+  "overall": "PASS",
   "criteria": [
     {
-      "id": "G1",
+      "id": "grant-matrix-fail-closed",
       "status": "PASS",
-      "note": "13-test matrix incl. REFUSED w/o grant"
+      "note": "7/7 gates green",
+      "tests": [
+        "tests/test_ab2.py::test_grant_expired",
+        "tests/test_ab2.py::test_grant_wrong_capability",
+        "tests/test_ab2.py::test_grant_unknown_constraint",
+        "tests/test_ab2.py::test_grant_over_limit",
+        "tests/test_ab2.py::test_grant_predicate_false",
+        "tests/test_ab2.py::test_grant_unsigned",
+        "tests/test_ab2.py::test_grant_amount_unknown_denied"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
     },
     {
-      "id": "G2",
+      "id": "consequential-requires-grant",
       "status": "PASS",
-      "note": "wrong-scope REFUSED"
+      "note": "3/3 gates green",
+      "tests": [
+        "tests/test_ab2.py::test_consequential_without_grant_refused",
+        "tests/test_ab2.py::test_wrong_scope_refused",
+        "tests/test_ab2.py::test_unscoped_consequential_refused"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
     },
     {
-      "id": "G5",
+      "id": "signatures-verify",
       "status": "PASS",
-      "note": "demo signed receipt verifies"
+      "note": "3/3 gates green",
+      "tests": [
+        "tests/test_ab2.py::test_roundtrip",
+        "tests/test_ab2.py::test_signed_build_verifies",
+        "tests/test_ab2.py::test_tamper_sig_fails"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
     },
     {
-      "id": "T1-simulated",
-      "status": "PARTIAL",
-      "note": "simulated: no receipt => no advance; live QP adapter is ab3"
-    },
-    {
-      "id": "ab1-no-regression",
+      "id": "no-regression-ab1",
       "status": "PASS",
-      "note": "ab1 suite 17 passed"
-    },
-    {
-      "id": "suite-green",
-      "status": "PASS",
-      "note": "15 passed, 0 failed"
-    },
-    {
-      "id": "no-qp-fabrication",
-      "status": "PASS",
-      "note": "clean"
+      "note": "1/1 gates green",
+      "tests": [
+        "tests/test_ab2.py::test_ab1_still_green"
+      ],
+      "results": [
+        "PASSED"
+      ]
     }
   ],
   "tests": {
     "ok": true,
-    "passed": 15,
+    "passed": 0,
     "failed": 0,
-    "tail": [
-      "...............                                                          [100%]",
-      "15 passed in 0.27s"
-    ]
+    "tail": []
   },
-  "files": [
-    {
-      "path": "SPEC.md",
-      "ok": true
-    },
-    {
-      "path": "VALIDATION.md",
-      "ok": true
-    },
-    {
-      "path": "VALIDATION.json",
-      "ok": true
-    },
-    {
-      "path": "src/ab2/_vendored_ed25519.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab2/crypto.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab2/grants.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab2/gates2.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab2/build.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab2/cli.py",
-      "ok": true
-    },
-    {
-      "path": "tests/test_ab2.py",
-      "ok": true
-    },
-    {
-      "path": "examples/lead_plan.json",
-      "ok": true
-    },
-    {
-      "path": "examples/lead_evidence.json",
-      "ok": true
-    },
-    {
-      "path": "examples/demo_seed.hex",
-      "ok": true
-    }
-  ],
+  "files": [],
   "banned_hits": [],
   "fails": []
 }

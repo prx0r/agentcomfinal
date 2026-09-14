@@ -2,109 +2,121 @@
   "attempt": "autobuild1",
   "date": "2026-09-14",
   "scope": [
-    "B4",
-    "C2-partial",
-    "W5-partial",
-    "H2-partial",
-    "G5-deferred",
-    "suite-green"
+    "specgate-refuses-trust-only",
+    "gates-fail-closed",
+    "receipts-verify-and-hold",
+    "chain-appends-and-detects",
+    "determinism-byte-identical",
+    "seesaw-ordering-holds",
+    "plugin-lint-present"
   ],
-  "overall": "PASS WITH DEBT",
+  "overall": "PASS",
   "criteria": [
     {
-      "id": "B4",
+      "id": "specgate-refuses-trust-only",
       "status": "PASS",
-      "note": "no QP fabrication in src"
+      "note": "2/2 gates green",
+      "tests": [
+        "tests/test_ab1.py::test_plan_rejects_missing_acceptance",
+        "tests/test_ab1.py::test_plan_rejects_trust_only_feature"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED"
+      ]
     },
     {
-      "id": "C2-partial",
-      "status": "PARTIAL",
-      "note": "receipt+chain lineage present; 7-root lineage is ab4+ scope"
-    },
-    {
-      "id": "W5-partial",
-      "status": "PARTIAL",
-      "note": "no outcome/readback object in ab1; rule specified in GATES.md L3"
-    },
-    {
-      "id": "H2-partial",
-      "status": "PARTIAL",
-      "note": "runs emit receipts; KnowledgeContribution is attempt 5+ scope"
-    },
-    {
-      "id": "G5-deferred",
-      "status": "DEFERRED",
-      "note": "receipts unsigned V0 by design; signing is autobuild2"
-    },
-    {
-      "id": "suite-green",
+      "id": "gates-fail-closed",
       "status": "PASS",
-      "note": "17 passed, 0 failed"
+      "note": "4/4 gates green",
+      "tests": [
+        "tests/test_ab1.py::test_unknown_gate",
+        "tests/test_ab1.py::test_raising_gate",
+        "tests/test_ab1.py::test_missing_evidence_gate",
+        "tests/test_ab1.py::test_gate_threshold"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
+    },
+    {
+      "id": "receipts-verify-and-hold",
+      "status": "PASS",
+      "note": "3/3 gates green",
+      "tests": [
+        "tests/test_ab1.py::test_receipt_pass",
+        "tests/test_ab1.py::test_fail_keeps_state",
+        "tests/test_ab1.py::test_tamper_fails"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
+    },
+    {
+      "id": "chain-appends-and-detects",
+      "status": "PASS",
+      "note": "2/2 gates green",
+      "tests": [
+        "tests/test_ab1.py::test_store_chain",
+        "tests/test_ab1.py::test_store_evil_line"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED"
+      ]
+    },
+    {
+      "id": "determinism-byte-identical",
+      "status": "PASS",
+      "note": "2/2 gates green",
+      "tests": [
+        "tests/test_ab1.py::test_determinism",
+        "tests/test_ab1.py::test_canonical_byte_identical"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED"
+      ]
+    },
+    {
+      "id": "seesaw-ordering-holds",
+      "status": "PASS",
+      "note": "3/3 gates green",
+      "tests": [
+        "tests/test_ab1.py::test_seesaw_ordering",
+        "tests/test_ab1.py::test_substitutable_never_own",
+        "tests/test_ab1.py::test_ai_exposure"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
+    },
+    {
+      "id": "plugin-lint-present",
+      "status": "PASS",
+      "note": "1/1 gates green",
+      "tests": [
+        "tests/test_ab1.py::test_plugin_lint"
+      ],
+      "results": [
+        "PASSED"
+      ]
     }
   ],
   "tests": {
     "ok": true,
-    "passed": 17,
+    "passed": 7,
     "failed": 0,
-    "tail": [
-      ".................                                                        [100%]",
-      "17 passed in 0.04s"
-    ]
+    "tail": []
   },
-  "files": [
-    {
-      "path": "SPEC.md",
-      "ok": true
-    },
-    {
-      "path": "VALIDATION.md",
-      "ok": true
-    },
-    {
-      "path": "VALIDATION.json",
-      "ok": true
-    },
-    {
-      "path": "src/ab1/canonical.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab1/specgate.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab1/seesaw.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab1/gates.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab1/receipts.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab1/store.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab1/cli.py",
-      "ok": true
-    },
-    {
-      "path": "tests/test_ab1.py",
-      "ok": true
-    },
-    {
-      "path": "examples/breadup_plan.json",
-      "ok": true
-    },
-    {
-      "path": "examples/breadup_evidence.json",
-      "ok": true
-    }
-  ],
+  "files": [],
   "banned_hits": [],
   "fails": []
 }

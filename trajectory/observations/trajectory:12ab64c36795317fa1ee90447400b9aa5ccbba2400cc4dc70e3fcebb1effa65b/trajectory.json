@@ -1,0 +1,43 @@
+{
+  "actuality_after": {
+    "suite": "TRUE"
+  },
+  "actuality_before": {
+    "suite": "UNKNOWN"
+  },
+  "attempts": [
+    {
+      "action": {
+        "description": "/usr/bin/python3 -m pytest tests/ -q"
+      },
+      "attempt_id": "ATT-0",
+      "cost": {
+        "duration_ms": 430,
+        "tokens": null
+      },
+      "observed_effect": {
+        "reasons": [
+          "......................................                                   [100%]",
+          "38 passed, 1 skipped in 0.10s"
+        ],
+        "verdict": "PASS"
+      }
+    }
+  ],
+  "components": [],
+  "contract_root": "contract:suite-green-agentloop",
+  "cost": {
+    "human_minutes": 0,
+    "tokens": null,
+    "usd": 0,
+    "wall_ms": 430
+  },
+  "economic_outcome": null,
+  "level": "L0-observation",
+  "model": "",
+  "plan_root": "plan:bank-session",
+  "policy_id": "policy.direct",
+  "problem_class": "",
+  "qp_receipts": [],
+  "trajectory_id": "trajectory:12ab64c36795317fa1ee90447400b9aa5ccbba2400cc4dc70e3fcebb1effa65b"
+}

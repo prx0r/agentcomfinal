@@ -1,0 +1,43 @@
+{
+  "actuality_after": {
+    "suite": "TRUE"
+  },
+  "actuality_before": {
+    "suite": "UNKNOWN"
+  },
+  "attempts": [
+    {
+      "action": {
+        "description": "/usr/bin/python3 -m pytest agentcom/tests/ -q"
+      },
+      "attempt_id": "ATT-0",
+      "cost": {
+        "duration_ms": 12820,
+        "tokens": null
+      },
+      "observed_effect": {
+        "reasons": [
+          "....................                                                     [100%]",
+          "20 passed in 12.47s"
+        ],
+        "verdict": "PASS"
+      }
+    }
+  ],
+  "components": [],
+  "contract_root": "contract:suite-green-agentcom",
+  "cost": {
+    "human_minutes": 0,
+    "tokens": null,
+    "usd": 0,
+    "wall_ms": 12820
+  },
+  "economic_outcome": null,
+  "level": "L0-observation",
+  "model": "",
+  "plan_root": "plan:bank-session",
+  "policy_id": "policy.direct",
+  "problem_class": "",
+  "qp_receipts": [],
+  "trajectory_id": "trajectory:0f505a18ce7380b574a90317f11a5817e18276be3f7db82ebd8d781a2fd9c439"
+}

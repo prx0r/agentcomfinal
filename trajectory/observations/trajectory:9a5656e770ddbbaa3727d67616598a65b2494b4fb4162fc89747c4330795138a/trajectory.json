@@ -1,0 +1,43 @@
+{
+  "actuality_after": {
+    "suite": "TRUE"
+  },
+  "actuality_before": {
+    "suite": "UNKNOWN"
+  },
+  "attempts": [
+    {
+      "action": {
+        "description": "/usr/bin/python3 -m pytest tests/ -q"
+      },
+      "attempt_id": "ATT-0",
+      "cost": {
+        "duration_ms": 765,
+        "tokens": null
+      },
+      "observed_effect": {
+        "reasons": [
+          "..........................                                               [100%]",
+          "26 passed, 1 skipped in 0.40s"
+        ],
+        "verdict": "PASS"
+      }
+    }
+  ],
+  "components": [],
+  "contract_root": "contract:suite-green-openai-native",
+  "cost": {
+    "human_minutes": 0,
+    "tokens": null,
+    "usd": 0,
+    "wall_ms": 765
+  },
+  "economic_outcome": null,
+  "level": "L0-observation",
+  "model": "",
+  "plan_root": "plan:bank-session",
+  "policy_id": "policy.direct",
+  "problem_class": "",
+  "qp_receipts": [],
+  "trajectory_id": "trajectory:9a5656e770ddbbaa3727d67616598a65b2494b4fb4162fc89747c4330795138a"
+}

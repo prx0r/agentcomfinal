@@ -284,3 +284,105 @@ def test_unknown_credential_unclassified():
     assert vault.classify("x", None)[0] == "UNCLASSIFIED"
     assert vault.classify("x", {"kind": "unknown"})[0] == "UNCLASSIFIED"
     assert vault.classify("x", {"kind": "read"})[0] == "VAULT"
+
+
+def test_session_kwargs_match_installed_schema():
+    from opennative import executor
+    kw = executor.build_session_kwargs(
+        "return the exact string AGENTCOM_LIVE_OK",
+        {"project": "p", "campaign": "c", "contract": "cr",
+         "plan": "pr", "policy": "pol", "extra": "stays-local"},
+        model="gpt-4o", instructions="You cannot decide completion.")
+    assert set(kw) == {"environment", "agent", "input", "metadata",
+                       "vault_ids"}
+    assert kw["environment"] == {"type": "none"}
+    assert kw["agent"]["model"] == "gpt-4o"  # agent config, not top level
+    assert "model" not in kw and "tools" not in kw
+    assert kw["metadata"] == {"project": "p", "campaign": "c",
+                              "contract": "cr", "plan": "pr", "policy": "pol"}
+
+
+def test_typed_events_normalize_and_refuse_unknown():
+    from opennative import executor
+
+    class FakeTyped(object):
+        def model_dump(self, mode="json"):
+            return {"type": "turn.output_text_done", "text": "AGENTCOM_LIVE_OK",
+                    "usage": {"input_tokens": 10}}
+
+    raw = executor.normalize_typed_event(FakeTyped(), "sess-1")
+    assert raw["text"] == "AGENTCOM_LIVE_OK" and raw["session_id"] == "sess-1"
+    raw = executor.normalize_typed_event({"type": "custom", "id": "e1"},
+                                         "sess-1")
+    assert raw["type"] == "custom"
+    raw = executor.normalize_typed_event(object(), "sess-1")
+    assert raw.get("unmapped") is True  # recorded, never dropped
+
+
+def test_live_path_against_fake_client(monkeypatch):
+    """Full run_live path with the transport mocked AT the SDK boundary
+    (no network): agent-shaped create, typed stream, normalized artifact."""
+    import sys as _sys
+    import types as _types
+    from opennative import executor
+
+    seen = {}
+
+    class FakeStream(object):
+        def __init__(self, events):
+            self._events = events
+
+        def __iter__(self):
+            return iter(self._events)
+
+        def close(self):
+            seen["closed"] = True
+
+    class FakeTyped(object):
+        def model_dump(self, mode="json"):
+            return {"type": "turn.output_text_done", "text": "AGENTCOM_LIVE_OK",
+                    "usage": {"input_tokens": 10, "output_tokens": 3}}
+
+    class FakeEvents(object):
+        def stream(self, sid):
+            seen["stream_sid"] = sid
+            return FakeStream([FakeTyped()])
+
+    class FakeSessions(object):
+        def __init__(self):
+            self.events = FakeEvents()
+            self.kwargs = None
+
+        def create(self, **kwargs):
+            self.kwargs = kwargs
+            seen["create"] = kwargs
+
+            class S(object):
+                id = "sess_live_123"
+            return S()
+
+    class FakeBeta(object):
+        def __init__(self):
+            self.agents = type("A", (), {"sessions": FakeSessions()})()
+
+    class FakeOpenAI(object):
+        def __init__(self, *a, **k):
+            self.beta = FakeBeta()
+
+    mod = _types.ModuleType("openai")
+    mod.OpenAI = FakeOpenAI
+    monkeypatch.setitem(_sys.modules, "openai", mod)
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test-fake")
+    out = executor.run_live(
+        "return the exact string AGENTCOM_LIVE_OK",
+        lineage={"project": "p", "campaign": "c", "contract": "cr"},
+        model="gpt-4o", instructions="Completion is external.")
+    assert out["mode"] == "LIVE" and out["session_id"] == "sess_live_123"
+    assert out["event_count"] == 1 and out["unmapped"] == 0
+    assert "AGENTCOM_LIVE_OK" in out["output"]
+    assert out["usage"] == {"input_tokens": 10, "output_tokens": 3}
+    assert out["trajectory"]["event_count"] == 1
+    assert seen.get("closed") is True
+    assert seen["create"]["agent"]["model"] == "gpt-4o"  # agent-shaped call
+    assert seen["create"]["environment"] == {"type": "none"}
+    assert seen["stream_sid"] == "sess_live_123"

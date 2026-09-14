@@ -2,112 +2,167 @@
   "attempt": "agentloop",
   "date": "2026-09-14",
   "scope": [
-    "records-enforced",
-    "seeker-honest",
+    "records-enforced-shape",
+    "seeker-honest-and-logged",
+    "research-backends-behave",
     "compiler-compounds",
-    "suite-green"
+    "policy-knowledge-blocker-typed",
+    "intel-built-from-data",
+    "telemetry-dual-custody",
+    "live-provider-path"
   ],
   "overall": "PASS",
   "criteria": [
     {
-      "id": "records",
+      "id": "records-enforced-shape",
       "status": "PASS",
-      "note": "38 passed"
+      "note": "7/7 gates green",
+      "tests": [
+        "tests/test_loop.py::test_good_record_validates",
+        "tests/test_loop.py::test_next10_count_enforced",
+        "tests/test_loop.py::test_visionary_required",
+        "tests/test_loop.py::test_working_needs_validation",
+        "tests/test_loop.py::test_failure_needs_fixture",
+        "tests/test_loop.py::test_impact_range",
+        "tests/test_loop.py::test_append_rejects_and_roundtrips"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
     },
     {
-      "id": "suite-green",
+      "id": "seeker-honest-and-logged",
       "status": "PASS",
-      "note": "38/0"
+      "note": "7/7 gates green",
+      "tests": [
+        "tests/test_loop.py::test_seeker_picks_winner_and_logs_all",
+        "tests/test_loop.py::test_seeker_all_fail_honest",
+        "tests/test_loop.py::test_seeker_backend_error_recorded",
+        "tests/test_loop.py::test_seeker_validator_raise_captured",
+        "tests/test_loop.py::test_attempts_measured",
+        "tests/test_loop.py::test_holdout_opacity",
+        "tests/test_loop.py::test_causes_cited_by_candidates"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
     },
     {
-      "id": "hygiene",
+      "id": "research-backends-behave",
       "status": "PASS",
-      "note": "clean"
+      "note": "3/3 gates green",
+      "tests": [
+        "tests/test_loop.py::test_sim_backend_deterministic",
+        "tests/test_loop.py::test_escalate_stops_early_and_defers_human",
+        "tests/test_loop.py::test_research_record_shape"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
+    },
+    {
+      "id": "compiler-compounds",
+      "status": "PASS",
+      "note": "6/6 gates green",
+      "tests": [
+        "tests/test_loop.py::test_compile_banks_20_by_run4",
+        "tests/test_loop.py::test_compile_merges_leaderboard",
+        "tests/test_loop.py::test_tags_deterministic",
+        "tests/test_loop.py::test_priority_outranks_motion",
+        "tests/test_loop.py::test_cluster_and_scope_guard",
+        "tests/test_loop.py::test_memory_view_covers_bank"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
+    },
+    {
+      "id": "policy-knowledge-blocker-typed",
+      "status": "PASS",
+      "note": "3/3 gates green",
+      "tests": [
+        "tests/test_loop.py::test_policy_generates_projections",
+        "tests/test_loop.py::test_knowledge_ledger",
+        "tests/test_loop.py::test_blocker_lifecycle"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
+    },
+    {
+      "id": "intel-built-from-data",
+      "status": "PASS",
+      "note": "1/1 gates green",
+      "tests": [
+        "tests/test_loop.py::test_intel_built_from_data"
+      ],
+      "results": [
+        "PASSED"
+      ]
+    },
+    {
+      "id": "telemetry-dual-custody",
+      "status": "PASS",
+      "note": "9/9 gates green",
+      "tests": [
+        "tests/test_loop.py::test_trace_id_shape",
+        "tests/test_loop.py::test_mirror_export_shape",
+        "tests/test_loop.py::test_scrub_defense_in_depth",
+        "tests/test_loop.py::test_sensitive_io_dropped_by_default",
+        "tests/test_loop.py::test_binding_and_degraded_mode",
+        "tests/test_loop.py::test_degraded_without_sdk",
+        "tests/test_loop.py::test_verdicts_pass_through_unredacted",
+        "tests/test_loop.py::test_usage_record_unknowns_null",
+        "tests/test_loop.py::test_reconcile_matched_and_divergent"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
+    },
+    {
+      "id": "live-provider-path",
+      "status": "SKIPPED",
+      "note": "NOT_CONFIGURED: no SDK/key here (1 skipped)",
+      "tests": [],
+      "results": []
     }
   ],
   "tests": {
     "ok": true,
-    "passed": 38,
+    "passed": 0,
     "failed": 0,
-    "tail": [
-      "......................................                                   [100%]",
-      "38 passed, 1 skipped in 0.08s"
-    ]
+    "tail": []
   },
-  "files": [
-    {
-      "path": "README.md",
-      "ok": true
-    },
-    {
-      "path": "schemas/run_record.schema.json",
-      "ok": true
-    },
-    {
-      "path": "agent_policy.json",
-      "ok": true
-    },
-    {
-      "path": "AGENTS.md",
-      "ok": true
-    },
-    {
-      "path": "SYSTEM_PROMPT.md",
-      "ok": true
-    },
-    {
-      "path": "src/loop/runlog.py",
-      "ok": true
-    },
-    {
-      "path": "src/loop/research.py",
-      "ok": true
-    },
-    {
-      "path": "src/loop/seeker.py",
-      "ok": true
-    },
-    {
-      "path": "src/loop/compile.py",
-      "ok": true
-    },
-    {
-      "path": "src/loop/intel.py",
-      "ok": true
-    },
-    {
-      "path": "src/loop/policy.py",
-      "ok": true
-    },
-    {
-      "path": "src/loop/knowledge.py",
-      "ok": true
-    },
-    {
-      "path": "src/loop/blocker.py",
-      "ok": true
-    },
-    {
-      "path": "src/loop/tracing.py",
-      "ok": true
-    },
-    {
-      "path": "src/loop/reconcile.py",
-      "ok": true
-    },
-    {
-      "path": "tests/test_loop.py",
-      "ok": true
-    },
-    {
-      "path": "tests/test_tracing_live.py",
-      "ok": true
-    },
-    {
-      "path": "../autobuild0/vendor_docs/openai-agents/PROVENANCE.md",
-      "ok": true
-    }
-  ],
+  "files": [],
   "banned_hits": [],
   "fails": []
 }

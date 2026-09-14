@@ -1,0 +1,5 @@
+{"action": "INVALIDATED — do not rely on promoted.json in this directory",
+ "reason": "candidate-sha-did-not-identify-tested-tree",
+ "detail": "The receipt labeled HEAD as the candidate while pytest executed against the dirty working directory. Candidate identity now enforced by agentcom/build.py (worktree + detached validation + frozen validator pins). See test2.md P0.",
+ "superseded_by": "agentcom/tests/test_build.py::test_dirty_tree_cannot_be_promoted and siblings",
+ "date": "2026-09-14"}

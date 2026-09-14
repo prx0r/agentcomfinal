@@ -54,6 +54,38 @@ def lane_to_worldpack(contract_root, candidate_sha, policy_id, seed=7):
             "candidate": {"sha": candidate_sha, "policy": policy_id}}
 
 
+def run_episode(contract_root, candidate_sha, policy_id="toy.cautious_v1",
+                seed=7, instance_id="ep-0"):
+    """REAL CG execution: AsyncRunner + shipped toy world + bundled policy.
+    CG itself emits the RunReceipt (content-addressed run_id). The toy
+    domain is declared openly — what is real here is the execution path
+    (runner loop, gates-shaped metrics, receipt identity), not the domain.
+    Returns {run_id, events_root, metrics, worldpack_id, ...}."""
+    import asyncio as _asyncio
+    _import()
+    from cogym_kernel import executors as _ex
+    from cogym_kernel.kernel import runner as _runner
+    from cogym_kernel.worlds import toy as _toy
+    policies = {"toy.cautious_v1": _toy.CautiousPolicy}
+    if policy_id not in policies:
+        raise ValueError("unknown-policy:%s (available: toy.cautious_v1)"
+                         % policy_id)
+    runner = _runner.AsyncRunner(
+        _runner.ExecutorRegistry(
+            {"deterministic": _ex.DeterministicExecutor()}))
+    receipt = _asyncio.run(runner.run_episode(
+        _toy.SignalWorld(), policies[policy_id](), instance_id=instance_id,
+        seed=seed))
+    metrics = {m.name: m.value for m in receipt.metrics.metrics}
+    return {"run_id": receipt.run_id,
+            "events_root": receipt.events_root,
+            "metrics": metrics,
+            "worldpack_id": receipt.worldpack_id,
+            "contract_root": contract_root, "candidate_sha": candidate_sha,
+            "policy_id": policy_id, "seed": seed,
+            "mode": "CG_REAL_RUNNER_TOY_DOMAIN"}
+
+
 def run_lane(contract_root, candidate_sha, policy_id, work_fn, seed=7,
              base_sha=""):
     """Minimal lane execution through CG primitives: run the lane function

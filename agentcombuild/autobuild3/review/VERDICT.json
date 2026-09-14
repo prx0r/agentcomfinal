@@ -2,114 +2,145 @@
   "attempt": "autobuild3",
   "date": "2026-09-14",
   "scope": [
-    "ACT1",
-    "ACT2",
-    "ACT3",
-    "ACT4",
-    "ACT5",
-    "ACT6",
-    "ACT7",
-    "chain-no-regression",
-    "suite-green"
+    "honest-run-go",
+    "no-log-no-claim",
+    "forgery-and-mismatch-fail",
+    "refusals-hold",
+    "validator-contract",
+    "judges-total",
+    "dag-semantics"
   ],
   "overall": "PASS",
   "criteria": [
     {
-      "id": "ACT1-ACT7",
+      "id": "honest-run-go",
       "status": "PASS",
-      "note": "29 passed, 0 failed (27-test axiom matrix)"
+      "note": "1/1 gates green",
+      "tests": [
+        "tests/test_ab3.py::test_honest_run_go"
+      ],
+      "results": [
+        "PASSED"
+      ]
     },
     {
-      "id": "chain-no-regression",
+      "id": "no-log-no-claim",
       "status": "PASS",
-      "note": "ab1 17/ab2 15 suites green"
+      "note": "3/3 gates green",
+      "tests": [
+        "tests/test_ab3.py::test_claim_without_log_nogo",
+        "tests/test_ab3.py::test_uncovered_index_nogo",
+        "tests/test_ab3.py::test_ref_only_insufficient"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
     },
     {
-      "id": "suite-green",
+      "id": "forgery-and-mismatch-fail",
       "status": "PASS",
-      "note": "29 passed"
+      "note": "6/6 gates green",
+      "tests": [
+        "tests/test_ab3.py::test_forged_line_nogo",
+        "tests/test_ab3.py::test_command_mismatch_nogo",
+        "tests/test_ab3.py::test_nonzero_exit_nogo",
+        "tests/test_ab3.py::test_disallowed_command_refused_and_harmless",
+        "tests/test_ab3.py::test_planted_verdict_ignored",
+        "tests/test_ab3.py::test_stale_flagged"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
     },
     {
-      "id": "no-qp-fabrication",
+      "id": "refusals-hold",
       "status": "PASS",
-      "note": "clean"
+      "note": "4/4 gates green",
+      "tests": [
+        "tests/test_ab3.py::test_unknown_task_refused",
+        "tests/test_ab3.py::test_bad_index_refused",
+        "tests/test_ab3.py::test_secret_evidence_refused",
+        "tests/test_ab3.py::test_covers_checked"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
+    },
+    {
+      "id": "validator-contract",
+      "status": "PASS",
+      "note": "4/4 gates green",
+      "tests": [
+        "tests/test_ab3.py::test_validator_false_nogo",
+        "tests/test_ab3.py::test_validator_crash_nogo",
+        "tests/test_ab3.py::test_validator_bad_json_nogo",
+        "tests/test_ab3.py::test_validator_timeout_nogo"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
+    },
+    {
+      "id": "judges-total",
+      "status": "PASS",
+      "note": "3/3 gates green",
+      "tests": [
+        "tests/test_ab3.py::test_cel_basics",
+        "tests/test_ab3.py::test_cel_unknowns",
+        "tests/test_ab3.py::test_schema_l0"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
+    },
+    {
+      "id": "dag-semantics",
+      "status": "PASS",
+      "note": "8/8 gates green",
+      "tests": [
+        "tests/test_ab3.py::test_dag_all_true",
+        "tests/test_ab3.py::test_dag_false_wins",
+        "tests/test_ab3.py::test_dag_unknown_blocks",
+        "tests/test_ab3.py::test_actuality_record",
+        "tests/test_ab3.py::test_readback",
+        "tests/test_ab3.py::test_registry",
+        "tests/test_ab3.py::test_probe_verdict_ignored",
+        "tests/test_ab3.py::test_true_validator_cannot_excuse_gap"
+      ],
+      "results": [
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED",
+        "PASSED"
+      ]
     }
   ],
   "tests": {
     "ok": true,
-    "passed": 29,
+    "passed": 0,
     "failed": 0,
-    "tail": [
-      ".............................                                            [100%]",
-      "29 passed in 1.31s"
-    ]
+    "tail": []
   },
-  "files": [
-    {
-      "path": "SPEC.md",
-      "ok": true
-    },
-    {
-      "path": "VALIDATION.md",
-      "ok": true
-    },
-    {
-      "path": "VALIDATION.json",
-      "ok": true
-    },
-    {
-      "path": "src/ab3/alog.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab3/stoplight.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab3/gates3.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab3/judges.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab3/actuality.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab3/readback.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab3/registry.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab3/cli.py",
-      "ok": true
-    },
-    {
-      "path": "src/ab3/demo_worker.py",
-      "ok": true
-    },
-    {
-      "path": "tests/test_ab3.py",
-      "ok": true
-    },
-    {
-      "path": "examples/lead3_plan.json",
-      "ok": true
-    },
-    {
-      "path": "validators/send-lead-reply.py",
-      "ok": true
-    },
-    {
-      "path": "validators/registry.json",
-      "ok": true
-    }
-  ],
+  "files": [],
   "banned_hits": [],
   "fails": []
 }

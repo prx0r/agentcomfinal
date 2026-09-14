@@ -88,6 +88,44 @@ def test_bank_files_all_views(tmp_path):
     assert "reduction" in idx
 
 
+def test_bank_routes_l0_to_observations(tmp_path):
+    from trajectory import bank, trajectory as _t
+    t = _t.build("cr", "pr", "p", [], {"x": "U"}, {"x": "U"},
+                 cost={"tokens": 0, "wall_ms": 0, "usd": 0,
+                       "human_minutes": 0})
+    assert t["level"] == "L0-observation"
+    out = bank.file_trajectory(str(tmp_path), t)
+    assert out["tier"] == "observations"
+    assert "/observations/" in out["dir"]
+
+
+def test_bank_refuses_l0_under_verified(tmp_path):
+    from trajectory import bank, trajectory as _t
+    t = _t.build("cr", "pr", "p", [], {"x": "U"}, {"x": "U"},
+                 cost={"tokens": 0, "wall_ms": 0, "usd": 0,
+                       "human_minutes": 0})
+    with pytest.raises(bank.TierRefused):
+        bank.file_at(str(tmp_path), t, "verified")
+    with pytest.raises(bank.TierRefused):
+        bank.file_at(str(tmp_path), t, "promoted")
+
+
+def test_bank_l1_files_verified_l5_needs_receipt(tmp_path):
+    from trajectory import bank, trajectory as _t
+    t = _t.build("cr", "pr", "p", [], {"x": "U"}, {"x": "T"},
+                 cost={"tokens": 0, "wall_ms": 0, "usd": 0,
+                       "human_minutes": 0})
+    t["level"] = "L1-fact"
+    out = bank.file_trajectory(str(tmp_path), t)
+    assert out["tier"] == "verified"
+    t["level"] = "L5-promoted"
+    with pytest.raises(bank.TierRefused):
+        bank.file_trajectory(str(tmp_path), t)
+    t["promotion_receipt"] = "pr:1"
+    out = bank.file_trajectory(str(tmp_path), t)
+    assert out["tier"] == "promoted"
+
+
 def test_bank_refuses_on_fidelity_loss(monkeypatch):
     import trajectory.bank as _b
     import trajectory.memory as _m
@@ -102,4 +140,4 @@ def test_bank_refuses_on_fidelity_loss(monkeypatch):
     with pytest.raises(_b.FidelityRefused):
         _b.file_trajectory("/tmp/never-written-zz",
                            {"trajectory_id": "t", "attempts": atts,
-                            "policy_id": "p"})
+                            "policy_id": "p", "level": "L0-observation"})

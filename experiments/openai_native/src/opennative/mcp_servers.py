@@ -60,10 +60,12 @@ def _business_lookup(params, deps):
     for b in _directory().get("businesses", []):
         if want and (want == b["id"] or want in b["name"].lower()
                      or want in b["domain"].lower()):
-            return {"found": True, "business": b}
+            return {"found": True, "business": b,
+                    "source_class": "FIXTURE", "verification": "SIMULATED"}
     known = [b["id"] for b in _directory().get("businesses", [])]
     return {"found": False, "error": "unknown-company",
-            "known": known}
+            "known": known, "source_class": "FIXTURE",
+            "verification": "SIMULATED"}
 
 
 def _qp_authorize(params, deps):

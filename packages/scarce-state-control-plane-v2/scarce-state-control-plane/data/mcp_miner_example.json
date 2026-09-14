@@ -1,0 +1,12 @@
+{
+  "endpoint":"example-mcp",
+  "resource_class":"authenticated_actions",
+  "underlying_resource":"permission to mutate a real third-party account",
+  "controller":"end user / third-party platform",
+  "provider_right":"delegated action",
+  "our_possible_right":"delegated action if user connects account",
+  "usage_generated_state":"action/outcome history",
+  "platform_capture":"HIGH unless we own customer relationship or cross-platform outcome history",
+  "synthetic_substitutability":"LOW for the permission; HIGH for the connector code",
+  "decision":"Do not clone connector as moat. Investigate whether repeated authorized outcomes create proprietary state or customer lock-in."
+}

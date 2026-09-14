@@ -1,0 +1,35 @@
+{
+  "version": "3.0.0",
+  "allowed_kinds": [
+    {
+      "id": "strategic_direction",
+      "when": "Multiple materially different paths remain after deterministic ranking; human chooses objective/tradeoff, not implementation detail."
+    },
+    {
+      "id": "physical_access",
+      "when": "The next state transition requires hands, presence, device access, postage, photography or other unavailable physical action."
+    },
+    {
+      "id": "identity_kyc",
+      "when": "A platform requires identity, OTP, KYC or account-owner action."
+    },
+    {
+      "id": "spend_approval",
+      "when": "QP policy requires human approval before real spend/irreversible economic action."
+    },
+    {
+      "id": "relationship_trust",
+      "when": "A customer/partner relationship requires human judgement, negotiation or trust-building."
+    },
+    {
+      "id": "taste_value_judgement",
+      "when": "The unresolved variable is a genuine owner preference/creative strategic choice rather than a missing fact."
+    }
+  ],
+  "anti_patterns": [
+    "asking the human to debug code",
+    "asking the human to read logs the agent can read",
+    "asking broad open questions without bounded options",
+    "escalating because worker confidence is low when an external test is available"
+  ]
+}

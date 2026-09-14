@@ -1,0 +1,66 @@
+{
+  "version": "3.0.0",
+  "thesis": "Seesaw should search for target environments where external scarcity is rising and reality supplies cheap feedback.",
+  "profiles": [
+    {
+      "id": "market_price",
+      "name": "Market-price / paper trading",
+      "feedback_speed": 5,
+      "entry_barrier": 1,
+      "cost": 1,
+      "scarce_state_potential": 2,
+      "best_for": "Seesaw causal calibration",
+      "first_world": "paper_trading"
+    },
+    {
+      "id": "chatgpt_apps",
+      "name": "ChatGPT app probes",
+      "feedback_speed": 5,
+      "entry_barrier": 1,
+      "cost": 1,
+      "scarce_state_potential": 2,
+      "best_for": "Intent and workflow demand",
+      "first_world": "chatgpt_app"
+    },
+    {
+      "id": "etsy_marketplace",
+      "name": "Etsy / marketplace probes",
+      "feedback_speed": 4,
+      "entry_barrier": 2,
+      "cost": 2,
+      "scarce_state_potential": 4,
+      "best_for": "Willingness to pay, product phenotype selection, commerce outcomes",
+      "first_world": "etsy_listing"
+    },
+    {
+      "id": "smb_authority",
+      "name": "Real-world SMB delegated authority",
+      "feedback_speed": 2,
+      "entry_barrier": 4,
+      "cost": 2,
+      "scarce_state_potential": 5,
+      "best_for": "Trust, permissions, private operating state, recurring service",
+      "first_world": "free_smb_workflow"
+    },
+    {
+      "id": "physical_data",
+      "name": "Physical-world data",
+      "feedback_speed": 2,
+      "entry_barrier": 4,
+      "cost": 2,
+      "scarce_state_potential": 5,
+      "best_for": "Hard-to-reconstruct installed-base/reality datasets",
+      "first_world": "physical_probe"
+    },
+    {
+      "id": "network_world",
+      "name": "Persistent social/network world",
+      "feedback_speed": 3,
+      "entry_barrier": 3,
+      "cost": 1,
+      "scarce_state_potential": 5,
+      "best_for": "Actors, reputation, creator/audience network state",
+      "first_world": "network_session"
+    }
+  ]
+}

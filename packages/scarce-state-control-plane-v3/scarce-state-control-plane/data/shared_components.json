@@ -1,0 +1,86 @@
+[
+  {
+    "id": "atask",
+    "name": "ATask kernel",
+    "repo": "https://github.com/prx0r/atask",
+    "role": "Goal/task/proof/human boundary; externally validated claims; run accounting.",
+    "boundary": "No planning intelligence. Owns factual execution state and bounded H-task interface."
+  },
+  {
+    "id": "seed0",
+    "name": "Seed0",
+    "repo": "https://github.com/prx0r/seed0",
+    "role": "Project-shape standard, tournament harness, multi-seed experiments and learning candidates.",
+    "boundary": "Learns from runs and compares implementations; does not redefine truth or authority."
+  },
+  {
+    "id": "qp",
+    "name": "QP / A-COM",
+    "repo": "https://github.com/prx0r/qp",
+    "role": "Deterministic gates, grants, receipts, proof levels, authority for consequential actions.",
+    "boundary": "Cognition is untrusted; canonical state and external effects require gates/grants."
+  },
+  {
+    "id": "cmail",
+    "name": "Cmail",
+    "repo": "https://github.com/prx0r/cmail",
+    "role": "Reusable company identity acquisition: domain, email, phone, handles and onboarding adapters.",
+    "boundary": "Credentials are references; consequential calls flow through QP capability grants."
+  },
+  {
+    "id": "security",
+    "name": "Security gate",
+    "repo": "https://github.com/prx0r/aisec",
+    "role": "Secret scanning, untrusted-repo preflight, egress/action policy, prompt-injection regressions.",
+    "boundary": "Security checks are deterministic gates, not LLM assurances."
+  },
+  {
+    "id": "demand",
+    "name": "Demand sensing",
+    "repo": "https://github.com/prx0r/feedify",
+    "role": "Reusable source\u2192normalized record\u2192typed signal pipeline for Pinterest/Etsy/TikTok/Shopify/marketplace signals.",
+    "boundary": "Signals are evidence; they do not directly authorize spend or publishing."
+  },
+  {
+    "id": "plugin",
+    "name": "ChatGPT capability surface",
+    "repo": "https://github.com/prx0r/plugin",
+    "role": "Compile capabilities into ChatGPT-native/MCP/app surfaces plus web/API/x402 variants.",
+    "boundary": "Surface is downstream of a tested capability contract."
+  },
+  {
+    "id": "underengineer",
+    "name": "UNDERENGINEER",
+    "repo": null,
+    "role": "High-level project manager: pick the earliest real moat event and build only the prerequisites, safety and verification needed to reach it.",
+    "boundary": "Never optimizes for smallest codebase. Optimizes for shortest credible path to controlled scarce-state accretion and then pauses for evidence."
+  },
+  {
+    "id": "world_select",
+    "name": "WORLD_SELECT",
+    "repo": null,
+    "role": "Select the cheapest real experiment world capable of changing the decision.",
+    "boundary": "Simulation can rank worlds; only external evidence resolves real-world claims."
+  },
+  {
+    "id": "portfolio_scheduler",
+    "name": "PORTFOLIO Scheduler",
+    "repo": null,
+    "role": "Allocate scarce experiment resources across fast truth, fast demand, economic and deep scarce-state lanes.",
+    "boundary": "Cannot invent capacity or bypass account/human/QP constraints."
+  },
+  {
+    "id": "human_desk",
+    "name": "Strategic H-Task Desk",
+    "repo": null,
+    "role": "Surface only bounded strategic, physical, KYC/spend and trust/relationship questions that machines cannot validly close.",
+    "boundary": "Implementation/debugging questions must stay with agents when a machine test exists."
+  },
+  {
+    "id": "breadup_dogfood",
+    "name": "BreadUp Self-Lab",
+    "repo": "https://github.com/prx0r/breadup",
+    "role": "Use our own opportunity\u2192probe\u2192outcome dataset loop before selling the intelligence to BreadUp users.",
+    "boundary": "Backtests/simulation never masquerade as sell-through."
+  }
+]

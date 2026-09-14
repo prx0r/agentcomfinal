@@ -1,0 +1,642 @@
+{
+  "id": "demand-sensing",
+  "name": "Pinterest + Etsy Demand Sensing",
+  "repo": "https://github.com/prx0r/feedify",
+  "domain": "market intelligence",
+  "one_liner": "Treat Pinterest, Etsy, TikTok, Shopify and marketplaces as revealed-demand sensors feeding grounded campaign graphs.",
+  "core_thesis": "Idea generation improves when the model begins from typed observations of what people aspire to, buy, list and accelerate around. Cross-platform lead/lag signals can generate candidate products and campaigns that are then filtered by economics rather than invented from prompts alone.",
+  "why_now": "Public/platform data plus inexpensive LLM normalization can turn fragmented trend surfaces into reusable evidence.",
+  "user": "Astra/BreadUp/operator",
+  "job": "Find grounded product/business opportunities and produce structured hypotheses with falsifiers.",
+  "distribution": "Internal signal service first; Feedify/API/MCP/x402 later.",
+  "moat": "Historical normalized signal graph, cross-platform lead/lag calibration and campaign outcome feedback.",
+  "falsifiers": [
+    "Signals are too noisy or delayed to beat simple trend browsing.",
+    "Platform access is unstable enough to destroy continuity.",
+    "Observed trends fail to predict monetizable demand."
+  ],
+  "components": [
+    "demand",
+    "atask",
+    "seed0",
+    "security"
+  ],
+  "checkpoints": [
+    {
+      "id": "demand-sensing.01.source-snapshot",
+      "ordinal": 1,
+      "title": "A source snapshot is content-addressed with retrieval time/provenance",
+      "user_behavior": "A source snapshot is content-addressed with retrieval time/provenance",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 1 behavior for Pinterest + Etsy Demand Sensing; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "demand.snapshot",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "demand.snapshot",
+        "where": {
+          "checkpoint_id": "demand-sensing.01.source-snapshot",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "demand-sensing.02.normalize",
+      "ordinal": 2,
+      "title": "Pinterest/Etsy/TikTok/Shopify/market records normalize into typed signal schema",
+      "user_behavior": "Pinterest/Etsy/TikTok/Shopify/market records normalize into typed signal schema",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 2 behavior for Pinterest + Etsy Demand Sensing; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "demand-sensing.01.source-snapshot"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "demand.normalized",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "demand.normalized",
+        "where": {
+          "checkpoint_id": "demand-sensing.02.normalize",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "demand-sensing.03.identity",
+      "ordinal": 3,
+      "title": "Products/queries/topics resolve to stable cross-source entities with ambiguity retained",
+      "user_behavior": "Products/queries/topics resolve to stable cross-source entities with ambiguity retained",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 3 behavior for Pinterest + Etsy Demand Sensing; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "demand-sensing.02.normalize"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "demand.entity_resolved",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "demand.entity_resolved",
+        "where": {
+          "checkpoint_id": "demand-sensing.03.identity",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "demand-sensing.04.velocity",
+      "ordinal": 4,
+      "title": "System computes trend velocity from stored observations rather than prose",
+      "user_behavior": "System computes trend velocity from stored observations rather than prose",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 4 behavior for Pinterest + Etsy Demand Sensing; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "demand-sensing.03.identity"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "demand.velocity",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "demand.velocity",
+        "where": {
+          "checkpoint_id": "demand-sensing.04.velocity",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "demand-sensing.05.leadlag",
+      "ordinal": 5,
+      "title": "Cross-platform lead/lag relationship can be estimated on historical windows",
+      "user_behavior": "Cross-platform lead/lag relationship can be estimated on historical windows",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 5 behavior for Pinterest + Etsy Demand Sensing; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "demand-sensing.04.velocity"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "demand.leadlag",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "demand.leadlag",
+        "where": {
+          "checkpoint_id": "demand-sensing.05.leadlag",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "demand-sensing.06.economics",
+      "ordinal": 6,
+      "title": "Candidate opportunity includes margin/competition/acquisition assumptions",
+      "user_behavior": "Candidate opportunity includes margin/competition/acquisition assumptions",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 6 behavior for Pinterest + Etsy Demand Sensing; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "demand-sensing.05.leadlag"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "demand.economics",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "demand.economics",
+        "where": {
+          "checkpoint_id": "demand-sensing.06.economics",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "demand-sensing.07.hypothesis",
+      "ordinal": 7,
+      "title": "Signal cluster compiles into explicit opportunity thesis + falsifiers",
+      "user_behavior": "Signal cluster compiles into explicit opportunity thesis + falsifiers",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 7 behavior for Pinterest + Etsy Demand Sensing; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "demand-sensing.06.economics"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "demand.hypothesis",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "demand.hypothesis",
+        "where": {
+          "checkpoint_id": "demand-sensing.07.hypothesis",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "demand-sensing.08.campaign-graph",
+      "ordinal": 8,
+      "title": "Opportunity decomposes into campaign graph with measurable stages",
+      "user_behavior": "Opportunity decomposes into campaign graph with measurable stages",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 8 behavior for Pinterest + Etsy Demand Sensing; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "demand-sensing.07.hypothesis"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "demand.campaign_graph",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "demand.campaign_graph",
+        "where": {
+          "checkpoint_id": "demand-sensing.08.campaign-graph",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "demand-sensing.09.breadup-export",
+      "ordinal": 9,
+      "title": "Opportunity can export into BreadUp source-to-sell contract",
+      "user_behavior": "Opportunity can export into BreadUp source-to-sell contract",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 9 behavior for Pinterest + Etsy Demand Sensing; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "demand-sensing.08.campaign-graph"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "demand.breadup_export",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "demand.breadup_export",
+        "where": {
+          "checkpoint_id": "demand-sensing.09.breadup-export",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "demand-sensing.10.astra-export",
+      "ordinal": 10,
+      "title": "Opportunity can export into Astra capability hypothesis contract",
+      "user_behavior": "Opportunity can export into Astra capability hypothesis contract",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 10 behavior for Pinterest + Etsy Demand Sensing; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "demand-sensing.09.breadup-export"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "demand.astra_export",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "demand.astra_export",
+        "where": {
+          "checkpoint_id": "demand-sensing.10.astra-export",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "demand-sensing.11.outcome-link",
+      "ordinal": 11,
+      "title": "Real campaign/listing outcome links back to originating signals",
+      "user_behavior": "Real campaign/listing outcome links back to originating signals",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 11 behavior for Pinterest + Etsy Demand Sensing; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "demand-sensing.10.astra-export"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "demand.outcome_link",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "demand.outcome_link",
+        "where": {
+          "checkpoint_id": "demand-sensing.11.outcome-link",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "demand-sensing.12.calibration",
+      "ordinal": 12,
+      "title": "System reports which signal families actually predicted outcomes",
+      "user_behavior": "System reports which signal families actually predicted outcomes",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 12 behavior for Pinterest + Etsy Demand Sensing; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "demand-sensing.11.outcome-link"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "demand.calibration",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "demand.calibration",
+        "where": {
+          "checkpoint_id": "demand-sensing.12.calibration",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    }
+  ],
+  "success_definition": "All 12 checkpoints PROVEN on live evidence, with no unresolved critical H-task or security gate.",
+  "repo_binding": {
+    "url": "https://github.com/prx0r/feedify",
+    "polling": "GitHub snapshots are implementation evidence only; checkpoint proof comes from validator receipts."
+  },
+  "frozen_at": "2026-09-14"
+}

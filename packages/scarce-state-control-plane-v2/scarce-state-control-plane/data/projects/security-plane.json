@@ -1,0 +1,771 @@
+{
+  "id": "security-plane",
+  "name": "Security / Safe Autonomous Execution",
+  "repo": "https://github.com/prx0r/aisec",
+  "domain": "security",
+  "one_liner": "Make secret leakage, prompt-injected tool calls, unsafe egress and unauthorized side effects deterministic build failures.",
+  "core_thesis": "Autonomous coding and commerce fail catastrophically if safety depends on an LLM remembering rules. Security must be expressed as machine-enforced preconditions and postconditions: secret patterns, capability scopes, egress allowlists, irreversible-action grants, untrusted-repo preflight and tamper-evident receipts.",
+  "why_now": "Every other project increasingly lets agents interact with real accounts, repositories and money.",
+  "user": "All autonomous agents and projects in the portfolio",
+  "job": "Prevent a capable but untrusted agent from converting mistakes or injections into irreversible damage.",
+  "distribution": "Mandatory shared gate in every campaign.",
+  "moat": "Cross-project failure corpus and deterministic policies tuned from real incidents.",
+  "falsifiers": [
+    "Policies block so much useful work that autonomy collapses.",
+    "Coverage remains too incomplete to materially reduce risk."
+  ],
+  "components": [
+    "security",
+    "qp",
+    "atask",
+    "seed0"
+  ],
+  "checkpoints": [
+    {
+      "id": "security-plane.01.secret-scan",
+      "ordinal": 1,
+      "title": "Candidate tree is scanned for deterministic provider/key patterns before push",
+      "user_behavior": "Candidate tree is scanned for deterministic provider/key patterns before push",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 1 behavior for Security / Safe Autonomous Execution; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "security.secret_scan",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "security.secret_scan",
+        "where": {
+          "checkpoint_id": "security-plane.01.secret-scan",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "security-plane.02.entropy-scan",
+      "ordinal": 2,
+      "title": "High-entropy unclassified strings are surfaced for review",
+      "user_behavior": "High-entropy unclassified strings are surfaced for review",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 2 behavior for Security / Safe Autonomous Execution; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "security-plane.01.secret-scan"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "security.entropy_scan",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "security.entropy_scan",
+        "where": {
+          "checkpoint_id": "security-plane.02.entropy-scan",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "security-plane.03.git-history",
+      "ordinal": 3,
+      "title": "Committed history can be checked for leaked sensitive patterns",
+      "user_behavior": "Committed history can be checked for leaked sensitive patterns",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 3 behavior for Security / Safe Autonomous Execution; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "security-plane.02.entropy-scan"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "security.history_scan",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "security.history_scan",
+        "where": {
+          "checkpoint_id": "security-plane.03.git-history",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "security-plane.04.repo-preflight",
+      "ordinal": 4,
+      "title": "Untrusted repo/install scripts are inspected before execution",
+      "user_behavior": "Untrusted repo/install scripts are inspected before execution",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 4 behavior for Security / Safe Autonomous Execution; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "security-plane.03.git-history"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "security.repo_preflight",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "security.repo_preflight",
+        "where": {
+          "checkpoint_id": "security-plane.04.repo-preflight",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "security-plane.05.egress-policy",
+      "ordinal": 5,
+      "title": "Network destinations are matched against explicit egress policy",
+      "user_behavior": "Network destinations are matched against explicit egress policy",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 5 behavior for Security / Safe Autonomous Execution; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "security-plane.04.repo-preflight"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "security.egress_checked",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "security.egress_checked",
+        "where": {
+          "checkpoint_id": "security-plane.05.egress-policy",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "security-plane.06.tool-scope",
+      "ordinal": 6,
+      "title": "Every consequential tool call maps to a capability and scoped resource",
+      "user_behavior": "Every consequential tool call maps to a capability and scoped resource",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 6 behavior for Security / Safe Autonomous Execution; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "security-plane.05.egress-policy"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "security.tool_scoped",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "security.tool_scoped",
+        "where": {
+          "checkpoint_id": "security-plane.06.tool-scope",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "security-plane.07.grant-gate",
+      "ordinal": 7,
+      "title": "Irreversible action without valid QP grant is blocked",
+      "user_behavior": "Irreversible action without valid QP grant is blocked",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 7 behavior for Security / Safe Autonomous Execution; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "security-plane.06.tool-scope"
+      ],
+      "authority": "A",
+      "minimum_proof_level": "V9",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "security.grant_blocked",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "security.grant_blocked",
+        "where": {
+          "checkpoint_id": "security-plane.07.grant-gate",
+          "ok": true
+        },
+        "minimum_evidence_class": "external_readback"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "security-plane.08.credential-broker",
+      "ordinal": 8,
+      "title": "External call can use injected credential while agent-visible logs remain secret-free",
+      "user_behavior": "External call can use injected credential while agent-visible logs remain secret-free",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 8 behavior for Security / Safe Autonomous Execution; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "security-plane.07.grant-gate"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "security.credential_brokered",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "security.credential_brokered",
+        "where": {
+          "checkpoint_id": "security-plane.08.credential-broker",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "security-plane.09.prompt-injection",
+      "ordinal": 9,
+      "title": "Known prompt-injection fixture cannot trigger forbidden action",
+      "user_behavior": "Known prompt-injection fixture cannot trigger forbidden action",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 9 behavior for Security / Safe Autonomous Execution; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "security-plane.08.credential-broker"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "security.injection_blocked",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "security.injection_blocked",
+        "where": {
+          "checkpoint_id": "security-plane.09.prompt-injection",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "security-plane.10.spend-brake",
+      "ordinal": 10,
+      "title": "Configured money budget crossing prevents subsequent spend call",
+      "user_behavior": "Configured money budget crossing prevents subsequent spend call",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 10 behavior for Security / Safe Autonomous Execution; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "security-plane.09.prompt-injection"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "security.spend_blocked",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "security.spend_blocked",
+        "where": {
+          "checkpoint_id": "security-plane.10.spend-brake",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "security-plane.11.audit-root",
+      "ordinal": 11,
+      "title": "Security decisions are append-only and hashable into a run receipt",
+      "user_behavior": "Security decisions are append-only and hashable into a run receipt",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 11 behavior for Security / Safe Autonomous Execution; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "security-plane.10.spend-brake"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "security.audit_root",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "security.audit_root",
+        "where": {
+          "checkpoint_id": "security-plane.11.audit-root",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "security-plane.12.regression",
+      "ordinal": 12,
+      "title": "Every discovered incident can be added as a deterministic regression world",
+      "user_behavior": "Every discovered incident can be added as a deterministic regression world",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 12 behavior for Security / Safe Autonomous Execution; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "security-plane.11.audit-root"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "security.regression_added",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "security.regression_added",
+        "where": {
+          "checkpoint_id": "security-plane.12.regression",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    }
+  ],
+  "success_definition": "All 12 checkpoints PROVEN on live evidence, with no unresolved critical H-task or security gate.",
+  "repo_binding": {
+    "url": "https://github.com/prx0r/aisec",
+    "polling": "GitHub snapshots are implementation evidence only; checkpoint proof comes from validator receipts."
+  },
+  "frozen_at": "2026-09-14",
+  "strategic_role": "hybrid_infrastructure",
+  "software_substitution_test": {
+    "counterfactual": "OpenAI/platform vendors ship perfect software for every reproducible feature in this project tomorrow.",
+    "survival": "YES_IF_DEPLOYED_TELEMETRY_ACCRUES",
+    "destroyed_value": [
+      "secret scanner",
+      "static prompt-injection rules",
+      "generic secure-agent wrapper"
+    ],
+    "surviving_value": [
+      "real blocked attack/action telemetry",
+      "incident corpus",
+      "trusted security relationship",
+      "adjudicated outcomes"
+    ],
+    "rationale": "Static security software commoditizes; deployed adversarial telemetry and trusted incident history compound as agents become more capable."
+  },
+  "scarce_assets": [
+    {
+      "id": "incident_corpus",
+      "class": "proprietary_adversarial_data",
+      "controller": "deployed customers/campaigns",
+      "our_right": "processor",
+      "unit": "adjudicated incidents",
+      "acquisition_event": "incident_adjudicated",
+      "decay_event": "retention_expired",
+      "economic_value": 5,
+      "exclusivity": 5,
+      "externality": 5,
+      "feedback": 2,
+      "trust": 5,
+      "ai_moat_beta": 5,
+      "current_stock": 0,
+      "network_effects": 1,
+      "public_replicability": 1,
+      "platform_capture": 3,
+      "synthetic_substitutability": 1
+    }
+  ],
+  "underengineer": {
+    "primitive": "UNDERENGINEER/1.0",
+    "rule": "Choose the earliest real-world event that increases controlled scarce state; build only its prerequisites plus safety and verification.",
+    "scarce_state_target": "Protect one real consequential action and learn from one attack/failure path",
+    "first_real_moat_event": "incident_adjudicated",
+    "minimal_live_product": "Put a deterministic capability/secret/egress gate in front of one live autonomous campaign action, run a small adversarial battery, and store the blocked/allowed result with adjudication.",
+    "steps": [
+      {
+        "id": "ue.01.protect",
+        "ordinal": 1,
+        "action": "Choose one consequential action and explicit allow policy",
+        "authority": "M",
+        "acceptance": "Action cannot bypass policy path."
+      },
+      {
+        "id": "ue.02.attack",
+        "ordinal": 2,
+        "action": "Run focused secret/prompt-injection/egress challenges",
+        "authority": "M",
+        "acceptance": "Attempt traces are content-addressed."
+      },
+      {
+        "id": "ue.03.adjudicate",
+        "ordinal": 3,
+        "action": "Human or trusted oracle labels consequential failures",
+        "authority": "H",
+        "acceptance": "Incident outcome enters regression corpus."
+      }
+    ],
+    "explicitly_not_now": [
+      "generic SOC",
+      "huge rule library",
+      "all provider patterns",
+      "security SaaS dashboard",
+      "autonomous red team platform"
+    ],
+    "graduation_rule": "Real campaign incidents automatically become regression worlds and measurably prevent recurrence.",
+    "kill_or_rethink_rule": "If the gate cannot sit on the consequence boundary, do not pretend upstream text classification is a security moat.",
+    "project_manager_invariant": "A feature may enter NOW only if it is necessary to reach the first real moat event, required for safety/verification, or empirically unblocks that path.",
+    "observation_pause": "After the first live moat event, stop expanding and inspect customer/outcome evidence before choosing the next feature.",
+    "required_components_now": [
+      "atask",
+      "qp",
+      "seed0"
+    ]
+  },
+  "priority_inputs": {
+    "importance": 5,
+    "asset_value": 4,
+    "effort": 2,
+    "human_burden": 1,
+    "moat_beta": 5
+  },
+  "moat_metric": "delta_controlled_scarce_state",
+  "full_roadmap_policy": "The original checkpoint ladder is a capability library, not default build order. UNDERENGINEER chooses the live minimum path."
+}

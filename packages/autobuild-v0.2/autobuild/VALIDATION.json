@@ -1,0 +1,85 @@
+{
+  "version": "0.2.0",
+  "date": "2026-09-14",
+  "verdict": {
+    "deterministic_core": "PASS",
+    "internal_mock_end_to_end": "PASS",
+    "real_gitgoblin_integration": "NOT_PROVEN",
+    "real_qp_settlement": "NOT_PROVEN",
+    "real_atask_queue_stoplight": "NOT_PROVEN",
+    "autonomous_project_delivery": "NOT_PROVEN",
+    "economic_feedback_loop": "NOT_PROVEN"
+  },
+  "pytest": "..................................                                       [100%]\n34 passed in 0.74s",
+  "compileall": "PASS",
+  "json_schema": "PASS",
+  "peerreview": {
+    "atask_dag": [
+      [
+        "req-item-json",
+        [],
+        "integrate"
+      ],
+      [
+        "req-valuation",
+        [
+          "a:c0ab7fe08ba944391535"
+        ],
+        "build"
+      ],
+      [
+        "req-listing-live",
+        [
+          "a:3fb7955d331a001f4539"
+        ],
+        "integrate"
+      ],
+      [
+        "req-outcome-row",
+        [
+          "a:8a3152a7e2b0c7fbf171"
+        ],
+        "build"
+      ]
+    ],
+    "completion": {
+      "all_pass": "TRUE",
+      "missing_evidence": "UNKNOWN",
+      "wrong_listing": "FALSE"
+    },
+    "contract_root": "sha256:d3c9615a4e22b073559f5515e8ef06308c3c973be492e5ba1fe0d59d025bd3d7",
+    "contract_root_stable_across_prebuild": true,
+    "existing_capability_coverage": 0.6325,
+    "missing_requirement_ids": [
+      "req-outcome-row",
+      "req-valuation"
+    ],
+    "plan_fuzz": {
+      "crashes": 0,
+      "failed_closed": 500,
+      "malformed_accepted": 0,
+      "mutations": 500
+    },
+    "plan_root_after": "sha256:fe7b90235ba2b359019b77fc72e15e71a56930520e8fb7435d07de01283a33e2",
+    "plan_root_before": "sha256:b582eee47283c7dfd2f923a9e9aac19b6d0f0575a9cb3f789512ae2e6be454bb",
+    "qp": {
+      "claims": 4,
+      "gates": 4,
+      "grants": 1,
+      "tasks": 4
+    },
+    "target_fuzz": {
+      "crashes": 0,
+      "failed_closed": 1000,
+      "malformed_accepted": 0,
+      "mutations": 1000
+    }
+  },
+  "trust_boundaries": {
+    "autobuild_can_mint_verified_knowledge": false,
+    "qp_owns_canonical_qp_ids": true,
+    "contract_root_stable_across_prebuild": true,
+    "plan_root_changes_with_reuse_route": true
+  },
+  "known_limitations_file": "KNOWN_LIMITATIONS.md"
+}

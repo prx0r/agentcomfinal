@@ -1,0 +1,466 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://autobuild.local/schemas/target-spec-v2.json",
+  "title": "Autobuild TargetSpec",
+  "type": "object",
+  "required": [
+    "kind",
+    "version",
+    "id",
+    "strategic_parent",
+    "objective",
+    "features",
+    "requirements",
+    "completion",
+    "economic_validation",
+    "reuse",
+    "metadata"
+  ],
+  "properties": {
+    "kind": {
+      "const": "TARGET_SPEC"
+    },
+    "version": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "strategic_parent": {
+      "type": "object"
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/feature"
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/requirement"
+      }
+    },
+    "completion": {
+      "type": "object",
+      "required": [
+        "mode",
+        "requirement_ids",
+        "circuit"
+      ],
+      "properties": {
+        "mode": {
+          "const": "ALL_HARD"
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "circuit": {
+          "$ref": "#/$defs/circuit"
+        }
+      }
+    },
+    "economic_validation": {
+      "type": "object",
+      "required": [
+        "claimed",
+        "metrics"
+      ],
+      "properties": {
+        "claimed": {
+          "type": "boolean"
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/metric"
+          }
+        },
+        "qp_circuit": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "claimed": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "qp_circuit"
+            ]
+          }
+        }
+      ]
+    },
+    "reuse": {
+      "type": "object"
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "validator": {
+      "type": "object",
+      "required": [
+        "kind",
+        "params"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "eq",
+            "gte",
+            "gt",
+            "lte",
+            "exists",
+            "exit_code",
+            "all",
+            "any"
+          ]
+        },
+        "params": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": true
+    },
+    "evidenceContract": {
+      "type": "object",
+      "minProperties": 1,
+      "properties": {
+        "command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "http": {
+          "type": [
+            "object",
+            "string"
+          ]
+        },
+        "metric": {
+          "type": [
+            "object",
+            "string"
+          ]
+        },
+        "dns": {
+          "type": [
+            "object",
+            "string"
+          ]
+        },
+        "event": {
+          "type": [
+            "object",
+            "string"
+          ]
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "command"
+          ]
+        },
+        {
+          "required": [
+            "file"
+          ]
+        },
+        {
+          "required": [
+            "http"
+          ]
+        },
+        {
+          "required": [
+            "metric"
+          ]
+        },
+        {
+          "required": [
+            "dns"
+          ]
+        },
+        {
+          "required": [
+            "event"
+          ]
+        }
+      ]
+    },
+    "requirement": {
+      "type": "object",
+      "required": [
+        "id",
+        "feature_id",
+        "statement",
+        "criticality",
+        "depends_on",
+        "evidence_contract",
+        "validator"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "feature_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "criticality": {
+          "enum": [
+            "HARD",
+            "SOFT"
+          ]
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "evidence_contract": {
+          "$ref": "#/$defs/evidenceContract"
+        },
+        "validator": {
+          "$ref": "#/$defs/validator"
+        },
+        "authority": {
+          "type": "object",
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "capability": {
+              "type": "string"
+            },
+            "constraints": {
+              "type": "object"
+            },
+            "minimum_proof_level": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 12
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "feature": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "depends_on",
+        "scores"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "selected": {
+          "type": "boolean"
+        },
+        "starts_moat_accumulation": {
+          "type": "boolean"
+        },
+        "scores": {
+          "type": "object",
+          "required": [
+            "moat",
+            "asset_accumulation",
+            "dependency_centrality",
+            "validation_value",
+            "implementation_cost",
+            "lab_attack_risk"
+          ],
+          "properties": {
+            "moat": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "asset_accumulation": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "dependency_centrality": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "validation_value": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "implementation_cost": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "lab_attack_risk": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "circuit": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "op",
+            "id"
+          ],
+          "properties": {
+            "op": {
+              "const": "REF"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "op",
+            "value"
+          ],
+          "properties": {
+            "op": {
+              "const": "CONST"
+            },
+            "value": {
+              "enum": [
+                "TRUE",
+                "FALSE",
+                "UNKNOWN"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "op",
+            "args"
+          ],
+          "properties": {
+            "op": {
+              "enum": [
+                "AND",
+                "OR"
+              ]
+            },
+            "args": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/circuit"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": [
+            "op",
+            "arg"
+          ],
+          "properties": {
+            "op": {
+              "const": "NOT"
+            },
+            "arg": {
+              "$ref": "#/$defs/circuit"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "metric": {
+      "type": "object",
+      "required": [
+        "id",
+        "formula",
+        "source"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "formula": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

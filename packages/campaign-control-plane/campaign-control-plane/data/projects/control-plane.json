@@ -1,0 +1,642 @@
+{
+  "id": "control-plane",
+  "name": "Campaign Control Plane",
+  "repo": null,
+  "domain": "meta",
+  "one_liner": "The executable portfolio dashboard that turns frozen theses into deterministic checkpoint DAGs and autonomous build experiments.",
+  "core_thesis": "The correct unit of autonomous software construction is not a repository or a prompt; it is a typed behavioral checkpoint with explicit evidence, a deterministic validator, a dependency position, and an authority class. If each project is decomposed into such checkpoints, autonomous agents can iterate toward externally verifiable functionality while the human only resolves irreducible H-tasks and structural bottlenecks.",
+  "why_now": "The underlying kernel pieces already exist: ATask records attempts and proof, Seed0 compares seeds, and QP separates cognition, truth and authority. The missing layer is a portfolio/campaign graph that compiles product theses into executable work.",
+  "user": "Owner/operator running many agent-built projects",
+  "job": "See exactly what each project claims, what is proven, what is blocked, what agent should do next, and what only the human can resolve.",
+  "distribution": "Internal control plane first; later reusable infrastructure for autonomous software factories.",
+  "moat": "Accumulated validator library, checkpoint ontology, cross-project run data, bottleneck history and empirically learned routing policies.",
+  "falsifiers": [
+    "Behavioral checkpoint decomposition does not reduce false-done rates.",
+    "Deterministic evidence is too expensive to capture relative to manual review.",
+    "Agent tournaments fail to produce measurable improvement over one guided agent."
+  ],
+  "components": [
+    "atask",
+    "seed0",
+    "qp",
+    "security"
+  ],
+  "checkpoints": [
+    {
+      "id": "control-plane.01.thesis-load",
+      "ordinal": 1,
+      "title": "Dashboard loads every project thesis from structured data",
+      "user_behavior": "Dashboard loads every project thesis from structured data",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 1 behavior for Campaign Control Plane; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "portfolio.project_loaded",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "portfolio.project_loaded",
+        "where": {
+          "checkpoint_id": "control-plane.01.thesis-load",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "control-plane.02.graph-render",
+      "ordinal": 2,
+      "title": "User can expand a project into a dependency checkpoint graph",
+      "user_behavior": "User can expand a project into a dependency checkpoint graph",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 2 behavior for Campaign Control Plane; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "control-plane.01.thesis-load"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "ui.graph_rendered",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "ui.graph_rendered",
+        "where": {
+          "checkpoint_id": "control-plane.02.graph-render",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "control-plane.03.checkpoint-contract",
+      "ordinal": 3,
+      "title": "Every checkpoint exposes behavior, implication, evidence schema and validator",
+      "user_behavior": "Every checkpoint exposes behavior, implication, evidence schema and validator",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 3 behavior for Campaign Control Plane; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "control-plane.02.graph-render"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "schema.checkpoint_complete",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "schema.checkpoint_complete",
+        "where": {
+          "checkpoint_id": "control-plane.03.checkpoint-contract",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "control-plane.04.repo-bind",
+      "ordinal": 4,
+      "title": "Each project can bind to zero or one active GitHub repo without pretending repo state is proof",
+      "user_behavior": "Each project can bind to zero or one active GitHub repo without pretending repo state is proof",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 4 behavior for Campaign Control Plane; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "control-plane.03.checkpoint-contract"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "repo.binding_loaded",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "repo.binding_loaded",
+        "where": {
+          "checkpoint_id": "control-plane.04.repo-bind",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "control-plane.05.repo-poll",
+      "ordinal": 5,
+      "title": "System records immutable repo snapshots with commit/tree metadata",
+      "user_behavior": "System records immutable repo snapshots with commit/tree metadata",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 5 behavior for Campaign Control Plane; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "control-plane.04.repo-bind"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "repo.snapshot_recorded",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "repo.snapshot_recorded",
+        "where": {
+          "checkpoint_id": "control-plane.05.repo-poll",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "control-plane.06.evidence-ingest",
+      "ordinal": 6,
+      "title": "Runtime ingests append-only event evidence with provenance",
+      "user_behavior": "Runtime ingests append-only event evidence with provenance",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 6 behavior for Campaign Control Plane; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "control-plane.05.repo-poll"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "evidence.ingested",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "evidence.ingested",
+        "where": {
+          "checkpoint_id": "control-plane.06.evidence-ingest",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "control-plane.07.det-validator",
+      "ordinal": 7,
+      "title": "A validator deterministically returns PASS/FAIL/UNKNOWN for a checkpoint",
+      "user_behavior": "A validator deterministically returns PASS/FAIL/UNKNOWN for a checkpoint",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 7 behavior for Campaign Control Plane; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "control-plane.06.evidence-ingest"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "validator.executed",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "validator.executed",
+        "where": {
+          "checkpoint_id": "control-plane.07.det-validator",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "control-plane.08.proof-state",
+      "ordinal": 8,
+      "title": "Checkpoint state derives mechanically from evidence and validator receipts",
+      "user_behavior": "Checkpoint state derives mechanically from evidence and validator receipts",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 8 behavior for Campaign Control Plane; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "control-plane.07.det-validator"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "checkpoint.state_derived",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "checkpoint.state_derived",
+        "where": {
+          "checkpoint_id": "control-plane.08.proof-state",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "control-plane.09.h-task",
+      "ordinal": 9,
+      "title": "Blocked machine work emits a bounded H-task with reason/options",
+      "user_behavior": "Blocked machine work emits a bounded H-task with reason/options",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 9 behavior for Campaign Control Plane; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "control-plane.08.proof-state"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "htask.created",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "htask.created",
+        "where": {
+          "checkpoint_id": "control-plane.09.h-task",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "control-plane.10.bottleneck",
+      "ordinal": 10,
+      "title": "Cross-project blockers are deduplicated into structural bottlenecks",
+      "user_behavior": "Cross-project blockers are deduplicated into structural bottlenecks",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 10 behavior for Campaign Control Plane; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "control-plane.09.h-task"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "bottleneck.surfaced",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "bottleneck.surfaced",
+        "where": {
+          "checkpoint_id": "control-plane.10.bottleneck",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "control-plane.11.tournament",
+      "ordinal": 11,
+      "title": "Two or more agent/build variants can be compared on the same checkpoint gates",
+      "user_behavior": "Two or more agent/build variants can be compared on the same checkpoint gates",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 11 behavior for Campaign Control Plane; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "control-plane.10.bottleneck"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "tournament.scored",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "tournament.scored",
+        "where": {
+          "checkpoint_id": "control-plane.11.tournament",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "control-plane.12.next-work",
+      "ordinal": 12,
+      "title": "Dashboard surfaces the highest-value READY checkpoint and required authority",
+      "user_behavior": "Dashboard surfaces the highest-value READY checkpoint and required authority",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 12 behavior for Campaign Control Plane; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "control-plane.11.tournament"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "planner.next_checkpoint",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "planner.next_checkpoint",
+        "where": {
+          "checkpoint_id": "control-plane.12.next-work",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    }
+  ],
+  "success_definition": "All 12 checkpoints PROVEN on live evidence, with no unresolved critical H-task or security gate.",
+  "repo_binding": {
+    "url": null,
+    "polling": "GitHub snapshots are implementation evidence only; checkpoint proof comes from validator receipts."
+  },
+  "frozen_at": "2026-09-14"
+}

@@ -1,0 +1,642 @@
+{
+  "id": "xmrbot",
+  "name": "XMRbot Private Commerce",
+  "repo": null,
+  "domain": "private commerce",
+  "one_liner": "A private agent that discovers, negotiates and acquires goods/services through XMR-native rails while exposing ordinary agent interfaces.",
+  "core_thesis": "There is a distinct job where the user values separation between their normal identity/agent stack and the commerce transaction. XMR-native marketplaces and services can be wrapped behind a capability interface that handles discovery, negotiation, payment intent, escrow/proofs and delivery coordination without forcing the user to become Monero-native.",
+  "why_now": "Agent commerce is expanding while XMR already provides mature private money and niche commerce infrastructure.",
+  "user": "User/agent wanting private acquisition of legitimate goods or services",
+  "job": "Obtain a good/service through a privacy-preserving agent workflow with bounded authority and proof of what happened.",
+  "distribution": "ChatGPT/MCP adapter into XMR marketplaces and services.",
+  "moat": "Marketplace adapter graph + escrow/proof abstractions + privacy-preserving workflow receipts.",
+  "falsifiers": [
+    "Market liquidity/selection is too small.",
+    "Users prefer ordinary payment rails even for privacy-sensitive legitimate commerce.",
+    "Escrow/delivery proof cannot be standardized enough."
+  ],
+  "components": [
+    "qp",
+    "atask",
+    "security",
+    "plugin"
+  ],
+  "checkpoints": [
+    {
+      "id": "xmrbot.01.request",
+      "ordinal": 1,
+      "title": "User can express a legitimate private-commerce request as typed constraints",
+      "user_behavior": "User can express a legitimate private-commerce request as typed constraints",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 1 behavior for XMRbot Private Commerce; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "xmrbot.request_typed",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "xmrbot.request_typed",
+        "where": {
+          "checkpoint_id": "xmrbot.01.request",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "xmrbot.02.market-search",
+      "ordinal": 2,
+      "title": "Adapters search supported XMR marketplaces/services without identity leakage",
+      "user_behavior": "Adapters search supported XMR marketplaces/services without identity leakage",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 2 behavior for XMRbot Private Commerce; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "xmrbot.01.request"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "xmrbot.market_searched",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "xmrbot.market_searched",
+        "where": {
+          "checkpoint_id": "xmrbot.02.market-search",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "xmrbot.03.offer-normalize",
+      "ordinal": 3,
+      "title": "Offers normalize price, seller, escrow, shipping/service terms and provenance",
+      "user_behavior": "Offers normalize price, seller, escrow, shipping/service terms and provenance",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 3 behavior for XMRbot Private Commerce; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "xmrbot.02.market-search"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "xmrbot.offer_normalized",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "xmrbot.offer_normalized",
+        "where": {
+          "checkpoint_id": "xmrbot.03.offer-normalize",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "xmrbot.04.compare",
+      "ordinal": 4,
+      "title": "Agent compares offers against user constraints and explains unresolved risk",
+      "user_behavior": "Agent compares offers against user constraints and explains unresolved risk",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 4 behavior for XMRbot Private Commerce; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "xmrbot.03.offer-normalize"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "xmrbot.offers_compared",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "xmrbot.offers_compared",
+        "where": {
+          "checkpoint_id": "xmrbot.04.compare",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "xmrbot.05.negotiate",
+      "ordinal": 5,
+      "title": "Negotiation message can be generated and sent only within bounded marketplace authority",
+      "user_behavior": "Negotiation message can be generated and sent only within bounded marketplace authority",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 5 behavior for XMRbot Private Commerce; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "xmrbot.04.compare"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "xmrbot.negotiation_sent",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "xmrbot.negotiation_sent",
+        "where": {
+          "checkpoint_id": "xmrbot.05.negotiate",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "xmrbot.06.escrow",
+      "ordinal": 6,
+      "title": "Escrow/support state is represented explicitly before payment intent",
+      "user_behavior": "Escrow/support state is represented explicitly before payment intent",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 6 behavior for XMRbot Private Commerce; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "xmrbot.05.negotiate"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "xmrbot.escrow_known",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "xmrbot.escrow_known",
+        "where": {
+          "checkpoint_id": "xmrbot.06.escrow",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "xmrbot.07.payment-intent",
+      "ordinal": 7,
+      "title": "Payment intent contains destination, amount, purpose and expiry before signing",
+      "user_behavior": "Payment intent contains destination, amount, purpose and expiry before signing",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 7 behavior for XMRbot Private Commerce; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "xmrbot.06.escrow"
+      ],
+      "authority": "A",
+      "minimum_proof_level": "V9",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "xmrbot.payment_intent",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "xmrbot.payment_intent",
+        "where": {
+          "checkpoint_id": "xmrbot.07.payment-intent",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "xmrbot.08.payment-grant",
+      "ordinal": 8,
+      "title": "Actual XMR spend requires scoped grant and never exposes wallet secret to worker",
+      "user_behavior": "Actual XMR spend requires scoped grant and never exposes wallet secret to worker",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 8 behavior for XMRbot Private Commerce; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "xmrbot.07.payment-intent"
+      ],
+      "authority": "A",
+      "minimum_proof_level": "V9",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "xmrbot.payment_authorized",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "xmrbot.payment_authorized",
+        "where": {
+          "checkpoint_id": "xmrbot.08.payment-grant",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "xmrbot.09.payment-proof",
+      "ordinal": 9,
+      "title": "Broadcast/settlement proof links to the exact purchase intent",
+      "user_behavior": "Broadcast/settlement proof links to the exact purchase intent",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 9 behavior for XMRbot Private Commerce; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "xmrbot.08.payment-grant"
+      ],
+      "authority": "A",
+      "minimum_proof_level": "V9",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "xmrbot.payment_proven",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "xmrbot.payment_proven",
+        "where": {
+          "checkpoint_id": "xmrbot.09.payment-proof",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "xmrbot.10.delivery",
+      "ordinal": 10,
+      "title": "Delivery/service completion evidence is attached to order state",
+      "user_behavior": "Delivery/service completion evidence is attached to order state",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 10 behavior for XMRbot Private Commerce; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "xmrbot.09.payment-proof"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "xmrbot.delivery_evidence",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "xmrbot.delivery_evidence",
+        "where": {
+          "checkpoint_id": "xmrbot.10.delivery",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "xmrbot.11.dispute",
+      "ordinal": 11,
+      "title": "Failure/dispute path preserves evidence and prevents silent success promotion",
+      "user_behavior": "Failure/dispute path preserves evidence and prevents silent success promotion",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 11 behavior for XMRbot Private Commerce; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "xmrbot.10.delivery"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "xmrbot.dispute_opened",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "xmrbot.dispute_opened",
+        "where": {
+          "checkpoint_id": "xmrbot.11.dispute",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "xmrbot.12.mcp",
+      "ordinal": 12,
+      "title": "Whole flow is callable from ordinary MCP/ChatGPT surface without user becoming XMR-native",
+      "user_behavior": "Whole flow is callable from ordinary MCP/ChatGPT surface without user becoming XMR-native",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 12 behavior for XMRbot Private Commerce; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "xmrbot.11.dispute"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "xmrbot.mcp_flow",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "xmrbot.mcp_flow",
+        "where": {
+          "checkpoint_id": "xmrbot.12.mcp",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    }
+  ],
+  "success_definition": "All 12 checkpoints PROVEN on live evidence, with no unresolved critical H-task or security gate.",
+  "repo_binding": {
+    "url": null,
+    "polling": "GitHub snapshots are implementation evidence only; checkpoint proof comes from validator receipts."
+  },
+  "frozen_at": "2026-09-14"
+}

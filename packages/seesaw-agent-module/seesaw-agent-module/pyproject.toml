@@ -1,0 +1,12 @@
+[project]
+name = "seesaw-agent-module"
+version = "0.1.0"
+description = "Autonomous strategic allocation under accelerating AI capability"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+seesaw = "seesaw.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]

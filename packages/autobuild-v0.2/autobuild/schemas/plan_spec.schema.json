@@ -1,0 +1,305 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Autobuild PlanSpec",
+  "type": "object",
+  "required": [
+    "kind",
+    "id",
+    "objective",
+    "strategic_spec",
+    "features",
+    "economic_validation"
+  ],
+  "properties": {
+    "kind": {
+      "const": "PLAN_SPEC"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "strategic_spec": {
+      "type": "object",
+      "required": [
+        "decision",
+        "durable_scarcity",
+        "kill_conditions"
+      ],
+      "properties": {
+        "decision": {
+          "enum": [
+            "BUILD",
+            "VALIDATE",
+            "WATCH",
+            "REUSE",
+            "DROP"
+          ]
+        },
+        "durable_scarcity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kill_conditions": {
+          "type": "array",
+          "minItems": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/feature"
+      }
+    },
+    "economic_validation": {
+      "type": "object",
+      "properties": {
+        "claimed": {
+          "type": "boolean"
+        },
+        "metrics": {
+          "type": "array"
+        },
+        "qp_circuit": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "claimed",
+        "metrics"
+      ],
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "validator": {
+      "type": "object",
+      "required": [
+        "kind",
+        "params"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "eq",
+            "gte",
+            "gt",
+            "lte",
+            "exists",
+            "exit_code",
+            "all",
+            "any"
+          ]
+        },
+        "params": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": true
+    },
+    "evidenceContract": {
+      "type": "object",
+      "minProperties": 1,
+      "properties": {
+        "command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "http": {
+          "type": [
+            "object",
+            "string"
+          ]
+        },
+        "metric": {
+          "type": [
+            "object",
+            "string"
+          ]
+        },
+        "dns": {
+          "type": [
+            "object",
+            "string"
+          ]
+        },
+        "event": {
+          "type": [
+            "object",
+            "string"
+          ]
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "command"
+          ]
+        },
+        {
+          "required": [
+            "file"
+          ]
+        },
+        {
+          "required": [
+            "http"
+          ]
+        },
+        {
+          "required": [
+            "metric"
+          ]
+        },
+        {
+          "required": [
+            "dns"
+          ]
+        },
+        {
+          "required": [
+            "event"
+          ]
+        }
+      ]
+    },
+    "feature": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "depends_on",
+        "scores"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "selected": {
+          "type": "boolean"
+        },
+        "starts_moat_accumulation": {
+          "type": "boolean"
+        },
+        "scores": {
+          "type": "object",
+          "required": [
+            "moat",
+            "asset_accumulation",
+            "dependency_centrality",
+            "validation_value",
+            "implementation_cost",
+            "lab_attack_risk"
+          ],
+          "properties": {
+            "moat": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "asset_accumulation": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "dependency_centrality": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "validation_value": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "implementation_cost": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "lab_attack_risk": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "additionalProperties": true
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "statement",
+              "evidence_contract",
+              "validator"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "statement": {
+                "type": "string",
+                "minLength": 1
+              },
+              "criticality": {
+                "enum": [
+                  "HARD",
+                  "SOFT"
+                ]
+              },
+              "depends_on": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "evidence_contract": {
+                "$ref": "#/$defs/evidenceContract"
+              },
+              "validator": {
+                "$ref": "#/$defs/validator"
+              },
+              "authority": {
+                "type": "object"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

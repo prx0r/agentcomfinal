@@ -1,0 +1,6 @@
+{
+  "version": "1.0",
+  "as_of": "2026-09-14",
+  "rule": "Counts are derived from verified acquisition/decay receipts only; thesis declarations never increment stock.",
+  "assets": []
+}

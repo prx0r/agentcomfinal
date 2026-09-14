@@ -1,0 +1,17 @@
+{
+  "id": "world-model-jump",
+  "name": "World models materially improve planning and counterfactual simulation",
+  "date": "2026-09-14",
+  "description": "Reasoning/planning becomes cheaper; real-world calibration and trajectories become relatively more valuable.",
+  "deltas": {
+    "trajectories": 1.0,
+    "external_state": 0.7,
+    "physical": 0.5,
+    "verifiability": 0.5,
+    "ai_complementarity": 0.8,
+    "synthetic_substitutability": 0.3
+  },
+  "notes": [
+    "Prioritize state-action-outcome capture and real-world calibration."
+  ]
+}

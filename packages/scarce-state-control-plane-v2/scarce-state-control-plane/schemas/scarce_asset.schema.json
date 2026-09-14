@@ -1,0 +1,13 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"ScarceAsset",
+  "type":"object",
+  "required":["id","class","controller","our_right","unit","acquisition_event","decay_event","exclusivity","externality","ai_moat_beta"],
+  "properties":{
+    "id":{"type":"string"},"class":{"type":"string"},"controller":{"type":"string"},"our_right":{"type":"string"},
+    "unit":{"type":"string"},"current_stock":{"type":"number"},"acquisition_event":{"type":"string"},"decay_event":{"type":"string"},
+    "exclusivity":{"type":"number","minimum":0,"maximum":5},"externality":{"type":"number","minimum":0,"maximum":5},
+    "feedback":{"type":"number","minimum":0,"maximum":5},"network_effects":{"type":"number","minimum":0,"maximum":5},
+    "trust":{"type":"number","minimum":0,"maximum":5},"ai_moat_beta":{"type":"number","minimum":0,"maximum":5}
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "version": "1.0.0",
+  "frozen_at": "2026-09-14",
+  "name": "Campaign Control Plane",
+  "northstar": "Businesses are experiments for solving reliable autonomous creation: thesis \u2192 checkpoint DAG \u2192 autonomous runs \u2192 deterministic evidence \u2192 QP-gated consequences \u2192 H-task bottlenecks \u2192 tournaments \u2192 learned policy.",
+  "invariants": [
+    "No checkpoint is complete because an agent says done.",
+    "GitHub code presence is not behavioral proof.",
+    "Fixtures validate validators, not products.",
+    "Cognition may propose; deterministic gates decide canonical truth; QP grants authorize consequences.",
+    "ATask owns execution facts/proof/human boundary; Seed0 owns comparative learning/tournaments; QP owns authority/truth transitions.",
+    "Only externally observable behavior may move a project to PROVEN.",
+    "H-tasks must be bounded, precise and structurally analyzed for future elimination."
+  ],
+  "projects": [
+    {
+      "id": "control-plane",
+      "name": "Campaign Control Plane",
+      "one_liner": "The executable portfolio dashboard that turns frozen theses into deterministic checkpoint DAGs and autonomous build experiments.",
+      "repo": null,
+      "domain": "meta",
+      "checkpoint_count": 12,
+      "components": [
+        "atask",
+        "seed0",
+        "qp",
+        "security"
+      ]
+    },
+    {
+      "id": "astra-plugin-factory",
+      "name": "Astra / ChatGPT Capability Factory",
+      "one_liner": "Discover economically useful capabilities, mine GitHub before coding, assemble them, validate them, then compile them into ChatGPT/MCP/web/API surfaces.",
+      "repo": "https://github.com/prx0r/plugin",
+      "domain": "agent infrastructure",
+      "checkpoint_count": 12,
+      "components": [
+        "plugin",
+        "atask",
+        "seed0",
+        "qp",
+        "security",
+        "demand"
+      ]
+    },
+    {
+      "id": "agentcom-uk",
+      "name": "AgentCom UK Business Onboarding",
+      "one_liner": "Show a UK SMB how it appears to ChatGPT, then make the company machine-readable and safely operable through ChatGPT.",
+      "repo": "https://github.com/prx0r/agentcom",
+      "domain": "b2b",
+      "checkpoint_count": 12,
+      "components": [
+        "cmail",
+        "qp",
+        "atask",
+        "security",
+        "plugin"
+      ]
+    },
+    {
+      "id": "breadup",
+      "name": "BreadUp",
+      "one_liner": "Photograph an object and turn it into optimized commerce; then expand upstream into demand sensing and agent-to-agent selling.",
+      "repo": "https://github.com/prx0r/breadup",
+      "domain": "commerce",
+      "checkpoint_count": 12,
+      "components": [
+        "demand",
+        "qp",
+        "atask",
+        "security",
+        "plugin"
+      ]
+    },
+    {
+      "id": "pogpet",
+      "name": "Pog.pet",
+      "one_liner": "A personalized physical pet product that makes the customer\u2019s pet come alive on their phone and becomes a persistent Pog actor.",
+      "repo": null,
+      "domain": "consumer commerce",
+      "checkpoint_count": 12,
+      "components": [
+        "qp",
+        "atask",
+        "security"
+      ]
+    },
+    {
+      "id": "pogtown",
+      "name": "Pogtown",
+      "one_liner": "One shared AI-native world protocol with phone AR, browser 3D, VR and live-show views.",
+      "repo": "https://github.com/prx0r/pogtown",
+      "domain": "entertainment",
+      "checkpoint_count": 12,
+      "components": [
+        "qp",
+        "atask",
+        "seed0",
+        "security"
+      ]
+    },
+    {
+      "id": "demand-sensing",
+      "name": "Pinterest + Etsy Demand Sensing",
+      "one_liner": "Treat Pinterest, Etsy, TikTok, Shopify and marketplaces as revealed-demand sensors feeding grounded campaign graphs.",
+      "repo": "https://github.com/prx0r/feedify",
+      "domain": "market intelligence",
+      "checkpoint_count": 12,
+      "components": [
+        "demand",
+        "atask",
+        "seed0",
+        "security"
+      ]
+    },
+    {
+      "id": "cmail-onboarding",
+      "name": "Cmail Identity + Social Onboarding",
+      "one_liner": "Provision the reusable identity surface every agent-operated business needs: domain, DNS, email, phone and handles.",
+      "repo": "https://github.com/prx0r/cmail",
+      "domain": "shared infrastructure",
+      "checkpoint_count": 12,
+      "components": [
+        "cmail",
+        "qp",
+        "atask",
+        "security"
+      ]
+    },
+    {
+      "id": "security-plane",
+      "name": "Security / Safe Autonomous Execution",
+      "one_liner": "Make secret leakage, prompt-injected tool calls, unsafe egress and unauthorized side effects deterministic build failures.",
+      "repo": "https://github.com/prx0r/aisec",
+      "domain": "security",
+      "checkpoint_count": 12,
+      "components": [
+        "security",
+        "qp",
+        "atask",
+        "seed0"
+      ]
+    },
+    {
+      "id": "xmrbot",
+      "name": "XMRbot Private Commerce",
+      "one_liner": "A private agent that discovers, negotiates and acquires goods/services through XMR-native rails while exposing ordinary agent interfaces.",
+      "repo": null,
+      "domain": "private commerce",
+      "checkpoint_count": 12,
+      "components": [
+        "qp",
+        "atask",
+        "security",
+        "plugin"
+      ]
+    },
+    {
+      "id": "qp-acom",
+      "name": "QP / A-COM",
+      "one_liner": "The deterministic authority and truth kernel beneath autonomous work.",
+      "repo": "https://github.com/prx0r/qp",
+      "domain": "kernel",
+      "checkpoint_count": 12,
+      "components": [
+        "qp",
+        "atask",
+        "seed0"
+      ]
+    }
+  ],
+  "shared_components": [
+    {
+      "id": "atask",
+      "name": "ATask kernel",
+      "repo": "https://github.com/prx0r/atask",
+      "role": "Goal/task/proof/human boundary; externally validated claims; run accounting.",
+      "boundary": "No planning intelligence. Owns factual execution state and bounded H-task interface."
+    },
+    {
+      "id": "seed0",
+      "name": "Seed0",
+      "repo": "https://github.com/prx0r/seed0",
+      "role": "Project-shape standard, tournament harness, multi-seed experiments and learning candidates.",
+      "boundary": "Learns from runs and compares implementations; does not redefine truth or authority."
+    },
+    {
+      "id": "qp",
+      "name": "QP / A-COM",
+      "repo": "https://github.com/prx0r/qp",
+      "role": "Deterministic gates, grants, receipts, proof levels, authority for consequential actions.",
+      "boundary": "Cognition is untrusted; canonical state and external effects require gates/grants."
+    },
+    {
+      "id": "cmail",
+      "name": "Cmail",
+      "repo": "https://github.com/prx0r/cmail",
+      "role": "Reusable company identity acquisition: domain, email, phone, handles and onboarding adapters.",
+      "boundary": "Credentials are references; consequential calls flow through QP capability grants."
+    },
+    {
+      "id": "security",
+      "name": "Security gate",
+      "repo": "https://github.com/prx0r/aisec",
+      "role": "Secret scanning, untrusted-repo preflight, egress/action policy, prompt-injection regressions.",
+      "boundary": "Security checks are deterministic gates, not LLM assurances."
+    },
+    {
+      "id": "demand",
+      "name": "Demand sensing",
+      "repo": "https://github.com/prx0r/feedify",
+      "role": "Reusable source\u2192normalized record\u2192typed signal pipeline for Pinterest/Etsy/TikTok/Shopify/marketplace signals.",
+      "boundary": "Signals are evidence; they do not directly authorize spend or publishing."
+    },
+    {
+      "id": "plugin",
+      "name": "ChatGPT capability surface",
+      "repo": "https://github.com/prx0r/plugin",
+      "role": "Compile capabilities into ChatGPT-native/MCP/app surfaces plus web/API/x402 variants.",
+      "boundary": "Surface is downstream of a tested capability contract."
+    }
+  ]
+}

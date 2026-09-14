@@ -1,0 +1,8 @@
+{
+  "score_rc": 0,
+  "score_stdout": "{\n  \"score_0_100\": 81.4,\n  \"gate\": \"PLUGINIZE\",\n  \"positive_normalized\": 0.921,\n  \"risk_normalized\": 0.178,\n  \"rights_status\": \"owned\"\n}",
+  "score_stderr": "",
+  "packet_rc": 0,
+  "packet_stdout": "packets/domain-checker.json",
+  "packet_stderr": ""
+}

@@ -1,0 +1,12 @@
+{"ts": "fixture", "source": "fixture", "evidence_class": "fixture", "event_type": "seesaw.hypothesis_registered", "checkpoint_id": "seesaw-market-lab.01.register", "ok": true, "run_id": "fixture"}
+{"ts": "fixture", "source": "fixture", "evidence_class": "fixture", "event_type": "seesaw.snapshot_locked", "checkpoint_id": "seesaw-market-lab.02.snapshot", "ok": true, "run_id": "fixture"}
+{"ts": "fixture", "source": "fixture", "evidence_class": "fixture", "event_type": "seesaw.causal_chain_frozen", "checkpoint_id": "seesaw-market-lab.03.causal", "ok": true, "run_id": "fixture"}
+{"ts": "fixture", "source": "fixture", "evidence_class": "fixture", "event_type": "seesaw.paper_position_opened", "checkpoint_id": "seesaw-market-lab.04.position", "ok": true, "run_id": "fixture"}
+{"ts": "fixture", "source": "fixture", "evidence_class": "fixture", "event_type": "seesaw.resolution_rule_frozen", "checkpoint_id": "seesaw-market-lab.05.falsifier", "ok": true, "run_id": "fixture"}
+{"ts": "fixture", "source": "fixture", "evidence_class": "fixture", "event_type": "seesaw.outcome_resolved", "checkpoint_id": "seesaw-market-lab.06.resolve", "ok": true, "run_id": "fixture"}
+{"ts": "fixture", "source": "fixture", "evidence_class": "fixture", "event_type": "seesaw.execution_model_scored", "checkpoint_id": "seesaw-market-lab.07.execution", "ok": true, "run_id": "fixture"}
+{"ts": "fixture", "source": "fixture", "evidence_class": "fixture", "event_type": "seesaw.prediction_scored", "checkpoint_id": "seesaw-market-lab.08.score", "ok": true, "run_id": "fixture"}
+{"ts": "fixture", "source": "fixture", "evidence_class": "fixture", "event_type": "seesaw.baseline_compared", "checkpoint_id": "seesaw-market-lab.09.baseline", "ok": true, "run_id": "fixture"}
+{"ts": "fixture", "source": "fixture", "evidence_class": "fixture", "event_type": "seesaw.calibration_updated", "checkpoint_id": "seesaw-market-lab.10.calibrate", "ok": true, "run_id": "fixture"}
+{"ts": "fixture", "source": "fixture", "evidence_class": "fixture", "event_type": "seesaw.counterfactual_replayed", "checkpoint_id": "seesaw-market-lab.11.counterfactual", "ok": true, "run_id": "fixture"}
+{"ts": "fixture", "source": "fixture", "evidence_class": "fixture", "event_type": "seesaw.procedure_promoted", "checkpoint_id": "seesaw-market-lab.12.promote", "ok": true, "run_id": "fixture"}

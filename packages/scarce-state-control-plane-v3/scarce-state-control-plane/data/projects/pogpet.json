@@ -1,0 +1,833 @@
+{
+  "id": "pogpet",
+  "name": "Pog.pet",
+  "repo": null,
+  "domain": "consumer commerce",
+  "one_liner": "A personalized physical pet product that makes the customer\u2019s pet come alive on their phone and becomes a persistent Pog actor.",
+  "core_thesis": "Personalized pet gifting has existing emotional demand on Etsy. A stronger product combines the physical artifact with a portable 3D/AR pet actor. The initial purchase can become the acquisition event for a persistent digital identity that later participates in Pogtown, games, clips and messages.",
+  "why_now": "Personalized pet goods already sell; browser 3D/AR and generative asset pipelines can make the output dramatically more experiential.",
+  "user": "Pet owner/gift buyer",
+  "job": "Turn my pet into a memorable personalized physical + animated digital gift.",
+  "distribution": "Etsy first, short listing videos, then pog.pet direct.",
+  "moat": "Reusable pet-actor pipeline and persistent identity/world integration rather than one-off video generation.",
+  "falsifiers": [
+    "AR adds no willingness to pay over simpler pet videos.",
+    "Asset generation/rigging cannot be automated cheaply enough.",
+    "Etsy listing distribution is insufficient to acquire buyers."
+  ],
+  "components": [
+    "qp",
+    "atask",
+    "security"
+  ],
+  "checkpoints": [
+    {
+      "id": "pogpet.01.upload",
+      "ordinal": 1,
+      "title": "Buyer uploads a pet photo and receives an order-bound asset record",
+      "user_behavior": "Buyer uploads a pet photo and receives an order-bound asset record",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 1 behavior for Pog.pet; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogpet.photo_ingested",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogpet.photo_ingested",
+        "where": {
+          "checkpoint_id": "pogpet.01.upload",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogpet.02.segmentation",
+      "ordinal": 2,
+      "title": "Pet is isolated with quality checks sufficient for downstream asset generation",
+      "user_behavior": "Pet is isolated with quality checks sufficient for downstream asset generation",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 2 behavior for Pog.pet; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogpet.01.upload"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogpet.pet_segmented",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogpet.pet_segmented",
+        "where": {
+          "checkpoint_id": "pogpet.02.segmentation",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogpet.03.actor-build",
+      "ordinal": 3,
+      "title": "Pipeline emits a portable pet actor package with manifest",
+      "user_behavior": "Pipeline emits a portable pet actor package with manifest",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 3 behavior for Pog.pet; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogpet.02.segmentation"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogpet.actor_built",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogpet.actor_built",
+        "where": {
+          "checkpoint_id": "pogpet.03.actor-build",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogpet.04.animation",
+      "ordinal": 4,
+      "title": "Actor can perform at least one deterministic preview animation",
+      "user_behavior": "Actor can perform at least one deterministic preview animation",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 4 behavior for Pog.pet; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogpet.03.actor-build"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogpet.animation_preview",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogpet.animation_preview",
+        "where": {
+          "checkpoint_id": "pogpet.04.animation",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogpet.05.web-view",
+      "ordinal": 5,
+      "title": "Actor loads in a browser 3D view from the order link",
+      "user_behavior": "Actor loads in a browser 3D view from the order link",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 5 behavior for Pog.pet; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogpet.04.animation"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogpet.web_actor_loaded",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogpet.web_actor_loaded",
+        "where": {
+          "checkpoint_id": "pogpet.05.web-view",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogpet.06.ar-view",
+      "ordinal": 6,
+      "title": "Supported phone can place/view the actor in AR or a defined fallback",
+      "user_behavior": "Supported phone can place/view the actor in AR or a defined fallback",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 6 behavior for Pog.pet; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogpet.05.web-view"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogpet.ar_actor_loaded",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogpet.ar_actor_loaded",
+        "where": {
+          "checkpoint_id": "pogpet.06.ar-view",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogpet.07.physical-link",
+      "ordinal": 7,
+      "title": "Physical product encodes a durable link/marker resolving to the correct pet actor",
+      "user_behavior": "Physical product encodes a durable link/marker resolving to the correct pet actor",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 7 behavior for Pog.pet; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogpet.06.ar-view"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogpet.physical_linked",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogpet.physical_linked",
+        "where": {
+          "checkpoint_id": "pogpet.07.physical-link",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogpet.08.listing-video",
+      "ordinal": 8,
+      "title": "Pipeline renders the 0\u201313s Etsy listing demonstration sequence",
+      "user_behavior": "Pipeline renders the 0\u201313s Etsy listing demonstration sequence",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 8 behavior for Pog.pet; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogpet.07.physical-link"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogpet.listing_video",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogpet.listing_video",
+        "where": {
+          "checkpoint_id": "pogpet.08.listing-video",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogpet.09.etsy-order",
+      "ordinal": 9,
+      "title": "An Etsy-style order payload can enter the personalization pipeline without manual re-keying",
+      "user_behavior": "An Etsy-style order payload can enter the personalization pipeline without manual re-keying",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 9 behavior for Pog.pet; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogpet.08.listing-video"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogpet.order_ingested",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogpet.order_ingested",
+        "where": {
+          "checkpoint_id": "pogpet.09.etsy-order",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogpet.10.delivery",
+      "ordinal": 10,
+      "title": "Buyer receives physical/digital delivery state with proof artifacts",
+      "user_behavior": "Buyer receives physical/digital delivery state with proof artifacts",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 10 behavior for Pog.pet; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogpet.09.etsy-order"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogpet.delivery_recorded",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogpet.delivery_recorded",
+        "where": {
+          "checkpoint_id": "pogpet.10.delivery",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogpet.11.identity",
+      "ordinal": 11,
+      "title": "Pet actor receives a persistent world identity independent of AR vendor",
+      "user_behavior": "Pet actor receives a persistent world identity independent of AR vendor",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 11 behavior for Pog.pet; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogpet.10.delivery"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogpet.identity_created",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogpet.identity_created",
+        "where": {
+          "checkpoint_id": "pogpet.11.identity",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogpet.12.pogtown-import",
+      "ordinal": 12,
+      "title": "The same actor package can be imported into Pogtown without re-authoring core identity",
+      "user_behavior": "The same actor package can be imported into Pogtown without re-authoring core identity",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 12 behavior for Pog.pet; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogpet.11.identity"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogpet.pogtown_imported",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogpet.pogtown_imported",
+        "where": {
+          "checkpoint_id": "pogpet.12.pogtown-import",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    }
+  ],
+  "success_definition": "All 12 checkpoints PROVEN on live evidence, with no unresolved critical H-task or security gate.",
+  "repo_binding": {
+    "url": null,
+    "polling": "GitHub snapshots are implementation evidence only; checkpoint proof comes from validator receipts."
+  },
+  "frozen_at": "2026-09-14",
+  "strategic_role": "asset_campaign",
+  "software_substitution_test": {
+    "counterfactual": "OpenAI/platform vendors ship perfect software for every reproducible feature in this project tomorrow.",
+    "survival": "YES_IF_IDENTITY_AND_CUSTOMERS_ACCRUE",
+    "destroyed_value": [
+      "pet segmentation",
+      "3D generation",
+      "AR rendering",
+      "generic personalized video"
+    ],
+    "surviving_value": [
+      "paying customer relationship",
+      "persistent pet identity",
+      "physical artifact ownership",
+      "reviews/repeat purchases",
+      "interaction history"
+    ],
+    "rationale": "Generation gets commoditized. The durable object is a customer-owned persistent pet identity tied to purchases, physical artifacts and later world interactions."
+  },
+  "scarce_assets": [
+    {
+      "id": "pet_identity_graph",
+      "class": "persistent_identity",
+      "controller": "customer",
+      "our_right": "platform_custody",
+      "unit": "persistent pet actors",
+      "acquisition_event": "paid_pet_identity_created",
+      "decay_event": "identity_deleted",
+      "economic_value": 4,
+      "exclusivity": 5,
+      "externality": 4,
+      "feedback": 3,
+      "trust": 4,
+      "ai_moat_beta": 5,
+      "current_stock": 0,
+      "network_effects": 1,
+      "public_replicability": 2,
+      "platform_capture": 3,
+      "synthetic_substitutability": 2
+    },
+    {
+      "id": "customer_base",
+      "class": "customer_relationship",
+      "controller": "customer",
+      "our_right": "merchant_relationship",
+      "unit": "paying customers",
+      "acquisition_event": "paid_order_completed",
+      "decay_event": "relationship_lost",
+      "economic_value": 5,
+      "exclusivity": 5,
+      "externality": 4,
+      "feedback": 3,
+      "trust": 5,
+      "ai_moat_beta": 4,
+      "current_stock": 0,
+      "network_effects": 1,
+      "public_replicability": 2,
+      "platform_capture": 3,
+      "synthetic_substitutability": 2
+    },
+    {
+      "id": "physical_linkage",
+      "class": "physical_artifact",
+      "controller": "customer",
+      "our_right": "merchant_of_record",
+      "unit": "linked physical products",
+      "acquisition_event": "physical_product_delivered",
+      "decay_event": "artifact_retired",
+      "economic_value": 4,
+      "exclusivity": 5,
+      "externality": 3,
+      "feedback": 2,
+      "trust": 4,
+      "ai_moat_beta": 4,
+      "current_stock": 0,
+      "network_effects": 1,
+      "public_replicability": 2,
+      "platform_capture": 3,
+      "synthetic_substitutability": 2
+    }
+  ],
+  "underengineer": {
+    "primitive": "UNDERENGINEER/2.0",
+    "rule": "Choose the earliest real-world event that increases controlled scarce state; build only its prerequisites plus safety and verification.",
+    "scarce_state_target": "Create the first paid persistent pet identity",
+    "first_real_moat_event": "paid_pet_identity_created",
+    "minimal_live_product": "Sell one simple personalized pet product: customer uploads pet photo, receives a durable web actor/animation link with persistent pet ID, optionally printed as a card. AR and complex rigging wait.",
+    "steps": [
+      {
+        "id": "ue.01.sell",
+        "ordinal": 1,
+        "action": "Publish one offer and take one real paid order",
+        "authority": "H",
+        "acceptance": "Payment/order receipt exists."
+      },
+      {
+        "id": "ue.02.identity",
+        "ordinal": 2,
+        "action": "Create persistent pet ID bound to customer/order/photo provenance",
+        "authority": "M",
+        "acceptance": "Identity readback is stable across sessions."
+      },
+      {
+        "id": "ue.03.experience",
+        "ordinal": 3,
+        "action": "Render one charming browser animation from the durable link",
+        "authority": "M",
+        "acceptance": "Customer can open it without proprietary AR dependency."
+      },
+      {
+        "id": "ue.04.feedback",
+        "ordinal": 4,
+        "action": "Capture delivery + customer reaction/review/repeat intent",
+        "authority": "H",
+        "acceptance": "Outcome links back to identity and order."
+      }
+    ],
+    "explicitly_not_now": [
+      "full AR",
+      "VR",
+      "complex skeletal rigging",
+      "many products",
+      "Pogtown import automation",
+      "native app"
+    ],
+    "graduation_rule": "10 paid persistent pet identities with evidence customers value the persistent experience, not merely the image transformation.",
+    "kill_or_rethink_rule": "If buyers only value a one-off generated video and show no interest in persistent identity/physical linkage, keep it as simple commerce or stop.",
+    "project_manager_invariant": "A feature may enter NOW only if it is necessary to reach the first real moat event, required for safety/verification, or empirically unblocks that path.",
+    "observation_pause": "After the first live moat event, stop expanding and inspect customer/outcome evidence before choosing the next feature.",
+    "required_components_now": [
+      "atask",
+      "security"
+    ]
+  },
+  "priority_inputs": {
+    "importance": 4,
+    "asset_value": 4,
+    "effort": 2,
+    "human_burden": 2,
+    "moat_beta": 4
+  },
+  "moat_metric": "delta_controlled_scarce_state",
+  "full_roadmap_policy": "The original checkpoint ladder is a capability library, not default build order. UNDERENGINEER chooses the live minimum path.",
+  "experiment_strategy": {
+    "target_profile": "etsy_marketplace",
+    "candidates": [
+      "internal_simulation",
+      "chatgpt_app",
+      "etsy_listing"
+    ],
+    "preferred_sequence": [
+      "internal_simulation",
+      "etsy_listing"
+    ],
+    "learning_goal": "Find a personalized pet phenotype people actually buy, then persist identity."
+  }
+}

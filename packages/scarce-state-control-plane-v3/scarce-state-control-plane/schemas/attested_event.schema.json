@@ -1,0 +1,11 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"AttestedEvent",
+  "type":"object",
+  "required":["event_type","checkpoint_id","ok","source","evidence_class"],
+  "properties":{
+    "source":{"enum":["fixture","replay","live"]},
+    "evidence_class":{"enum":["fixture","replay","artifact_hash","local_active_probe","external_sandbox_probe","external_readback","signed_third_party_receipt","real_economic_outcome"]},
+    "attestation":{"type":"object","properties":{"scheme":{"type":"string"},"signature":{"type":"string"}}}
+  }
+}

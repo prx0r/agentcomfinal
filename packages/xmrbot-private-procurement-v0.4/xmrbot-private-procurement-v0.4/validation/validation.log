@@ -1,0 +1,69 @@
+
+===== compileall =====
+
+PASS: compileall
+
+===== pytest-full =====
+
+.........................................................                [100%]
+PASS: pytest-full
+
+===== pytest-provider-contracts =====
+
+...................                                                      [100%]
+PASS: pytest-provider-contracts
+
+===== editable-install =====
+
+WARNING: The directory '/home/oai/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+PASS: editable-install
+
+===== frontend-js-syntax =====
+
+PASS: frontend-js-syntax
+
+===== import-app =====
+
+routes 59
+PASS: import-app
+
+===== web-route-smoke =====
+
+{'/': 200, '/terminal': 200, '/mine': 200, '/ask': 200, '/blog': 200, '/providers': 200, '/recipes': 200, '/llms.txt': 200, '/robots.txt': 200, '/sitemap.xml': 200, '/v1/site/map': 200, '/v1/providers': 200}
+PASS: web-route-smoke
+
+===== provider-count-and-sources =====
+
+providers 20
+PASS: provider-count-and-sources
+
+===== all-capabilities-proposable =====
+
+capabilities proposed 50
+PASS: all-capabilities-proposable
+
+===== mcp-stdio-provider-tools =====
+
+PASS: mcp-stdio-provider-tools
+
+===== mcp-stdio-provider-resources =====
+
+PASS: mcp-stdio-provider-resources
+
+===== qp-mutation-rejection =====
+
+{'allowed': False, 'checks': [{'check': 'grant_approved', 'ok': True, 'detail': None}, {'check': 'grant_not_expired', 'ok': True, 'detail': None}, {'check': 'provider_allowed', 'ok': True, 'detail': None}, {'check': 'action_allowed', 'ok': True, 'detail': None}, {'check': 'payload_bound', 'ok': False, 'detail': None}], 'action_hash': '6c345745affedc7241df3b2a310358901a79dcaa4978c391dd3b1a78cab938f9', 'grant_id': 'g'}
+PASS: qp-mutation-rejection
+
+===== style-contract =====
+
+PASS: style-contract
+
+===== forbidden-wallet-export-tools =====
+
+['qp_gate_evaluate', 'qp_grant_request', 'qp_receipt_verify', 'xmr_blog_draft', 'xmr_blog_get', 'xmr_blog_list', 'xmr_blog_publish', 'xmr_computer_opportunities', 'xmr_content_from_blog', 'xmr_content_recipe', 'xmr_cpu_lookup', 'xmr_machine_benchmark', 'xmr_machine_inspect', 'xmr_mine_or_buy', 'xmr_mining_profitability', 'xmr_network_status', 'xmr_node_plan', 'xmr_procurement_route', 'xmr_provider_get', 'xmr_provider_list', 'xmr_provider_propose', 'xmr_provider_read', 'xmr_resource_find', 'xmr_search', 'xmr_site_map', 'xmr_tools', 'xmr_wallet_plan']
+PASS: forbidden-wallet-export-tools
+
+===== no-embedded-real-secrets =====
+
+PASS: no-embedded-real-secrets

@@ -1,0 +1,60 @@
+{
+  "server": {
+    "name": "domain-checker",
+    "transport": "streamable-http",
+    "auth": "none"
+  },
+  "tools": [
+    {
+      "name": "check_domains",
+      "title": "Check domain availability",
+      "description": "Checks exact current availability for candidate domain names.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "domains"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "suggest_available_domains",
+      "title": "Suggest available domains",
+      "description": "Generates candidate names and verifies exact availability.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "brief": {
+            "type": "string"
+          },
+          "tlds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "brief"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      }
+    }
+  ]
+}

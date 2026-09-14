@@ -1,0 +1,307 @@
+{
+  "bucket": "agentcom",
+  "count_unique": 30,
+  "total_raw": 60,
+  "files": [
+    {
+      "name": "agent-plugin-factory-v0.1.zip",
+      "source_keys": [
+        "agent-plugin-factory-v0.1.zip",
+        "agentcom/agent-plugin-factory-v0.1.zip"
+      ],
+      "size": 19679,
+      "sha256_12": "12ee8e7e6fd4",
+      "local": "/agentcomfinal/docs/agent-plugin-factory-v0.1.zip"
+    },
+    {
+      "name": "agentcom-plugin-canonical-2026-09-13.zip",
+      "source_keys": [
+        "agentcom-plugin-canonical-2026-09-13.zip",
+        "agentcom/agentcom-plugin-canonical-2026-09-13.zip"
+      ],
+      "size": 50003,
+      "sha256_12": "6c67e02ac51c",
+      "local": "/agentcomfinal/docs/agentcom-plugin-canonical-2026-09-13.zip"
+    },
+    {
+      "name": "autobuild-v0.2-hardened.zip",
+      "source_keys": [
+        "agentcom/autobuild-v0.2-hardened.zip",
+        "autobuild-v0.2-hardened.zip"
+      ],
+      "size": 59884,
+      "sha256_12": "b27a335b6a8c",
+      "local": "/agentcomfinal/docs/autobuild-v0.2-hardened.zip"
+    },
+    {
+      "name": "autonomous-economic-discovery-control-plane-v3-2026-09-14.zip",
+      "source_keys": [
+        "agentcom/autonomous-economic-discovery-control-plane-v3-2026-09-14.zip",
+        "autonomous-economic-discovery-control-plane-v3-2026-09-14.zip"
+      ],
+      "size": 225822,
+      "sha256_12": "936e06029c4f",
+      "local": "/agentcomfinal/docs/autonomous-economic-discovery-control-plane-v3-2026-09-14.zip"
+    },
+    {
+      "name": "breadupp",
+      "source_keys": [
+        "agentcom/breadupp",
+        "breadupp"
+      ],
+      "size": 11350,
+      "sha256_12": "4d3bb47e6291",
+      "local": "/agentcomfinal/docs/breadupp"
+    },
+    {
+      "name": "breadupppagain",
+      "source_keys": [
+        "agentcom/breadupppagain",
+        "breadupppagain"
+      ],
+      "size": 6961,
+      "sha256_12": "b4737ec3358f",
+      "local": "/agentcomfinal/docs/breadupppagain"
+    },
+    {
+      "name": "campaign-control-plane-2026-09-14(1).zip",
+      "source_keys": [
+        "agentcom/campaign-control-plane-2026-09-14(1).zip",
+        "campaign-control-plane-2026-09-14(1).zip"
+      ],
+      "size": 81309,
+      "sha256_12": "7577d4edcafd",
+      "local": "/agentcomfinal/docs/campaign-control-plane-2026-09-14(1).zip"
+    },
+    {
+      "name": "campaign-control-plane-2026-09-14.zip",
+      "source_keys": [
+        "agentcom/campaign-control-plane-2026-09-14.zip",
+        "campaign-control-plane-2026-09-14.zip"
+      ],
+      "size": 81309,
+      "sha256_12": "7577d4edcafd",
+      "local": "/agentcomfinal/docs/campaign-control-plane-2026-09-14.zip"
+    },
+    {
+      "name": "chatgpt is distribution",
+      "source_keys": [
+        "agentcom/chatgpt is distribution",
+        "chatgpt is distribution"
+      ],
+      "size": 2020,
+      "sha256_12": "87479e58ee87",
+      "local": "/agentcomfinal/docs/chatgpt is distribution"
+    },
+    {
+      "name": "goated thesis",
+      "source_keys": [
+        "agentcom/goated thesis",
+        "goated thesis"
+      ],
+      "size": 53643,
+      "sha256_12": "d7723ad9dca2",
+      "local": "/agentcomfinal/docs/goated thesis"
+    },
+    {
+      "name": "goatshit",
+      "source_keys": [
+        "agentcom/goatshit",
+        "goatshit"
+      ],
+      "size": 4073,
+      "sha256_12": "1aeb83d1a1a5",
+      "local": "/agentcomfinal/docs/goatshit"
+    },
+    {
+      "name": "insane theis",
+      "source_keys": [
+        "agentcom/insane theis",
+        "insane theis"
+      ],
+      "size": 53643,
+      "sha256_12": "d7723ad9dca2",
+      "local": "/agentcomfinal/docs/insane theis"
+    },
+    {
+      "name": "ithelpdesk",
+      "source_keys": [
+        "agentcom/ithelpdesk",
+        "ithelpdesk"
+      ],
+      "size": 243,
+      "sha256_12": "08711dcee922",
+      "local": "/agentcomfinal/docs/ithelpdesk"
+    },
+    {
+      "name": "personal-seesaw-v0.1.zip",
+      "source_keys": [
+        "agentcom/personal-seesaw-v0.1.zip",
+        "personal-seesaw-v0.1.zip"
+      ],
+      "size": 32162,
+      "sha256_12": "29cb9839032c",
+      "local": "/agentcomfinal/docs/personal-seesaw-v0.1.zip"
+    },
+    {
+      "name": "pinterest",
+      "source_keys": [
+        "agentcom/pinterest",
+        "pinterest"
+      ],
+      "size": 101,
+      "sha256_12": "c08974776fdc",
+      "local": "/agentcomfinal/docs/pinterest"
+    },
+    {
+      "name": "pogtown band",
+      "source_keys": [
+        "agentcom/pogtown band",
+        "pogtown band"
+      ],
+      "size": 1000,
+      "sha256_12": "40bdbd25af4c",
+      "local": "/agentcomfinal/docs/pogtown band"
+    },
+    {
+      "name": "scarce-state-control-plane-v2-2026-09-14.zip",
+      "source_keys": [
+        "agentcom/scarce-state-control-plane-v2-2026-09-14.zip",
+        "scarce-state-control-plane-v2-2026-09-14.zip"
+      ],
+      "size": 119778,
+      "sha256_12": "d6010d17d9dc",
+      "local": "/agentcomfinal/docs/scarce-state-control-plane-v2-2026-09-14.zip"
+    },
+    {
+      "name": "seesaw-agent-module-v0.1.zip",
+      "source_keys": [
+        "agentcom/seesaw-agent-module-v0.1.zip",
+        "seesaw-agent-module-v0.1.zip"
+      ],
+      "size": 39854,
+      "sha256_12": "0e8fac295b85",
+      "local": "/agentcomfinal/docs/seesaw-agent-module-v0.1.zip"
+    },
+    {
+      "name": "seesawagent",
+      "source_keys": [
+        "agentcom/seesawagent",
+        "seesawagent"
+      ],
+      "size": 4046,
+      "sha256_12": "fe09b1e82d5f",
+      "local": "/agentcomfinal/docs/seesawagent"
+    },
+    {
+      "name": "seesawbark",
+      "source_keys": [
+        "agentcom/seesawbark",
+        "seesawbark"
+      ],
+      "size": 1722,
+      "sha256_12": "220fd8361c3d",
+      "local": "/agentcomfinal/docs/seesawbark"
+    },
+    {
+      "name": "seesawinvariant",
+      "source_keys": [
+        "agentcom/seesawinvariant",
+        "seesawinvariant"
+      ],
+      "size": 4470,
+      "sha256_12": "93fd677084f0",
+      "local": "/agentcomfinal/docs/seesawinvariant"
+    },
+    {
+      "name": "seesawww",
+      "source_keys": [
+        "agentcom/seesawww",
+        "seesawww"
+      ],
+      "size": 6967,
+      "sha256_12": "1cd25250ffd8",
+      "local": "/agentcomfinal/docs/seesawww"
+    },
+    {
+      "name": "the actual plan",
+      "source_keys": [
+        "agentcom/the actual plan",
+        "the actual plan"
+      ],
+      "size": 140,
+      "sha256_12": "b4f776f7f8a9",
+      "local": "/agentcomfinal/docs/the actual plan"
+    },
+    {
+      "name": "theplannoww",
+      "source_keys": [
+        "agentcom/theplannoww",
+        "theplannoww"
+      ],
+      "size": 15721,
+      "sha256_12": "78424f37f36e",
+      "local": "/agentcomfinal/docs/theplannoww"
+    },
+    {
+      "name": "thesisdesk.zip",
+      "source_keys": [
+        "agentcom/thesisdesk.zip",
+        "thesisdesk.zip"
+      ],
+      "size": 9946,
+      "sha256_12": "944918ec5659",
+      "local": "/agentcomfinal/docs/thesisdesk.zip"
+    },
+    {
+      "name": "tomplan0910",
+      "source_keys": [
+        "agentcom/tomplan0910",
+        "tomplan0910"
+      ],
+      "size": 1266,
+      "sha256_12": "976117110c0e",
+      "local": "/agentcomfinal/docs/tomplan0910"
+    },
+    {
+      "name": "xmrbot",
+      "source_keys": [
+        "agentcom/xmrbot",
+        "xmrbot"
+      ],
+      "size": 39245,
+      "sha256_12": "ea472892f42f",
+      "local": "/agentcomfinal/docs/xmrbot"
+    },
+    {
+      "name": "xmrbot-private-procurement-v0.4.zip",
+      "source_keys": [
+        "agentcom/xmrbot-private-procurement-v0.4.zip",
+        "xmrbot-private-procurement-v0.4.zip"
+      ],
+      "size": 155730,
+      "sha256_12": "69e3ad46e69a",
+      "local": "/agentcomfinal/docs/xmrbot-private-procurement-v0.4.zip"
+    },
+    {
+      "name": "xmrbot-solid-style-v0.3.zip",
+      "source_keys": [
+        "agentcom/xmrbot-solid-style-v0.3.zip",
+        "xmrbot-solid-style-v0.3.zip"
+      ],
+      "size": 103808,
+      "sha256_12": "9201200aad90",
+      "local": "/agentcomfinal/docs/xmrbot-solid-style-v0.3.zip"
+    },
+    {
+      "name": "xmrbot-suite.zip",
+      "source_keys": [
+        "agentcom/xmrbot-suite.zip",
+        "xmrbot-suite.zip"
+      ],
+      "size": 79113,
+      "sha256_12": "617216836c0c",
+      "local": "/agentcomfinal/docs/xmrbot-suite.zip"
+    }
+  ]
+}

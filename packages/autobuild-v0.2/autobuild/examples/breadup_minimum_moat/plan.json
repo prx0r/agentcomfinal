@@ -1,0 +1,251 @@
+{
+  "kind": "PLAN_SPEC",
+  "id": "breadup-minimum-moat-v1",
+  "objective": "From one item photo, create a sellable listing and record the realized economic outcome.",
+  "strategic_spec": {
+    "id": "seesaw-breadup-v1",
+    "decision": "BUILD",
+    "durable_scarcity": "proprietary item -> listing/action -> realized sale price/time/margin trajectories",
+    "kill_conditions": [
+      "marketplaces expose equivalent portable cross-market realized outcome data to everyone",
+      "users will not grant listing/action authority"
+    ]
+  },
+  "features": [
+    {
+      "id": "item_capture",
+      "name": "Capture item observation",
+      "depends_on": [],
+      "starts_moat_accumulation": false,
+      "scores": {
+        "moat": 0.4,
+        "asset_accumulation": 0.4,
+        "dependency_centrality": 1.0,
+        "validation_value": 0.8,
+        "implementation_cost": 0.2,
+        "lab_attack_risk": 0.4
+      },
+      "requirements": [
+        {
+          "id": "req-item-json",
+          "statement": "A photo produces a structured item observation with category and attributes.",
+          "evidence_contract": {
+            "file": ".autobuild/evidence/req-item-json.json",
+            "type": "json"
+          },
+          "validator": {
+            "id": "item-json-v1",
+            "kind": "exists",
+            "params": {
+              "path": "item.category"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "valuation",
+      "name": "Estimate value from comparable sales",
+      "depends_on": [
+        "item_capture"
+      ],
+      "starts_moat_accumulation": false,
+      "scores": {
+        "moat": 0.6,
+        "asset_accumulation": 0.7,
+        "dependency_centrality": 1.0,
+        "validation_value": 1.0,
+        "implementation_cost": 0.4,
+        "lab_attack_risk": 0.4
+      },
+      "requirements": [
+        {
+          "id": "req-valuation",
+          "statement": "Valuation output contains a predicted sale price and evidence provenance.",
+          "evidence_contract": {
+            "file": ".autobuild/evidence/req-valuation.json",
+            "type": "json"
+          },
+          "validator": {
+            "id": "valuation-v1",
+            "kind": "all",
+            "params": {
+              "validators": [
+                {
+                  "kind": "exists",
+                  "params": {
+                    "path": "predicted_price"
+                  }
+                },
+                {
+                  "kind": "exists",
+                  "params": {
+                    "path": "source_count"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cross_list",
+      "name": "Create a real marketplace listing",
+      "depends_on": [
+        "valuation"
+      ],
+      "starts_moat_accumulation": true,
+      "scores": {
+        "moat": 0.9,
+        "asset_accumulation": 0.9,
+        "dependency_centrality": 1.0,
+        "validation_value": 1.0,
+        "implementation_cost": 0.5,
+        "lab_attack_risk": 0.2
+      },
+      "requirements": [
+        {
+          "id": "req-listing-live",
+          "statement": "At least one external marketplace listing is live and addressable.",
+          "evidence_contract": {
+            "file": ".autobuild/evidence/req-listing-live.json",
+            "type": "json"
+          },
+          "validator": {
+            "id": "listing-live-v1",
+            "kind": "eq",
+            "params": {
+              "path": "status",
+              "value": "LIVE"
+            }
+          },
+          "authority": {
+            "required": true,
+            "capability": "marketplace.listing.create",
+            "constraints": {
+              "max_listings": 1
+            },
+            "minimum_proof_level": 7
+          }
+        }
+      ]
+    },
+    {
+      "id": "outcome_ledger",
+      "name": "Record realized economic outcome",
+      "depends_on": [
+        "cross_list"
+      ],
+      "starts_moat_accumulation": true,
+      "scores": {
+        "moat": 1.0,
+        "asset_accumulation": 1.0,
+        "dependency_centrality": 1.0,
+        "validation_value": 1.0,
+        "implementation_cost": 0.3,
+        "lab_attack_risk": 0.0
+      },
+      "requirements": [
+        {
+          "id": "req-outcome-row",
+          "statement": "A closed listing records asking price, realized price, fees, elapsed time and margin.",
+          "evidence_contract": {
+            "file": ".autobuild/evidence/req-outcome-row.json",
+            "type": "json"
+          },
+          "validator": {
+            "id": "outcome-row-v1",
+            "kind": "all",
+            "params": {
+              "validators": [
+                {
+                  "kind": "exists",
+                  "params": {
+                    "path": "realized_price"
+                  }
+                },
+                {
+                  "kind": "exists",
+                  "params": {
+                    "path": "fees"
+                  }
+                },
+                {
+                  "kind": "exists",
+                  "params": {
+                    "path": "elapsed_seconds"
+                  }
+                },
+                {
+                  "kind": "exists",
+                  "params": {
+                    "path": "margin"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "social_feed",
+      "name": "Social feed and badges",
+      "depends_on": [
+        "outcome_ledger"
+      ],
+      "starts_moat_accumulation": false,
+      "scores": {
+        "moat": 0.2,
+        "asset_accumulation": 0.2,
+        "dependency_centrality": 0.2,
+        "validation_value": 0.1,
+        "implementation_cost": 0.6,
+        "lab_attack_risk": 0.6
+      },
+      "requirements": [
+        {
+          "id": "req-feed",
+          "statement": "User can browse a social activity feed.",
+          "evidence_contract": {
+            "command": "python -m pytest tests/test_feed.py -q"
+          },
+          "validator": {
+            "id": "feed-test-v1",
+            "kind": "exit_code",
+            "params": {
+              "value": 0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "economic_validation": {
+    "claimed": true,
+    "metrics": [
+      {
+        "id": "first-profitable-sale",
+        "formula": "margin > 0",
+        "source": "outcome_ledger"
+      },
+      {
+        "id": "calibration-error",
+        "formula": "abs(predicted_price-realized_price)/max(realized_price,1)",
+        "source": "outcome_ledger"
+      }
+    ],
+    "qp_circuit": {
+      "op": "GT",
+      "args": [
+        {
+          "metric": "realized_margin"
+        },
+        {
+          "const": 0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,311 @@
+{
+  "version": "2.0.0",
+  "frozen_at": "2026-09-14",
+  "name": "Scarce State Control Plane",
+  "northstar": "Acquire or produce scarce consequential state, expose it through whatever agent protocol wins, and use software only as the cheapest path to the next real moat event.",
+  "strategic_invariant": "Can OpenAI destroy this merely by writing more software? If yes, demote it to infrastructure. If no, name the scarce external state and measure its accretion.",
+  "underengineer_invariant": "UNDERENGINEER: for the highest-value thesis, find the earliest real-world event that increases controlled scarce state. Build only its prerequisites plus safety and verification; then stop and observe.",
+  "invariants": [
+    "Cognition and interfaces are assumed to commoditize; consequential external state does not.",
+    "Infrastructure is pulled by scarce-asset campaigns and does not compete with them as a business.",
+    "No checkpoint is complete because an agent says done.",
+    "A self-reported live event is a CLAIM, never PROVEN evidence.",
+    "GitHub code presence is not behavioral proof.",
+    "Fixtures validate validators, not products.",
+    "Only independently attested active probes, signed receipts, external readbacks or real economic outcomes may produce PROVEN.",
+    "UNDERENGINEER chooses the earliest moat-producing live event, not the smallest codebase.",
+    "After the first real moat event, pause feature expansion and update the thesis from evidence.",
+    "ATask owns execution facts; Seed0 owns comparative learning; QP owns truth/authority transitions."
+  ],
+  "reward_objective": "For asset campaigns maximize \u0394ControlledScarceState \u00d7 EvidenceStrength \u00d7 EconomicValue per human-minute/cost/risk. For infrastructure maximize scarce-asset campaign enablement per resource.",
+  "projects": [
+    {
+      "id": "agentcom-uk",
+      "name": "AgentCom UK Business Onboarding",
+      "one_liner": "Show a UK SMB how it appears to ChatGPT, then make the company machine-readable and safely operable through ChatGPT.",
+      "repo": "https://github.com/prx0r/agentcom",
+      "domain": "b2b",
+      "strategic_role": "asset_campaign",
+      "substitution_survival": "YES_IF_AUTHORITY_ACCRUES",
+      "first_real_moat_event": "business_action_outcome",
+      "minimal_live_product": "Onboard one UK trade business, identify its single highest-frequency pain, obtain permission for one channel/action, execute one real bounded workflow, and measure the outcome.",
+      "scarce_asset_count": 3,
+      "checkpoint_count": 12,
+      "components": [
+        "cmail",
+        "qp",
+        "atask",
+        "security",
+        "plugin"
+      ]
+    },
+    {
+      "id": "astra-plugin-factory",
+      "name": "Astra / ChatGPT Capability Factory",
+      "one_liner": "Discover economically useful capabilities, mine GitHub before coding, assemble them, validate them, then compile them into ChatGPT/MCP/web/API surfaces.",
+      "repo": "https://github.com/prx0r/plugin",
+      "domain": "agent infrastructure",
+      "strategic_role": "infrastructure",
+      "substitution_survival": "NO_AS_STANDALONE_BUSINESS",
+      "first_real_moat_event": "scarce_asset_exposed_through_one_working_surface",
+      "minimal_live_product": "Given an already-owned scarce asset and behavior contract, search existing components, assemble the smallest interface, and pass one active capability probe.",
+      "scarce_asset_count": 0,
+      "checkpoint_count": 12,
+      "components": [
+        "plugin",
+        "atask",
+        "seed0",
+        "qp",
+        "security",
+        "demand"
+      ]
+    },
+    {
+      "id": "breadup",
+      "name": "BreadUp",
+      "one_liner": "Photograph an object and turn it into optimized commerce; then expand upstream into demand sensing and agent-to-agent selling.",
+      "repo": "https://github.com/prx0r/breadup",
+      "domain": "commerce",
+      "strategic_role": "asset_campaign",
+      "substitution_survival": "YES_IF_OUTCOMES_ACCRUE",
+      "first_real_moat_event": "sale_settled",
+      "minimal_live_product": "One seller photographs one item; BreadUp creates and publishes one listing on one marketplace with approval, then captures the final sale/no-sale outcome, fees and time-to-sale.",
+      "scarce_asset_count": 3,
+      "checkpoint_count": 12,
+      "components": [
+        "demand",
+        "qp",
+        "atask",
+        "security",
+        "plugin"
+      ]
+    },
+    {
+      "id": "cmail-onboarding",
+      "name": "Cmail Identity + Social Onboarding",
+      "one_liner": "Provision the reusable identity surface every agent-operated business needs: domain, DNS, email, phone and handles.",
+      "repo": "https://github.com/prx0r/cmail",
+      "domain": "shared infrastructure",
+      "strategic_role": "hybrid_infrastructure",
+      "substitution_survival": "YES_ONLY_AS_DELEGATED_IDENTITY_LAYER",
+      "first_real_moat_event": "identity_capability_granted",
+      "minimal_live_product": "For one real business/campaign, obtain delegated DNS or email authority and complete one externally verifiable change without exposing credentials to the worker.",
+      "scarce_asset_count": 1,
+      "checkpoint_count": 12,
+      "components": [
+        "cmail",
+        "qp",
+        "atask",
+        "security"
+      ]
+    },
+    {
+      "id": "control-plane",
+      "name": "Campaign Control Plane",
+      "one_liner": "The executable portfolio dashboard that turns frozen theses into deterministic checkpoint DAGs and autonomous build experiments.",
+      "repo": null,
+      "domain": "meta",
+      "strategic_role": "infrastructure",
+      "substitution_survival": "NO_AS_BUSINESS",
+      "first_real_moat_event": "verified_transition_for_live_campaign",
+      "minimal_live_product": "One campaign page that can choose a live moat event, dispatch one ATask, ingest independently attested evidence, surface one H-task, and commit one QP receipt.",
+      "scarce_asset_count": 0,
+      "checkpoint_count": 12,
+      "components": [
+        "atask",
+        "seed0",
+        "qp",
+        "security"
+      ]
+    },
+    {
+      "id": "demand-sensing",
+      "name": "Pinterest + Etsy Demand Sensing",
+      "one_liner": "Treat Pinterest, Etsy, TikTok, Shopify and marketplaces as revealed-demand sensors feeding grounded campaign graphs.",
+      "repo": "https://github.com/prx0r/feedify",
+      "domain": "market intelligence",
+      "strategic_role": "hybrid_infrastructure",
+      "substitution_survival": "ONLY_WITH_PRIVATE_OUTCOME_FEEDBACK",
+      "first_real_moat_event": "signal_outcome_linked",
+      "minimal_live_product": "Track one source family for one product decision, make one explicit prediction/action, then attach the real listing/campaign outcome. No broad dashboard.",
+      "scarce_asset_count": 1,
+      "checkpoint_count": 12,
+      "components": [
+        "demand",
+        "atask",
+        "seed0",
+        "security"
+      ]
+    },
+    {
+      "id": "geodrop",
+      "name": "GeoDrop",
+      "one_liner": "Build proprietary, timestamped installed-base reality data where public maps are insufficient.",
+      "repo": null,
+      "domain": "physical intelligence",
+      "strategic_role": "asset_campaign",
+      "substitution_survival": "YES_IF_PHYSICAL_OBSERVATIONS_ARE_PROPRIETARY",
+      "first_real_moat_event": "physical_asset_verified",
+      "minimal_live_product": "Choose one country/region and one asset class (initial example: UK EV charging hardware). Verify a small set of installations with timestamped source/evidence and expose a query a buyer could actually use.",
+      "scarce_asset_count": 1,
+      "checkpoint_count": 12,
+      "components": [
+        "atask",
+        "qp",
+        "security",
+        "demand"
+      ]
+    },
+    {
+      "id": "pogpet",
+      "name": "Pog.pet",
+      "one_liner": "A personalized physical pet product that makes the customer\u2019s pet come alive on their phone and becomes a persistent Pog actor.",
+      "repo": null,
+      "domain": "consumer commerce",
+      "strategic_role": "asset_campaign",
+      "substitution_survival": "YES_IF_IDENTITY_AND_CUSTOMERS_ACCRUE",
+      "first_real_moat_event": "paid_pet_identity_created",
+      "minimal_live_product": "Sell one simple personalized pet product: customer uploads pet photo, receives a durable web actor/animation link with persistent pet ID, optionally printed as a card. AR and complex rigging wait.",
+      "scarce_asset_count": 3,
+      "checkpoint_count": 12,
+      "components": [
+        "qp",
+        "atask",
+        "security"
+      ]
+    },
+    {
+      "id": "pogtown",
+      "name": "Pogtown",
+      "one_liner": "One shared AI-native world protocol with phone AR, browser 3D, VR and live-show views.",
+      "repo": "https://github.com/prx0r/pogtown",
+      "domain": "entertainment",
+      "strategic_role": "asset_campaign",
+      "substitution_survival": "YES_AFTER_NETWORK_FORMATION",
+      "first_real_moat_event": "game_played_by_humans",
+      "minimal_live_product": "A tiny browser runtime with a strict game-pack schema: an agent can submit/generate a game, deterministic validation accepts it, humans join a room and play it, and session/Pog events are recorded.",
+      "scarce_asset_count": 3,
+      "checkpoint_count": 12,
+      "components": [
+        "qp",
+        "atask",
+        "seed0",
+        "security"
+      ]
+    },
+    {
+      "id": "qp-acom",
+      "name": "QP / A-COM",
+      "one_liner": "The deterministic authority and truth kernel beneath autonomous work.",
+      "repo": "https://github.com/prx0r/qp",
+      "domain": "kernel",
+      "strategic_role": "infrastructure",
+      "substitution_survival": "PROTOCOL_CAN_BE_COPIED",
+      "first_real_moat_event": "real_qp_authorized_transition",
+      "minimal_live_product": "One action, one grant, one deterministic gate, one credential-brokered execution and one signed transition receipt. Do not expand the instruction set first.",
+      "scarce_asset_count": 0,
+      "checkpoint_count": 12,
+      "components": [
+        "qp",
+        "atask",
+        "seed0"
+      ]
+    },
+    {
+      "id": "security-plane",
+      "name": "Security / Safe Autonomous Execution",
+      "one_liner": "Make secret leakage, prompt-injected tool calls, unsafe egress and unauthorized side effects deterministic build failures.",
+      "repo": "https://github.com/prx0r/aisec",
+      "domain": "security",
+      "strategic_role": "hybrid_infrastructure",
+      "substitution_survival": "YES_IF_DEPLOYED_TELEMETRY_ACCRUES",
+      "first_real_moat_event": "incident_adjudicated",
+      "minimal_live_product": "Put a deterministic capability/secret/egress gate in front of one live autonomous campaign action, run a small adversarial battery, and store the blocked/allowed result with adjudication.",
+      "scarce_asset_count": 1,
+      "checkpoint_count": 12,
+      "components": [
+        "security",
+        "qp",
+        "atask",
+        "seed0"
+      ]
+    },
+    {
+      "id": "xmrbot",
+      "name": "XMRbot Private Commerce",
+      "one_liner": "A private agent that discovers, negotiates and acquires goods/services through XMR-native rails while exposing ordinary agent interfaces.",
+      "repo": null,
+      "domain": "private commerce",
+      "strategic_role": "asset_campaign",
+      "substitution_survival": "YES_IF_COMMERCE_NETWORK_ACCRUES",
+      "first_real_moat_event": "merchant_transaction_completed",
+      "minimal_live_product": "Use one marketplace/service only: search a legitimate item/service, normalize offer, communicate/possibly negotiate, require human approval/signing for payment, and record escrow/settlement/delivery outcome.",
+      "scarce_asset_count": 2,
+      "checkpoint_count": 12,
+      "components": [
+        "qp",
+        "atask",
+        "security",
+        "plugin"
+      ]
+    }
+  ],
+  "shared_components": [
+    {
+      "id": "atask",
+      "name": "ATask kernel",
+      "repo": "https://github.com/prx0r/atask",
+      "role": "Goal/task/proof/human boundary; externally validated claims; run accounting.",
+      "boundary": "No planning intelligence. Owns factual execution state and bounded H-task interface."
+    },
+    {
+      "id": "seed0",
+      "name": "Seed0",
+      "repo": "https://github.com/prx0r/seed0",
+      "role": "Project-shape standard, tournament harness, multi-seed experiments and learning candidates.",
+      "boundary": "Learns from runs and compares implementations; does not redefine truth or authority."
+    },
+    {
+      "id": "qp",
+      "name": "QP / A-COM",
+      "repo": "https://github.com/prx0r/qp",
+      "role": "Deterministic gates, grants, receipts, proof levels, authority for consequential actions.",
+      "boundary": "Cognition is untrusted; canonical state and external effects require gates/grants."
+    },
+    {
+      "id": "cmail",
+      "name": "Cmail",
+      "repo": "https://github.com/prx0r/cmail",
+      "role": "Reusable company identity acquisition: domain, email, phone, handles and onboarding adapters.",
+      "boundary": "Credentials are references; consequential calls flow through QP capability grants."
+    },
+    {
+      "id": "security",
+      "name": "Security gate",
+      "repo": "https://github.com/prx0r/aisec",
+      "role": "Secret scanning, untrusted-repo preflight, egress/action policy, prompt-injection regressions.",
+      "boundary": "Security checks are deterministic gates, not LLM assurances."
+    },
+    {
+      "id": "demand",
+      "name": "Demand sensing",
+      "repo": "https://github.com/prx0r/feedify",
+      "role": "Reusable source\u2192normalized record\u2192typed signal pipeline for Pinterest/Etsy/TikTok/Shopify/marketplace signals.",
+      "boundary": "Signals are evidence; they do not directly authorize spend or publishing."
+    },
+    {
+      "id": "plugin",
+      "name": "ChatGPT capability surface",
+      "repo": "https://github.com/prx0r/plugin",
+      "role": "Compile capabilities into ChatGPT-native/MCP/app surfaces plus web/API/x402 variants.",
+      "boundary": "Surface is downstream of a tested capability contract."
+    },
+    {
+      "id": "underengineer",
+      "name": "UNDERENGINEER",
+      "repo": null,
+      "role": "High-level project manager: pick the earliest real moat event and build only the prerequisites, safety and verification needed to reach it.",
+      "boundary": "Never optimizes for smallest codebase. Optimizes for shortest credible path to controlled scarce-state accretion and then pauses for evidence."
+    }
+  ]
+}

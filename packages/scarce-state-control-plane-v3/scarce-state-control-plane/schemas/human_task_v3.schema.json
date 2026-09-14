@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HumanTask",
+  "type": "object",
+  "required": [
+    "id",
+    "kind",
+    "question",
+    "status",
+    "created_at"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "question": {
+      "type": "string"
+    },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommendation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "why_human": {
+      "type": "string"
+    },
+    "blocking_value": {
+      "type": "number"
+    },
+    "estimated_minutes": {
+      "type": "number"
+    },
+    "status": {
+      "enum": [
+        "OPEN",
+        "ANSWERED",
+        "CANCELLED"
+      ]
+    },
+    "created_at": {
+      "type": "string"
+    }
+  }
+}

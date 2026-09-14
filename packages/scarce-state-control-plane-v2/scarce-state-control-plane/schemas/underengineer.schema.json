@@ -1,0 +1,11 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"UnderengineerPlan",
+  "type":"object",
+  "required":["primitive","rule","scarce_state_target","first_real_moat_event","minimal_live_product","steps","explicitly_not_now","graduation_rule","kill_or_rethink_rule"],
+  "properties":{
+    "primitive":{"const":"UNDERENGINEER/1.0"},"scarce_state_target":{"type":"string"},"first_real_moat_event":{"type":"string"},
+    "minimal_live_product":{"type":"string"},"steps":{"type":"array","minItems":1,"maxItems":6},"explicitly_not_now":{"type":"array"},
+    "graduation_rule":{"type":"string"},"kill_or_rethink_rule":{"type":"string"}
+  }
+}

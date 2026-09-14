@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RunContribution",
+  "type": "object",
+  "required": [
+    "kind",
+    "run_id",
+    "contract_root",
+    "operational_result",
+    "contributions"
+  ],
+  "properties": {
+    "kind": {
+      "const": "RUN_CONTRIBUTION"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "operational_result": {
+      "enum": [
+        "COMPLETED",
+        "FAILED",
+        "BLOCKED",
+        "ABANDONED"
+      ]
+    },
+    "cost": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "duration_ms": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "tokens": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "contributions": {
+      "type": "object"
+    },
+    "contract_root": {
+      "type": "string"
+    },
+    "execution_plan_root": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

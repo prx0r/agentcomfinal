@@ -1,0 +1,46 @@
+{
+  "event_id": "YYYYMMDD-short-name",
+  "date": "YYYY-MM-DD",
+  "observation": "",
+  "confidence": 0.0,
+  "capability_delta": {
+    "before": "",
+    "after": "",
+    "cost_curve": "",
+    "quality_curve": "",
+    "chain_closed": [],
+    "remaining_bottlenecks": []
+  },
+  "industry": {
+    "constraints_loosened": [],
+    "constraints_tightened": [],
+    "shadow_prices_down": [],
+    "shadow_prices_up": [],
+    "winners": [],
+    "losers": [],
+    "second_order_effects": [],
+    "falsifiers": []
+  },
+  "person": {
+    "activities_affected": [
+      {
+        "activity": "",
+        "commodity_output": "",
+        "machine_substitution_0_5": 0,
+        "chain_closure_0_5": 0,
+        "human_source_premium_0_5": 0,
+        "intrinsic_practice_value_0_5": 0,
+        "ai_complementarity_0_5": 0,
+        "optionality_0_5": 0,
+        "asset_compounding_0_5": 0,
+        "acquisition_cost_0_5": 0,
+        "economic_half_life_guess_years": null,
+        "motive_residuals": [],
+        "classification": "STOP|START|OWN|PRACTICE|WATCH",
+        "reason": ""
+      }
+    ],
+    "new_positive_ai_beta_assets": [],
+    "falsifiers": []
+  }
+}

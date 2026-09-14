@@ -1,0 +1,39 @@
+---
+original_r2_key: "pogtown band"
+sha12: 40bdbd25af4c
+size_bytes: 1000
+description: "Pogtown band: music agents, instruments, POGCASTS"
+---
+
+pogtown ideas:
+
+band - use magenta or similar agents control one musical instrument, after deciding who will be the leader it can be a whole protocol lol
+
+singer - can use stable audio acapella mode, steal som song writer logic then instead of writing a minute she can write a song :')
+also humans can sing i guess it provides pretty safe way to not get embarrased
+
+maybe can have musical instrument mode and then it displays their charcter playing it with live note matching
+
+
+
+
+general pogtown vibes:
+
+- visceral tangible vivid high vibration clear catchy music - wreck it ralph meets fifa meets adventure, meets monstercat nostalgia
+
+- jungle/afrobeats/reggae/soul music / greenteapeng  but honestly we can autogenerate it 
+
+- can change the channel - agents react to the music with wave data
+
+- POGCASTS on the radio just unhinged shit
+
+
+
+- monstercat logo type for the emblem , think clean nft
+
+
+
+
+
+
+ok quick detour our current agent stack can we make it dance in time with music? web searh this

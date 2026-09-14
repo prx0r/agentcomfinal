@@ -1,0 +1,64 @@
+{
+  "classes": [
+    {
+      "id": "cognition",
+      "description": "general reasoning/generation",
+      "ai_direction": "rapidly cheaper"
+    },
+    {
+      "id": "compute",
+      "description": "inference/training hardware and serving",
+      "ai_direction": "demand rises with capability"
+    },
+    {
+      "id": "memory",
+      "description": "persistent context/state/storage",
+      "ai_direction": "demand rises"
+    },
+    {
+      "id": "power",
+      "description": "energy supply/grid/cooling",
+      "ai_direction": "relative scarcity rises"
+    },
+    {
+      "id": "data",
+      "description": "fresh/proprietary ground truth",
+      "ai_direction": "relative scarcity rises"
+    },
+    {
+      "id": "physical_execution",
+      "description": "robots, logistics, installation, field work",
+      "ai_direction": "scarce until embodied systems scale"
+    },
+    {
+      "id": "trust",
+      "description": "reputation/liability/verification",
+      "ai_direction": "likely rises under synthetic abundance"
+    },
+    {
+      "id": "authority",
+      "description": "permission to alter consequential state",
+      "ai_direction": "rises with autonomous agents"
+    },
+    {
+      "id": "distribution",
+      "description": "trusted access to users/agents",
+      "ai_direction": "ambiguous; host distribution can commoditize some layers"
+    },
+    {
+      "id": "network_liquidity",
+      "description": "active counterparties and market depth",
+      "ai_direction": "durable if real liquidity exists"
+    },
+    {
+      "id": "physical_assets",
+      "description": "land/equipment/infrastructure",
+      "ai_direction": "not synthesizable by software"
+    },
+    {
+      "id": "trajectories",
+      "description": "state-action-outcome history",
+      "ai_direction": "high value for world models/evals/control"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExperimentRun",
+  "type": "object",
+  "required": [
+    "experiment_id",
+    "project_id",
+    "world",
+    "evidence_source",
+    "result"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "strategy_family": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "world": {
+      "type": "string"
+    },
+    "hypothesis": {
+      "type": "string"
+    },
+    "frozen_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evidence_source": {
+      "enum": [
+        "simulation",
+        "fixture",
+        "replay",
+        "external",
+        "economic",
+        "scarce_state"
+      ]
+    },
+    "result": {
+      "enum": [
+        "SUCCESS",
+        "FAIL",
+        "INCONCLUSIVE",
+        "OPEN"
+      ]
+    },
+    "metric": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "cost": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "human_minutes": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "receipt_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

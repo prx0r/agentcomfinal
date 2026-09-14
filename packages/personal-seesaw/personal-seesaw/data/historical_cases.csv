@@ -1,0 +1,11 @@
+case,period,threatened_output,chain_closure_0_5,machine_cost_slope_0_5,human_source_premium_0_5,intrinsic_practice_0_5,ai_tech_complementarity_0_5,optionality_0_5,retrospective_fit,note
+power_loom_handloom,1800s,commodity weaving,5,5,1,2,1,2,high,Handloom commodity economics collapsed; craft residual survived
+photography_portraiture,1840s+,literal visual capture,4,5,4,4,3,4,medium-high,Likeness commoditized; interpretation/provenance persisted
+electronic_computers_human_computers,1950s-60s,manual numerical calculation,5,5,1,2,5,5,high,Calculation automated; programming/modeling rose
+word_processing_secretarial,1970s-90s,typing/editing/transcription,4,4,1,2,4,4,medium,Mechanical clerical tasks fell; coordination persisted
+atm_tellers,1970s-2000s,cash transaction handling,3,4,1,2,3,3,medium,Task automated; occupation adapted; demand elasticity mattered
+chess_engines,1990s+,best-move calculation,5,5,5,5,3,3,high,Performance superseded; human game persisted as sport/identity
+gps_navigation,1990s+,routine positioning/routing,4,5,1,2,4,4,medium-high,Routine navigation automated; resilience/judgment persisted
+desktop_publishing,1980s-90s,mechanical typesetting/layout production,5,4,2,2,4,4,high,Production commoditized; design/taste moved up-stack
+calculators_spreadsheets,1970s+,routine arithmetic/tabulation,5,5,1,3,5,5,high,Arithmetic execution cheap; modeling/interpretation rose
+generative_media,2020s+,generic prose/image/audio execution,4,5,4,5,4,5,open,Live case: execution cheapening; provenance/taste/distribution may rise

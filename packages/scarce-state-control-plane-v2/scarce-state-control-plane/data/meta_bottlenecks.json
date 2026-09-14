@@ -1,0 +1,100 @@
+[
+  {
+    "id": "authority",
+    "name": "Human control of consequential agent action",
+    "statement": "Agents can generate high-quality actions but external consequences require deterministic scoped authority.",
+    "current_solution": "QP GRANT + proof-level gate + credential broker + H-task fallback",
+    "experiments": [
+      "Vary proof level by risk",
+      "Measure false-block vs unsafe-allow",
+      "Measure H-task minutes saved"
+    ]
+  },
+  {
+    "id": "validation",
+    "name": "Behavioral proof of working software",
+    "statement": "Code/test presence can still produce false-done; need validators tied to user-visible consequences.",
+    "current_solution": "Active/attested evidence classes + deterministic validators; self-reported live events remain claims",
+    "experiments": [
+      "event_match vs active probe",
+      "WASM vs Python reference parity",
+      "live-vs-fixture provenance enforcement"
+    ]
+  },
+  {
+    "id": "decomposition",
+    "name": "Correct checkpoint granularity",
+    "statement": "Too coarse hides failures; too fine creates overhead.",
+    "current_solution": "Each checkpoint proves one externally observable transition and states exactly what it implies.",
+    "experiments": [
+      "checkpoint size vs retries",
+      "dependency depth vs completion speed"
+    ]
+  },
+  {
+    "id": "autonomy-frontier",
+    "name": "Autonomous vs augmented vs human task frontier",
+    "statement": "Maximum autonomy is not the objective; expected verified progress per human-minute is.",
+    "current_solution": "M/H/A task class + confidence/risk + run metrics",
+    "experiments": [
+      "confidence thresholds",
+      "auto-run variants",
+      "human intervention timing"
+    ]
+  },
+  {
+    "id": "reuse",
+    "name": "Cross-project component reuse",
+    "statement": "Cmail, security, QP, demand and commerce primitives should compound rather than fork.",
+    "current_solution": "Shared component registry and explicit project dependency matrix",
+    "experiments": [
+      "reuse count",
+      "integration defect rate",
+      "time saved vs bespoke"
+    ]
+  },
+  {
+    "id": "learning",
+    "name": "Learning from alternative successful paths",
+    "statement": "Different agents can reach the same gate through different paths; the trajectories are training data.",
+    "current_solution": "Seed0-style tournaments + content-addressed run receipts",
+    "experiments": [
+      "agent6/agent7/seed variants",
+      "cost-quality Pareto",
+      "distill repeated successful macros"
+    ]
+  },
+  {
+    "id": "scarcity-identification",
+    "name": "Correctly identify the scarce external asset",
+    "statement": "Software can look differentiated while the underlying economic resource is public or bypassable.",
+    "current_solution": "Software substitution test + scarce asset declaration + resource-controller/right/capture analysis",
+    "experiments": [
+      "MCP/API resource miner",
+      "platform bypass simulations",
+      "asset score vs realized WTP"
+    ]
+  },
+  {
+    "id": "underengineering",
+    "name": "Shortest path to first real moat event",
+    "statement": "Feature-complete roadmaps delay the first observation that could validate or kill the business thesis.",
+    "current_solution": "UNDERENGINEER chooses one moat event, minimum prerequisites, safety/verification, explicit NOT_NOW and observation pause.",
+    "experiments": [
+      "time-to-first-moat-event",
+      "human minutes to first asset unit",
+      "features built before first live outcome"
+    ]
+  },
+  {
+    "id": "platform-capture",
+    "name": "Underlying resource owner can bypass the interface",
+    "statement": "Owning an adapter is weak if the actual resource controller can expose the same capability directly to a dominant agent platform.",
+    "current_solution": "Track controller, our_right, platform_capture and independent customer/outcome ownership per scarce asset.",
+    "experiments": [
+      "direct-platform counterfactual",
+      "cross-platform portability",
+      "customer relationship retention"
+    ]
+  }
+]

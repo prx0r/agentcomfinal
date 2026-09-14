@@ -1,0 +1,643 @@
+{
+  "id": "breadup",
+  "name": "BreadUp",
+  "repo": "https://github.com/prx0r/breadup",
+  "domain": "commerce",
+  "one_liner": "Photograph an object and turn it into optimized commerce; then expand upstream into demand sensing and agent-to-agent selling.",
+  "core_thesis": "Most people do not want marketplace tooling; they want an object converted into money. A photo can become identification, valuation, sell-speed tradeoff, listing, channel selection, negotiation and P&L. The same commerce engine can later invert the flow by sensing demand first and recommending what to source and sell.",
+  "why_now": "Multimodal models, marketplace data and agent action surfaces make listing friction compressible.",
+  "user": "Casual seller/reseller/microbusiness",
+  "job": "Convert possessions or sourced inventory into sales with minimal manual work.",
+  "distribution": "Photo-first consumer UX; marketplace integrations; later ChatGPT commerce surface.",
+  "moat": "Cross-market comp data, sell-through calibration, pricing policy, negotiation traces and reusable commerce adapters.",
+  "falsifiers": [
+    "Marketplace APIs/actions remain too restricted.",
+    "Valuation confidence is insufficient for users to trust automated listing.",
+    "Acquisition/distribution costs exceed resale margins."
+  ],
+  "components": [
+    "demand",
+    "qp",
+    "atask",
+    "security",
+    "plugin"
+  ],
+  "checkpoints": [
+    {
+      "id": "breadup.01.photo-upload",
+      "ordinal": 1,
+      "title": "User can submit a product photo and receive a stable item record",
+      "user_behavior": "User can submit a product photo and receive a stable item record",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 1 behavior for BreadUp; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "breadup.photo_ingested",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "breadup.photo_ingested",
+        "where": {
+          "checkpoint_id": "breadup.01.photo-upload",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "breadup.02.identify",
+      "ordinal": 2,
+      "title": "System identifies category/object with confidence and alternatives",
+      "user_behavior": "System identifies category/object with confidence and alternatives",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 2 behavior for BreadUp; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "breadup.01.photo-upload"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "breadup.item_identified",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "breadup.item_identified",
+        "where": {
+          "checkpoint_id": "breadup.02.identify",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "breadup.03.condition",
+      "ordinal": 3,
+      "title": "Condition/defects can be attached as evidence rather than silently assumed",
+      "user_behavior": "Condition/defects can be attached as evidence rather than silently assumed",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 3 behavior for BreadUp; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "breadup.02.identify"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "breadup.condition_recorded",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "breadup.condition_recorded",
+        "where": {
+          "checkpoint_id": "breadup.03.condition",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "breadup.04.comps",
+      "ordinal": 4,
+      "title": "Recent comparable sales/listings are normalized into a valuation set",
+      "user_behavior": "Recent comparable sales/listings are normalized into a valuation set",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 4 behavior for BreadUp; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "breadup.03.condition"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "breadup.comps_loaded",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "breadup.comps_loaded",
+        "where": {
+          "checkpoint_id": "breadup.04.comps",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "breadup.05.sell-speed",
+      "ordinal": 5,
+      "title": "User selects desired sell speed and receives a price/range tradeoff",
+      "user_behavior": "User selects desired sell speed and receives a price/range tradeoff",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 5 behavior for BreadUp; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "breadup.04.comps"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "breadup.sell_speed_priced",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "breadup.sell_speed_priced",
+        "where": {
+          "checkpoint_id": "breadup.05.sell-speed",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "breadup.06.channel",
+      "ordinal": 6,
+      "title": "System recommends marketplace/channel with stated economics",
+      "user_behavior": "System recommends marketplace/channel with stated economics",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 6 behavior for BreadUp; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "breadup.05.sell-speed"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "breadup.channel_selected",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "breadup.channel_selected",
+        "where": {
+          "checkpoint_id": "breadup.06.channel",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "breadup.07.listing",
+      "ordinal": 7,
+      "title": "A complete listing draft is generated from item evidence",
+      "user_behavior": "A complete listing draft is generated from item evidence",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 7 behavior for BreadUp; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "breadup.06.channel"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "breadup.listing_generated",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "breadup.listing_generated",
+        "where": {
+          "checkpoint_id": "breadup.07.listing",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "breadup.08.publish-gate",
+      "ordinal": 8,
+      "title": "Publishing requires a marketplace capability grant and final deterministic checks",
+      "user_behavior": "Publishing requires a marketplace capability grant and final deterministic checks",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 8 behavior for BreadUp; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "breadup.07.listing"
+      ],
+      "authority": "A",
+      "minimum_proof_level": "V9",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "breadup.publish_authorized",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "breadup.publish_authorized",
+        "where": {
+          "checkpoint_id": "breadup.08.publish-gate",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "breadup.09.publish",
+      "ordinal": 9,
+      "title": "A listing ID/URL receipt proves the marketplace accepted the listing",
+      "user_behavior": "A listing ID/URL receipt proves the marketplace accepted the listing",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 9 behavior for BreadUp; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "breadup.08.publish-gate"
+      ],
+      "authority": "A",
+      "minimum_proof_level": "V9",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "breadup.listing_published",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "breadup.listing_published",
+        "where": {
+          "checkpoint_id": "breadup.09.publish",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "breadup.10.buyer-message",
+      "ordinal": 10,
+      "title": "Inbound buyer message can be classified and a bounded response generated/sent",
+      "user_behavior": "Inbound buyer message can be classified and a bounded response generated/sent",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 10 behavior for BreadUp; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "breadup.09.publish"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "breadup.buyer_handled",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "breadup.buyer_handled",
+        "where": {
+          "checkpoint_id": "breadup.10.buyer-message",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "breadup.11.pnl",
+      "ordinal": 11,
+      "title": "Sale/fees/shipping/cost basis produce item-level P&L",
+      "user_behavior": "Sale/fees/shipping/cost basis produce item-level P&L",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 11 behavior for BreadUp; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "breadup.10.buyer-message"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "breadup.pnl_updated",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "breadup.pnl_updated",
+        "where": {
+          "checkpoint_id": "breadup.11.pnl",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "breadup.12.demand-mode",
+      "ordinal": 12,
+      "title": "A trend signal can invert the flow and create a source-to-sell opportunity graph",
+      "user_behavior": "A trend signal can invert the flow and create a source-to-sell opportunity graph",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 12 behavior for BreadUp; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "breadup.11.pnl"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "breadup.demand_opportunity",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "breadup.demand_opportunity",
+        "where": {
+          "checkpoint_id": "breadup.12.demand-mode",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    }
+  ],
+  "success_definition": "All 12 checkpoints PROVEN on live evidence, with no unresolved critical H-task or security gate.",
+  "repo_binding": {
+    "url": "https://github.com/prx0r/breadup",
+    "polling": "GitHub snapshots are implementation evidence only; checkpoint proof comes from validator receipts."
+  },
+  "frozen_at": "2026-09-14"
+}

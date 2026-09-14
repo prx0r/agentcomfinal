@@ -1,0 +1,26 @@
+{
+  "id": "domain-checker",
+  "name": "Exact Domain Checker",
+  "purpose": "Check exact current domain availability and compare candidate names.",
+  "source": {
+    "kind": "owned_mcp",
+    "url": "https://example.invalid/mcp"
+  },
+  "rights_status": "owned",
+  "scores": {
+    "intent_frequency": 4,
+    "user_value": 4,
+    "externality": 5,
+    "authoritative_state": 5,
+    "actionability": 3.5,
+    "verifiability": 5,
+    "chat_fit": 5,
+    "ai_complementarity": 5,
+    "existing_mcp_quality": 4,
+    "rights_clarity": 5,
+    "auth_friction": 1,
+    "safety_liability": 1,
+    "internalization_risk": 0.5,
+    "distribution_ambiguity": 1.5
+  }
+}

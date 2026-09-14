@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SeesawProject",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "thesis",
+    "scarcity",
+    "fragility",
+    "ownership"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "thesis": {
+      "type": "string"
+    },
+    "scarcity": {
+      "type": "object"
+    },
+    "fragility": {
+      "type": "object"
+    },
+    "ownership": {
+      "type": "object"
+    },
+    "features": {
+      "type": "array"
+    }
+  }
+}

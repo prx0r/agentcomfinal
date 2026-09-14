@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "user_behavior",
+    "implies",
+    "depends_on",
+    "authority",
+    "minimum_proof_level",
+    "evidence_contract",
+    "validator",
+    "reward"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "authority": {
+      "enum": [
+        "M",
+        "H",
+        "A"
+      ]
+    },
+    "status": {
+      "enum": [
+        "UNSTARTED",
+        "CODE_PRESENT",
+        "EVIDENCED",
+        "VALIDATED",
+        "PROVEN",
+        "BLOCKED"
+      ]
+    }
+  }
+}

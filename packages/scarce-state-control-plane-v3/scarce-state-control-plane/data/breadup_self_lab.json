@@ -1,0 +1,40 @@
+{
+  "version": "3.0.0",
+  "thesis": "Use the same architecture we want to sell: sense demand, propose a product/action, simulate/backtest cheaply, expose the minimum real offer, observe sell-through, and accumulate a reusable outcome dataset.",
+  "loop": [
+    "sense",
+    "hypothesize",
+    "freeze_prediction",
+    "simulate_or_backtest",
+    "select_world",
+    "publish_or_act",
+    "observe_real_outcome",
+    "normalize_dataset_row",
+    "update_strategy_family",
+    "replicate_or_kill"
+  ],
+  "hard_boundary": "simulation/backtest may decide what to try; only external outcomes update demand/economic/scarce-state performance.",
+  "dataset_fields": [
+    "experiment_id",
+    "strategy_family",
+    "world",
+    "hypothesis_frozen_at",
+    "input_signal_refs",
+    "offer_or_action",
+    "price",
+    "channel",
+    "impressions",
+    "invocations",
+    "conversions",
+    "revenue",
+    "time_to_outcome",
+    "clearing_price",
+    "negotiation_trace_ref",
+    "return_or_failure",
+    "external_receipt_ref",
+    "evidence_class",
+    "result",
+    "notes"
+  ],
+  "use_for_breadup_customer_product": "The accumulated dataset becomes the empirical substrate for pricing, channel choice, sell-speed estimates, product sourcing and future user recommendations."
+}

@@ -1,0 +1,769 @@
+{
+  "id": "astra-plugin-factory",
+  "name": "Astra / ChatGPT Capability Factory",
+  "repo": "https://github.com/prx0r/plugin",
+  "domain": "agent infrastructure",
+  "one_liner": "Discover economically useful capabilities, mine GitHub before coding, assemble them, validate them, then compile them into ChatGPT/MCP/web/API surfaces.",
+  "core_thesis": "As model cognition becomes abundant, a large fraction of valuable software capabilities can be assembled from existing open-source components. The winning factory searches for demand, specifies an atomic capability, mines GitHub aggressively, composes the best parts, fills gaps, validates behavior deterministically, and publishes where users already express intent\u2014especially ChatGPT.",
+  "why_now": "ChatGPT-native app/plugin distribution is newer than most model training data and can remove large portions of standalone SaaS distribution and UI cost.",
+  "user": "Operator who wants a repeatable capability factory",
+  "job": "Turn a grounded opportunity into a tested ChatGPT-native capability with minimal bespoke code.",
+  "distribution": "ChatGPT apps/plugins first; same capability compiled to MCP, website, API and x402.",
+  "moat": "Capability ontology + GitHub component graph + deterministic eval corpus + cross-build trajectories.",
+  "falsifiers": [
+    "Plugin discovery does not provide meaningful distribution.",
+    "GitHub assembly is slower or less reliable than clean-room generation.",
+    "Capabilities cannot share enough infrastructure to compound."
+  ],
+  "components": [
+    "plugin",
+    "atask",
+    "seed0",
+    "qp",
+    "security",
+    "demand"
+  ],
+  "checkpoints": [
+    {
+      "id": "astra-plugin-factory.01.opportunity",
+      "ordinal": 1,
+      "title": "A grounded opportunity becomes a typed capability hypothesis",
+      "user_behavior": "A grounded opportunity becomes a typed capability hypothesis",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 1 behavior for Astra / ChatGPT Capability Factory; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "factory.opportunity_typed",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "factory.opportunity_typed",
+        "where": {
+          "checkpoint_id": "astra-plugin-factory.01.opportunity",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "astra-plugin-factory.02.capability-spec",
+      "ordinal": 2,
+      "title": "Capability has explicit user input/output and success contract",
+      "user_behavior": "Capability has explicit user input/output and success contract",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 2 behavior for Astra / ChatGPT Capability Factory; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "astra-plugin-factory.01.opportunity"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "factory.capability_spec",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "factory.capability_spec",
+        "where": {
+          "checkpoint_id": "astra-plugin-factory.02.capability-spec",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "astra-plugin-factory.03.github-search",
+      "ordinal": 3,
+      "title": "Agent records GitHub component candidates before bespoke implementation",
+      "user_behavior": "Agent records GitHub component candidates before bespoke implementation",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 3 behavior for Astra / ChatGPT Capability Factory; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "astra-plugin-factory.02.capability-spec"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "factory.github_candidates",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "factory.github_candidates",
+        "where": {
+          "checkpoint_id": "astra-plugin-factory.03.github-search",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "astra-plugin-factory.04.component-score",
+      "ordinal": 4,
+      "title": "Candidates are scored for fit, recency, license, tests and integration cost",
+      "user_behavior": "Candidates are scored for fit, recency, license, tests and integration cost",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 4 behavior for Astra / ChatGPT Capability Factory; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "astra-plugin-factory.03.github-search"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "factory.components_scored",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "factory.components_scored",
+        "where": {
+          "checkpoint_id": "astra-plugin-factory.04.component-score",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "astra-plugin-factory.05.assembly-plan",
+      "ordinal": 5,
+      "title": "Chosen components form a dependency-ordered assembly plan",
+      "user_behavior": "Chosen components form a dependency-ordered assembly plan",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 5 behavior for Astra / ChatGPT Capability Factory; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "astra-plugin-factory.04.component-score"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "factory.assembly_plan",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "factory.assembly_plan",
+        "where": {
+          "checkpoint_id": "astra-plugin-factory.05.assembly-plan",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "astra-plugin-factory.06.sandbox-build",
+      "ordinal": 6,
+      "title": "A build variant runs in an isolated workspace and emits receipts",
+      "user_behavior": "A build variant runs in an isolated workspace and emits receipts",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 6 behavior for Astra / ChatGPT Capability Factory; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "astra-plugin-factory.05.assembly-plan"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "factory.build_run",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "factory.build_run",
+        "where": {
+          "checkpoint_id": "astra-plugin-factory.06.sandbox-build",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "astra-plugin-factory.07.capability-eval",
+      "ordinal": 7,
+      "title": "Atomic capability behavior passes deterministic evals",
+      "user_behavior": "Atomic capability behavior passes deterministic evals",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 7 behavior for Astra / ChatGPT Capability Factory; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "astra-plugin-factory.06.sandbox-build"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "factory.capability_validated",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "factory.capability_validated",
+        "where": {
+          "checkpoint_id": "astra-plugin-factory.07.capability-eval",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "astra-plugin-factory.08.surface-mcp",
+      "ordinal": 8,
+      "title": "Validated capability is exposed through an MCP-compatible tool contract",
+      "user_behavior": "Validated capability is exposed through an MCP-compatible tool contract",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 8 behavior for Astra / ChatGPT Capability Factory; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "astra-plugin-factory.07.capability-eval"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "factory.mcp_surface",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "factory.mcp_surface",
+        "where": {
+          "checkpoint_id": "astra-plugin-factory.08.surface-mcp",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "astra-plugin-factory.09.surface-chatgpt",
+      "ordinal": 9,
+      "title": "Same capability has ChatGPT app/plugin manifest/action surface",
+      "user_behavior": "Same capability has ChatGPT app/plugin manifest/action surface",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 9 behavior for Astra / ChatGPT Capability Factory; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "astra-plugin-factory.08.surface-mcp"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "factory.chatgpt_surface",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "factory.chatgpt_surface",
+        "where": {
+          "checkpoint_id": "astra-plugin-factory.09.surface-chatgpt",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "astra-plugin-factory.10.surface-web",
+      "ordinal": 10,
+      "title": "Same capability can be invoked from minimal web/API surface",
+      "user_behavior": "Same capability can be invoked from minimal web/API surface",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 10 behavior for Astra / ChatGPT Capability Factory; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "astra-plugin-factory.09.surface-chatgpt"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "factory.web_surface",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "factory.web_surface",
+        "where": {
+          "checkpoint_id": "astra-plugin-factory.10.surface-web",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "astra-plugin-factory.11.tournament",
+      "ordinal": 11,
+      "title": "Multiple assembly variants are compared under identical gates",
+      "user_behavior": "Multiple assembly variants are compared under identical gates",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 11 behavior for Astra / ChatGPT Capability Factory; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "astra-plugin-factory.10.surface-web"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "factory.tournament",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "factory.tournament",
+        "where": {
+          "checkpoint_id": "astra-plugin-factory.11.tournament",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "astra-plugin-factory.12.feedback",
+      "ordinal": 12,
+      "title": "Real usage outcome feeds back into capability/eval data",
+      "user_behavior": "Real usage outcome feeds back into capability/eval data",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 12 behavior for Astra / ChatGPT Capability Factory; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "astra-plugin-factory.11.tournament"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "factory.outcome_recorded",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "factory.outcome_recorded",
+        "where": {
+          "checkpoint_id": "astra-plugin-factory.12.feedback",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    }
+  ],
+  "success_definition": "All 12 checkpoints PROVEN on live evidence, with no unresolved critical H-task or security gate.",
+  "repo_binding": {
+    "url": "https://github.com/prx0r/plugin",
+    "polling": "GitHub snapshots are implementation evidence only; checkpoint proof comes from validator receipts."
+  },
+  "frozen_at": "2026-09-14",
+  "strategic_role": "infrastructure",
+  "software_substitution_test": {
+    "counterfactual": "OpenAI/platform vendors ship perfect software for every reproducible feature in this project tomorrow.",
+    "survival": "NO_AS_STANDALONE_BUSINESS",
+    "destroyed_value": [
+      "plugin compiler",
+      "MCP wrapper generation",
+      "generic routing",
+      "GitHub-to-app assembly"
+    ],
+    "surviving_value": [
+      "internal speed advantage when pointed at scarce assets controlled elsewhere"
+    ],
+    "rationale": "Assume platform vendors make protocol compilation trivial. Keep Astra only as the internal software factory surrounding scarce assets."
+  },
+  "scarce_assets": [],
+  "underengineer": {
+    "primitive": "UNDERENGINEER/2.0",
+    "rule": "Choose the earliest real-world event that increases controlled scarce state; build only its prerequisites plus safety and verification.",
+    "scarce_state_target": "Manufacture one interface required by a live asset campaign",
+    "first_real_moat_event": "scarce_asset_exposed_through_one_working_surface",
+    "minimal_live_product": "Given an already-owned scarce asset and behavior contract, search existing components, assemble the smallest interface, and pass one active capability probe.",
+    "steps": [
+      {
+        "id": "ue.01.bind",
+        "ordinal": 1,
+        "action": "Bind to a scarce asset owned by another campaign",
+        "authority": "M",
+        "acceptance": "Asset ID and behavior contract are explicit."
+      },
+      {
+        "id": "ue.02.reuse",
+        "ordinal": 2,
+        "action": "Search and select reusable components before bespoke code",
+        "authority": "M",
+        "acceptance": "Assembly manifest exists."
+      },
+      {
+        "id": "ue.03.surface",
+        "ordinal": 3,
+        "action": "Build exactly one required interface",
+        "authority": "M",
+        "acceptance": "One callable surface exists."
+      },
+      {
+        "id": "ue.04.probe",
+        "ordinal": 4,
+        "action": "Actively probe the interface against the real asset",
+        "authority": "M",
+        "acceptance": "Independent probe receipt passes."
+      }
+    ],
+    "explicitly_not_now": [
+      "multi-protocol compiler",
+      "generic app marketplace",
+      "routing optimization",
+      "beautiful scaffolding",
+      "surface parity across MCP/web/x402"
+    ],
+    "graduation_rule": "A live campaign acquires or monetizes scarce state through the generated interface.",
+    "kill_or_rethink_rule": "If the interface is not required for a live scarce-asset event, do not build it.",
+    "project_manager_invariant": "A feature may enter NOW only if it is necessary to reach the first real moat event, required for safety/verification, or empirically unblocks that path.",
+    "observation_pause": "After the first live moat event, stop expanding and inspect customer/outcome evidence before choosing the next feature.",
+    "required_components_now": [
+      "atask",
+      "security"
+    ]
+  },
+  "priority_inputs": {
+    "importance": 4,
+    "asset_value": 1,
+    "effort": 2,
+    "human_burden": 1,
+    "moat_beta": 1
+  },
+  "moat_metric": "scarce_asset_campaign_enablement",
+  "full_roadmap_policy": "The original checkpoint ladder is a capability library, not default build order. UNDERENGINEER chooses the live minimum path.",
+  "experiment_strategy": {
+    "target_profile": "chatgpt_apps",
+    "candidates": [
+      "internal_simulation",
+      "chatgpt_app"
+    ],
+    "preferred_sequence": [
+      "internal_simulation",
+      "chatgpt_app"
+    ],
+    "learning_goal": "Use as cheap probe/manufacturing infrastructure only when pulled by an asset campaign."
+  }
+}

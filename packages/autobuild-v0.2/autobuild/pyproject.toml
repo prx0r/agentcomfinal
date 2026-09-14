@@ -1,0 +1,13 @@
+[project]
+name = "autobuild"
+version = "0.2.0"
+description = "Strategy-to-provable-target compiler for autonomous builds"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+autobuild = "autobuild.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

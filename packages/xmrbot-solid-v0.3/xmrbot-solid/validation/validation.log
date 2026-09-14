@@ -1,0 +1,68 @@
+
+===== compileall =====
+
+PASS: compileall
+
+===== pytest =====
+
+......................................                                   [100%]
+PASS: pytest
+
+===== editable-install =====
+
+WARNING: The directory '/home/oai/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+PASS: editable-install
+
+===== frontend-js-syntax =====
+
+PASS: frontend-js-syntax
+
+===== import-app =====
+
+routes 51
+PASS: import-app
+
+===== web-route-smoke =====
+
+{'/': 200, '/terminal': 200, '/mine': 200, '/ask': 200, '/blog': 200, '/recipes': 200, '/llms.txt': 200, '/robots.txt': 200, '/sitemap.xml': 200, '/v1/site/map': 200}
+PASS: web-route-smoke
+
+===== cli-network =====
+
+{
+  "timestamp": "2026-09-13T02:41:25.050680Z",
+  "height": 0,
+  "difficulty": 708000000000.0,
+  "target_seconds": 120.0,
+  "estimated_hashrate_hs": 5900000000.0,
+  "reward_xmr": 0.6,
+  "xmr_usd": 500.0,
+  "mempool_transactions": 0,
+  "fee_per_byte_atomic": 0,
+  "source": "offline-seed-config",
+  "confidence": 0.25,
+  "daily_emission_xmr": 432.0,
+  "hashprice_xmr_per_khs_day": 7.322033898305084e-05,
+  "hashprice_usd_per_khs_day": 0.036610169491525416,
+  "methodologies": [
+    "estimated-network-hashrate-v1",
+    "xmr-hashprice-v1"
+  ]
+}
+PASS: cli-network
+
+===== mcp-stdio-tools =====
+
+PASS: mcp-stdio-tools
+
+===== mcp-stdio-resources =====
+
+PASS: mcp-stdio-resources
+
+===== style-contract =====
+
+PASS: style-contract
+
+===== forbidden-secret-scan =====
+
+PASS: forbidden-secret-scan

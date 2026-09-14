@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "checkpoint_id",
+    "validator_id",
+    "result",
+    "evidence_root",
+    "source_class"
+  ],
+  "properties": {
+    "result": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "UNKNOWN"
+      ]
+    },
+    "source_class": {
+      "enum": [
+        "live",
+        "fixture",
+        "replay"
+      ]
+    }
+  }
+}

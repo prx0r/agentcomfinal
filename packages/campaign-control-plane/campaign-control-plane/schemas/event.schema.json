@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "ts",
+    "source",
+    "event_type",
+    "checkpoint_id",
+    "ok",
+    "run_id"
+  ],
+  "properties": {
+    "source": {
+      "enum": [
+        "live",
+        "fixture",
+        "replay"
+      ]
+    },
+    "ok": {
+      "type": "boolean"
+    }
+  }
+}

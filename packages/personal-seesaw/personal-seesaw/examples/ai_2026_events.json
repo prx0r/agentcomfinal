@@ -1,0 +1,131 @@
+[
+  {
+    "event_id": "2026-ai-one-shot-media",
+    "observation": "Frontier models can generate high-quality prose/images/audio at very low marginal cost.",
+    "industry": {
+      "constraints_loosened": [
+        "execution",
+        "iteration cost",
+        "personalization"
+      ],
+      "constraints_tightened": [
+        "attention",
+        "selection",
+        "trusted provenance",
+        "distribution"
+      ],
+      "shadow_prices_down": [
+        "generic production labor"
+      ],
+      "shadow_prices_up": [
+        "taste",
+        "audience access",
+        "credible identity",
+        "novel ground truth"
+      ]
+    },
+    "person": {
+      "stop": [
+        "treating generic execution quality as a durable moat"
+      ],
+      "start": [
+        "direct observation",
+        "taste calibration",
+        "distribution",
+        "provenance-aware creative practice"
+      ],
+      "own": [
+        "audience",
+        "archive of lived observations",
+        "rights/identity"
+      ],
+      "practice": [
+        "music/writing/art when intrinsic motives remain high"
+      ]
+    }
+  },
+  {
+    "event_id": "2026-world-models",
+    "observation": "Action-conditioned world models improve counterfactual prediction and planning.",
+    "industry": {
+      "constraints_loosened": [
+        "simulation",
+        "planning",
+        "robot control"
+      ],
+      "constraints_tightened": [
+        "high-quality trajectories",
+        "real-world calibration",
+        "physical access",
+        "safe authority"
+      ],
+      "shadow_prices_down": [
+        "some manual scenario analysis"
+      ],
+      "shadow_prices_up": [
+        "ground-truth data",
+        "evaluation",
+        "permission to act"
+      ]
+    },
+    "person": {
+      "stop": [
+        "competing with simulation on raw scenario enumeration"
+      ],
+      "start": [
+        "collecting unique trajectories",
+        "experimental design",
+        "action interfaces"
+      ],
+      "own": [
+        "real-world data rights",
+        "trusted execution channels"
+      ],
+      "practice": [
+        "human judgment where accountability/meaning matters"
+      ]
+    }
+  },
+  {
+    "event_id": "future-general-agents",
+    "observation": "Reliable agents can complete long digital workflows.",
+    "industry": {
+      "constraints_loosened": [
+        "coordination labor",
+        "digital back-office execution"
+      ],
+      "constraints_tightened": [
+        "authorization",
+        "identity",
+        "payments",
+        "exception ownership",
+        "liability"
+      ],
+      "shadow_prices_down": [
+        "routine digital operations"
+      ],
+      "shadow_prices_up": [
+        "authority rails",
+        "trusted principals",
+        "auditable state changes"
+      ]
+    },
+    "person": {
+      "stop": [
+        "specializing only in clicking through standard software"
+      ],
+      "start": [
+        "goals, controls, evaluation and authority boundaries"
+      ],
+      "own": [
+        "customer relationships",
+        "permissions",
+        "workflows",
+        "data"
+      ],
+      "practice": [
+        "domain craft when it builds judgment or intrinsic value"
+      ]
+    }
+  }
+]

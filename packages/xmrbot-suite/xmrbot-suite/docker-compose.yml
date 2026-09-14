@@ -1,0 +1,14 @@
+services:
+  xmrbot:
+    build: .
+    environment:
+      XMRBOT_DB_PATH: /data/xmrbot.db
+      XMRBOT_XMR_USD: ${XMRBOT_XMR_USD:-500}
+      XMRBOT_MONEROD_ENABLED: ${XMRBOT_MONEROD_ENABLED:-0}
+      XMRBOT_MONEROD_URL: ${XMRBOT_MONEROD_URL:-http://host.docker.internal:18081}
+    ports:
+      - "8000:8000"
+    volumes:
+      - xmrbot-data:/data
+volumes:
+  xmrbot-data:

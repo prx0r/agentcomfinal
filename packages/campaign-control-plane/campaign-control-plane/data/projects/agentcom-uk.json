@@ -1,0 +1,643 @@
+{
+  "id": "agentcom-uk",
+  "name": "AgentCom UK Business Onboarding",
+  "repo": "https://github.com/prx0r/agentcom",
+  "domain": "b2b",
+  "one_liner": "Show a UK SMB how it appears to ChatGPT, then make the company machine-readable and safely operable through ChatGPT.",
+  "core_thesis": "The initial sale is not an AI receptionist; it is visibility and operability in the interface customers increasingly use. A business can be represented as a canonical company graph with services, locations, availability, contacts, policies and integrations, then bounded actions can be executed through ChatGPT without exposing credentials.",
+  "why_now": "SMBs already suffer fragmented admin while agent interfaces are becoming capable of discovery and action.",
+  "user": "UK trades/SMB owner",
+  "job": "Get discovered accurately in ChatGPT and run calls, leads, bookings, quotes, invoices and admin without juggling software.",
+  "distribution": "Direct audit/onboarding wedge; reusable vertical templates for plumbers/electricians/barbers/beauty/garages.",
+  "moat": "CompanyGraph + vertical onboarding DAGs + permissioned tool surface + observed AutonomyRate/bottleneck dataset.",
+  "falsifiers": [
+    "ChatGPT discovery does not drive meaningful customer intent.",
+    "SMB onboarding contains too many unavoidable H-tasks to automate economically.",
+    "Owners do not trust bounded agent actions even with receipts."
+  ],
+  "components": [
+    "cmail",
+    "qp",
+    "atask",
+    "security",
+    "plugin"
+  ],
+  "checkpoints": [
+    {
+      "id": "agentcom-uk.01.audit-input",
+      "ordinal": 1,
+      "title": "Business URL/name can be ingested into a machine-readable audit request",
+      "user_behavior": "Business URL/name can be ingested into a machine-readable audit request",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 1 behavior for AgentCom UK Business Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "agentcom.audit_requested",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "agentcom.audit_requested",
+        "where": {
+          "checkpoint_id": "agentcom-uk.01.audit-input",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "agentcom-uk.02.current-view",
+      "ordinal": 2,
+      "title": "System renders the canonical facts an agent currently knows about the business",
+      "user_behavior": "System renders the canonical facts an agent currently knows about the business",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 2 behavior for AgentCom UK Business Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "agentcom-uk.01.audit-input"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "agentcom.current_view",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "agentcom.current_view",
+        "where": {
+          "checkpoint_id": "agentcom-uk.02.current-view",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "agentcom-uk.03.gap-view",
+      "ordinal": 3,
+      "title": "Audit identifies missing/ambiguous facts and unavailable actions",
+      "user_behavior": "Audit identifies missing/ambiguous facts and unavailable actions",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 3 behavior for AgentCom UK Business Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "agentcom-uk.02.current-view"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "agentcom.gaps_detected",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "agentcom.gaps_detected",
+        "where": {
+          "checkpoint_id": "agentcom-uk.03.gap-view",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "agentcom-uk.04.company-graph",
+      "ordinal": 4,
+      "title": "CompanyGraph persists services, location, contacts, resources, policies and provenance",
+      "user_behavior": "CompanyGraph persists services, location, contacts, resources, policies and provenance",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 4 behavior for AgentCom UK Business Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "agentcom-uk.03.gap-view"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "agentcom.company_graph",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "agentcom.company_graph",
+        "where": {
+          "checkpoint_id": "agentcom-uk.04.company-graph",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "agentcom-uk.05.identity",
+      "ordinal": 5,
+      "title": "Domain/email/phone/handles can be represented as resources with credential references",
+      "user_behavior": "Domain/email/phone/handles can be represented as resources with credential references",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 5 behavior for AgentCom UK Business Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "agentcom-uk.04.company-graph"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "agentcom.identity_resources",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "agentcom.identity_resources",
+        "where": {
+          "checkpoint_id": "agentcom-uk.05.identity",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "agentcom-uk.06.services",
+      "ordinal": 6,
+      "title": "User can ask what the business does and receive source-grounded service data",
+      "user_behavior": "User can ask what the business does and receive source-grounded service data",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 6 behavior for AgentCom UK Business Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "agentcom-uk.05.identity"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "agentcom.services_answered",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "agentcom.services_answered",
+        "where": {
+          "checkpoint_id": "agentcom-uk.06.services",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "agentcom-uk.07.availability",
+      "ordinal": 7,
+      "title": "Agent can query availability/coverage without inventing slots/areas",
+      "user_behavior": "Agent can query availability/coverage without inventing slots/areas",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 7 behavior for AgentCom UK Business Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "agentcom-uk.06.services"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "agentcom.availability_answered",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "agentcom.availability_answered",
+        "where": {
+          "checkpoint_id": "agentcom-uk.07.availability",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "agentcom-uk.08.lead-action",
+      "ordinal": 8,
+      "title": "A permitted lead action can be executed through a scoped capability",
+      "user_behavior": "A permitted lead action can be executed through a scoped capability",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 8 behavior for AgentCom UK Business Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "agentcom-uk.07.availability"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "agentcom.lead_action",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "agentcom.lead_action",
+        "where": {
+          "checkpoint_id": "agentcom-uk.08.lead-action",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "agentcom-uk.09.quote-action",
+      "ordinal": 9,
+      "title": "A quote draft/action is linked to customer/job state and policy",
+      "user_behavior": "A quote draft/action is linked to customer/job state and policy",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 9 behavior for AgentCom UK Business Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "agentcom-uk.08.lead-action"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "agentcom.quote_action",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "agentcom.quote_action",
+        "where": {
+          "checkpoint_id": "agentcom-uk.09.quote-action",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "agentcom-uk.10.invoice-action",
+      "ordinal": 10,
+      "title": "Invoice/chase state is queryable and consequential sends are gated",
+      "user_behavior": "Invoice/chase state is queryable and consequential sends are gated",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 10 behavior for AgentCom UK Business Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "agentcom-uk.09.quote-action"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "agentcom.invoice_action",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "agentcom.invoice_action",
+        "where": {
+          "checkpoint_id": "agentcom-uk.10.invoice-action",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "agentcom-uk.11.human-queue",
+      "ordinal": 11,
+      "title": "KYC/OTP/purchase blockers appear as precise H-tasks",
+      "user_behavior": "KYC/OTP/purchase blockers appear as precise H-tasks",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 11 behavior for AgentCom UK Business Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "agentcom-uk.10.invoice-action"
+      ],
+      "authority": "H",
+      "minimum_proof_level": "V7",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "agentcom.human_queue",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "agentcom.human_queue",
+        "where": {
+          "checkpoint_id": "agentcom-uk.11.human-queue",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    },
+    {
+      "id": "agentcom-uk.12.vertical-init",
+      "ordinal": 12,
+      "title": "A UK plumber template compiles into a complete onboarding DAG with measured AutonomyRate",
+      "user_behavior": "A UK plumber template compiles into a complete onboarding DAG with measured AutonomyRate",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 12 behavior for AgentCom UK Business Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "agentcom-uk.11.human-queue"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "agentcom.vertical_compiled",
+        "source_policy": "live evidence required for PROVEN; fixture evidence may only validate the validator"
+      },
+      "validator": {
+        "kind": "event_match",
+        "event_type": "agentcom.vertical_compiled",
+        "where": {
+          "checkpoint_id": "agentcom-uk.12.vertical-init",
+          "ok": true
+        }
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED"
+    }
+  ],
+  "success_definition": "All 12 checkpoints PROVEN on live evidence, with no unresolved critical H-task or security gate.",
+  "repo_binding": {
+    "url": "https://github.com/prx0r/agentcom",
+    "polling": "GitHub snapshots are implementation evidence only; checkpoint proof comes from validator receipts."
+  },
+  "frozen_at": "2026-09-14"
+}

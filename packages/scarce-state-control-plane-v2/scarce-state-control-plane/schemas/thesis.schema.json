@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "core_thesis",
+    "why_now",
+    "user",
+    "job",
+    "distribution",
+    "moat",
+    "falsifiers",
+    "checkpoints"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "falsifiers": {
+      "type": "array",
+      "minItems": 1
+    },
+    "checkpoints": {
+      "type": "array",
+      "minItems": 1
+    }
+  }
+}

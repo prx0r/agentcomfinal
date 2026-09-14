@@ -1,0 +1,766 @@
+{
+  "id": "seesaw-market-lab",
+  "name": "Seesaw Market Lab",
+  "repo": null,
+  "domain": "market validation",
+  "one_liner": "Use frozen paper-market hypotheses as the fastest numerical laboratory for Seesaw causal discovery.",
+  "core_thesis": "Liquid markets provide frequent, external, quantitative resolution of Seesaw claims. The lab pre-registers causal chains, horizons and falsifiers, then resolves them mechanically. Paper results validate causal forecasting only; live execution alpha remains a separate claim.",
+  "why_now": "The system needs a fast external feedback world for selecting and calibrating causal procedures.",
+  "user": "Internal research system",
+  "job": "Learn which Seesaw constraint mappings predict external price/economic outcomes without risking capital.",
+  "distribution": "Internal; outputs can later inform asset campaigns and trading research.",
+  "moat": "Not a standalone moat. Value is the proprietary longitudinal corpus of frozen hypotheses, failures, calibration and learned procedures.",
+  "falsifiers": [
+    "Pre-registered Seesaw predictions do not outperform simple baselines after sufficient sample size.",
+    "The signal is too slow/noisy to improve campaign allocation."
+  ],
+  "components": [
+    "atask",
+    "seed0",
+    "qp"
+  ],
+  "strategic_role": "hybrid_infrastructure",
+  "software_substitution_test": {
+    "counterfactual": "OpenAI ships perfect market-reasoning and backtesting software tomorrow.",
+    "survival": "ONLY_WITH_PROPRIETARY_RESOLUTION_CORPUS",
+    "rationale": "Software can be copied; the frozen longitudinal hypothesis/outcome corpus and learned calibration are historical trajectory data.",
+    "destroyed_value": [
+      "forecast UI",
+      "backtest code",
+      "generic market research"
+    ],
+    "surviving_value": [
+      "pre-registered outcome corpus",
+      "failure/calibration history",
+      "learned strategy selection evidence"
+    ]
+  },
+  "scarce_assets": [
+    {
+      "id": "resolved_hypothesis_corpus",
+      "class": "proprietary_outcome_data",
+      "controller": "us",
+      "our_right": "owned",
+      "unit": "resolved frozen hypothesis",
+      "current_stock": 0,
+      "acquisition_event": "seesaw_hypothesis_resolved",
+      "decay_event": "invalidated_or_contaminated",
+      "ai_moat_beta": 4
+    }
+  ],
+  "underengineer": {
+    "primitive": "UNDERENGINEER/2.0",
+    "scarce_state_target": "A growing corpus of pre-registered Seesaw hypotheses resolved against external markets.",
+    "first_real_moat_event": "seesaw_hypothesis_resolved",
+    "minimal_live_product": "Freeze one Seesaw thesis, open a zero-capital paper position, define benchmark/horizon/falsifier, resolve it from external data, and append one immutable scored row.",
+    "required_components_now": [
+      "atask",
+      "seed0"
+    ],
+    "steps": [
+      {
+        "id": "s1",
+        "ordinal": 1,
+        "action": "Freeze one causal market hypothesis and resolution rule",
+        "authority": "M",
+        "acceptance": "Timestamped thesis contains causal chain, sign, horizon, benchmark and falsifier."
+      },
+      {
+        "id": "s2",
+        "ordinal": 2,
+        "action": "Open paper position and lock decision-time snapshot",
+        "authority": "M",
+        "acceptance": "Position and snapshot are immutable before future outcome is read."
+      },
+      {
+        "id": "s3",
+        "ordinal": 3,
+        "action": "Resolve mechanically from external data",
+        "authority": "M",
+        "acceptance": "Outcome, baseline and calibration row are recorded with external evidence."
+      },
+      {
+        "id": "s4",
+        "ordinal": 4,
+        "action": "Compare against baseline and update procedure evidence",
+        "authority": "M",
+        "acceptance": "No post-hoc thesis mutation; procedure change requires empirical support."
+      }
+    ],
+    "explicitly_not_now": [
+      "live capital",
+      "high-frequency execution",
+      "complex portfolio optimizer",
+      "large model fine-tuning",
+      "broker automation"
+    ],
+    "graduation_rule": "At least one externally resolved row exists; scale only after repeated pre-registered samples reveal useful calibration.",
+    "kill_or_rethink_rule": "If repeated hypotheses fail to beat naive baselines or cannot be frozen/resolved unambiguously, revise Seesaw procedure before adding complexity.",
+    "observation_pause": "Accumulate enough independent resolutions to inspect calibration by scarcity class/horizon before changing the model."
+  },
+  "priority_inputs": {
+    "importance": 5,
+    "asset_value": 3,
+    "moat_beta": 4,
+    "effort": 1,
+    "human_burden": 1
+  },
+  "experiment_strategy": {
+    "target_profile": "market_price",
+    "candidates": [
+      "paper_trading"
+    ],
+    "preferred_sequence": [
+      "paper_trading"
+    ],
+    "learning_goal": "Rapid external calibration of Seesaw causal claims."
+  },
+  "checkpoints": [
+    {
+      "id": "seesaw-market-lab.01.register",
+      "ordinal": 1,
+      "title": "Hypothesis is registered before the market outcome",
+      "user_behavior": "Hypothesis is registered before the market outcome",
+      "implies": "If live evidence passes, Seesaw Market Lab has demonstrated hypothesis is registered before the market outcome; no later checkpoint is implied.",
+      "justification": "Market validation is pre-registered and resolved against external data; narrative post-hoc success is forbidden.",
+      "depends_on": [],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "seesaw.hypothesis_registered",
+        "source_policy": "Fixtures may test semantics; PROVEN requires independent attestation. Forecasts must be frozen before resolution."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "seesaw.hypothesis_registered",
+        "where": {
+          "checkpoint_id": "seesaw-market-lab.01.register",
+          "ok": true
+        },
+        "minimum_evidence_class": "artifact_hash"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Calibration/forecast quality matters only after valid preregistration and external resolution."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "seesaw-market-lab.02.snapshot",
+      "ordinal": 2,
+      "title": "Decision-time market/world snapshot is content-addressed",
+      "user_behavior": "Decision-time market/world snapshot is content-addressed",
+      "implies": "If live evidence passes, Seesaw Market Lab has demonstrated decision-time market/world snapshot is content-addressed; no later checkpoint is implied.",
+      "justification": "Market validation is pre-registered and resolved against external data; narrative post-hoc success is forbidden.",
+      "depends_on": [
+        "seesaw-market-lab.01.register"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "seesaw.snapshot_locked",
+        "source_policy": "Fixtures may test semantics; PROVEN requires independent attestation. Forecasts must be frozen before resolution."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "seesaw.snapshot_locked",
+        "where": {
+          "checkpoint_id": "seesaw-market-lab.02.snapshot",
+          "ok": true
+        },
+        "minimum_evidence_class": "external_readback"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Calibration/forecast quality matters only after valid preregistration and external resolution."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "seesaw-market-lab.03.causal",
+      "ordinal": 3,
+      "title": "Constraint\u2192shadow-price\u2192asset causal chain and sign are frozen",
+      "user_behavior": "Constraint\u2192shadow-price\u2192asset causal chain and sign are frozen",
+      "implies": "If live evidence passes, Seesaw Market Lab has demonstrated constraint\u2192shadow-price\u2192asset causal chain and sign are frozen; no later checkpoint is implied.",
+      "justification": "Market validation is pre-registered and resolved against external data; narrative post-hoc success is forbidden.",
+      "depends_on": [
+        "seesaw-market-lab.02.snapshot"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "seesaw.causal_chain_frozen",
+        "source_policy": "Fixtures may test semantics; PROVEN requires independent attestation. Forecasts must be frozen before resolution."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "seesaw.causal_chain_frozen",
+        "where": {
+          "checkpoint_id": "seesaw-market-lab.03.causal",
+          "ok": true
+        },
+        "minimum_evidence_class": "artifact_hash"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Calibration/forecast quality matters only after valid preregistration and external resolution."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "seesaw-market-lab.04.position",
+      "ordinal": 4,
+      "title": "Paper position, sizing policy and benchmark are frozen",
+      "user_behavior": "Paper position, sizing policy and benchmark are frozen",
+      "implies": "If live evidence passes, Seesaw Market Lab has demonstrated paper position, sizing policy and benchmark are frozen; no later checkpoint is implied.",
+      "justification": "Market validation is pre-registered and resolved against external data; narrative post-hoc success is forbidden.",
+      "depends_on": [
+        "seesaw-market-lab.03.causal"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "seesaw.paper_position_opened",
+        "source_policy": "Fixtures may test semantics; PROVEN requires independent attestation. Forecasts must be frozen before resolution."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "seesaw.paper_position_opened",
+        "where": {
+          "checkpoint_id": "seesaw-market-lab.04.position",
+          "ok": true
+        },
+        "minimum_evidence_class": "external_readback"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Calibration/forecast quality matters only after valid preregistration and external resolution."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "seesaw-market-lab.05.falsifier",
+      "ordinal": 5,
+      "title": "Horizon, falsifiers and resolution rule are frozen",
+      "user_behavior": "Horizon, falsifiers and resolution rule are frozen",
+      "implies": "If live evidence passes, Seesaw Market Lab has demonstrated horizon, falsifiers and resolution rule are frozen; no later checkpoint is implied.",
+      "justification": "Market validation is pre-registered and resolved against external data; narrative post-hoc success is forbidden.",
+      "depends_on": [
+        "seesaw-market-lab.04.position"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "seesaw.resolution_rule_frozen",
+        "source_policy": "Fixtures may test semantics; PROVEN requires independent attestation. Forecasts must be frozen before resolution."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "seesaw.resolution_rule_frozen",
+        "where": {
+          "checkpoint_id": "seesaw-market-lab.05.falsifier",
+          "ok": true
+        },
+        "minimum_evidence_class": "artifact_hash"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Calibration/forecast quality matters only after valid preregistration and external resolution."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "seesaw-market-lab.06.resolve",
+      "ordinal": 6,
+      "title": "External outcome data resolves the hypothesis",
+      "user_behavior": "External outcome data resolves the hypothesis",
+      "implies": "If live evidence passes, Seesaw Market Lab has demonstrated external outcome data resolves the hypothesis; no later checkpoint is implied.",
+      "justification": "Market validation is pre-registered and resolved against external data; narrative post-hoc success is forbidden.",
+      "depends_on": [
+        "seesaw-market-lab.05.falsifier"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "seesaw.outcome_resolved",
+        "source_policy": "Fixtures may test semantics; PROVEN requires independent attestation. Forecasts must be frozen before resolution."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "seesaw.outcome_resolved",
+        "where": {
+          "checkpoint_id": "seesaw-market-lab.06.resolve",
+          "ok": true
+        },
+        "minimum_evidence_class": "external_readback"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Calibration/forecast quality matters only after valid preregistration and external resolution."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "seesaw-market-lab.07.execution",
+      "ordinal": 7,
+      "title": "Slippage/liquidity/borrow execution assumptions are scored separately",
+      "user_behavior": "Slippage/liquidity/borrow execution assumptions are scored separately",
+      "implies": "If live evidence passes, Seesaw Market Lab has demonstrated slippage/liquidity/borrow execution assumptions are scored separately; no later checkpoint is implied.",
+      "justification": "Market validation is pre-registered and resolved against external data; narrative post-hoc success is forbidden.",
+      "depends_on": [
+        "seesaw-market-lab.06.resolve"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V7",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "seesaw.execution_model_scored",
+        "source_policy": "Fixtures may test semantics; PROVEN requires independent attestation. Forecasts must be frozen before resolution."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "seesaw.execution_model_scored",
+        "where": {
+          "checkpoint_id": "seesaw-market-lab.07.execution",
+          "ok": true
+        },
+        "minimum_evidence_class": "external_readback"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Calibration/forecast quality matters only after valid preregistration and external resolution."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "seesaw-market-lab.08.score",
+      "ordinal": 8,
+      "title": "Prediction score and P&L-like paper result are computed mechanically",
+      "user_behavior": "Prediction score and P&L-like paper result are computed mechanically",
+      "implies": "If live evidence passes, Seesaw Market Lab has demonstrated prediction score and p&l-like paper result are computed mechanically; no later checkpoint is implied.",
+      "justification": "Market validation is pre-registered and resolved against external data; narrative post-hoc success is forbidden.",
+      "depends_on": [
+        "seesaw-market-lab.07.execution"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V7",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "seesaw.prediction_scored",
+        "source_policy": "Fixtures may test semantics; PROVEN requires independent attestation. Forecasts must be frozen before resolution."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "seesaw.prediction_scored",
+        "where": {
+          "checkpoint_id": "seesaw-market-lab.08.score",
+          "ok": true
+        },
+        "minimum_evidence_class": "external_readback"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Calibration/forecast quality matters only after valid preregistration and external resolution."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "seesaw-market-lab.09.baseline",
+      "ordinal": 9,
+      "title": "Result is compared with naive market/sector baselines",
+      "user_behavior": "Result is compared with naive market/sector baselines",
+      "implies": "If live evidence passes, Seesaw Market Lab has demonstrated result is compared with naive market/sector baselines; no later checkpoint is implied.",
+      "justification": "Market validation is pre-registered and resolved against external data; narrative post-hoc success is forbidden.",
+      "depends_on": [
+        "seesaw-market-lab.08.score"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V7",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "seesaw.baseline_compared",
+        "source_policy": "Fixtures may test semantics; PROVEN requires independent attestation. Forecasts must be frozen before resolution."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "seesaw.baseline_compared",
+        "where": {
+          "checkpoint_id": "seesaw-market-lab.09.baseline",
+          "ok": true
+        },
+        "minimum_evidence_class": "external_readback"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Calibration/forecast quality matters only after valid preregistration and external resolution."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "seesaw-market-lab.10.calibrate",
+      "ordinal": 10,
+      "title": "Calibration is updated by constraint class and horizon",
+      "user_behavior": "Calibration is updated by constraint class and horizon",
+      "implies": "If live evidence passes, Seesaw Market Lab has demonstrated calibration is updated by constraint class and horizon; no later checkpoint is implied.",
+      "justification": "Market validation is pre-registered and resolved against external data; narrative post-hoc success is forbidden.",
+      "depends_on": [
+        "seesaw-market-lab.09.baseline"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V7",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "seesaw.calibration_updated",
+        "source_policy": "Fixtures may test semantics; PROVEN requires independent attestation. Forecasts must be frozen before resolution."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "seesaw.calibration_updated",
+        "where": {
+          "checkpoint_id": "seesaw-market-lab.10.calibrate",
+          "ok": true
+        },
+        "minimum_evidence_class": "external_readback"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Calibration/forecast quality matters only after valid preregistration and external resolution."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "seesaw-market-lab.11.counterfactual",
+      "ordinal": 11,
+      "title": "Counterfactual branches are replayed without rewriting the frozen thesis",
+      "user_behavior": "Counterfactual branches are replayed without rewriting the frozen thesis",
+      "implies": "If live evidence passes, Seesaw Market Lab has demonstrated counterfactual branches are replayed without rewriting the frozen thesis; no later checkpoint is implied.",
+      "justification": "Market validation is pre-registered and resolved against external data; narrative post-hoc success is forbidden.",
+      "depends_on": [
+        "seesaw-market-lab.10.calibrate"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V7",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "seesaw.counterfactual_replayed",
+        "source_policy": "Fixtures may test semantics; PROVEN requires independent attestation. Forecasts must be frozen before resolution."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "seesaw.counterfactual_replayed",
+        "where": {
+          "checkpoint_id": "seesaw-market-lab.11.counterfactual",
+          "ok": true
+        },
+        "minimum_evidence_class": "replay"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Calibration/forecast quality matters only after valid preregistration and external resolution."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "seesaw-market-lab.12.promote",
+      "ordinal": 12,
+      "title": "Only empirically supported procedure changes are promoted",
+      "user_behavior": "Only empirically supported procedure changes are promoted",
+      "implies": "If live evidence passes, Seesaw Market Lab has demonstrated only empirically supported procedure changes are promoted; no later checkpoint is implied.",
+      "justification": "Market validation is pre-registered and resolved against external data; narrative post-hoc success is forbidden.",
+      "depends_on": [
+        "seesaw-market-lab.11.counterfactual"
+      ],
+      "authority": "H",
+      "minimum_proof_level": "V7",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "seesaw.procedure_promoted",
+        "source_policy": "Fixtures may test semantics; PROVEN requires independent attestation. Forecasts must be frozen before resolution."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "seesaw.procedure_promoted",
+        "where": {
+          "checkpoint_id": "seesaw-market-lab.12.promote",
+          "ok": true
+        },
+        "minimum_evidence_class": "signed_third_party_receipt"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Calibration/forecast quality matters only after valid preregistration and external resolution."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    }
+  ]
+}

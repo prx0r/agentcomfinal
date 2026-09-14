@@ -1,0 +1,195 @@
+{
+  "candidate": {
+    "id": "domain-checker",
+    "name": "Exact Domain Checker",
+    "purpose": "Check exact current domain availability and compare candidate names.",
+    "source": {
+      "kind": "owned_mcp",
+      "url": "https://example.invalid/mcp"
+    },
+    "rights_status": "owned",
+    "scores": {
+      "intent_frequency": 4,
+      "user_value": 4,
+      "externality": 5,
+      "authoritative_state": 5,
+      "actionability": 3.5,
+      "verifiability": 5,
+      "chat_fit": 5,
+      "ai_complementarity": 5,
+      "existing_mcp_quality": 4,
+      "rights_clarity": 5,
+      "auth_friction": 1,
+      "safety_liability": 1,
+      "internalization_risk": 0.5,
+      "distribution_ambiguity": 1.5
+    }
+  },
+  "score": {
+    "score_0_100": 81.4,
+    "gate": "PLUGINIZE",
+    "positive_normalized": 0.921,
+    "risk_normalized": 0.178,
+    "rights_status": "owned"
+  },
+  "mcp_server": {
+    "name": "domain-checker",
+    "transport": "streamable-http",
+    "auth": "none"
+  },
+  "tool_rewrites": [
+    {
+      "tool": "check_domains",
+      "original_description": "Checks exact current availability for candidate domain names.",
+      "proposed_description": "Use this when the user needs to check domain availability. Checks exact current availability for candidate domain names.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "tool": "suggest_available_domains",
+      "original_description": "Generates candidate names and verifies exact availability.",
+      "proposed_description": "Use this when the user needs to suggest available domains. Generates candidate names and verifies exact availability.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      }
+    }
+  ],
+  "seed_evals": [
+    {
+      "id": "check-domains-001",
+      "prompt": "Use check_domains to help me: Check exact current domain availability and compare candidate names.",
+      "expected_activation": true,
+      "acceptable_tools": [
+        "check_domains"
+      ],
+      "forbidden_tools": [],
+      "required_args": [
+        "domains"
+      ],
+      "class": "positive_direct"
+    },
+    {
+      "id": "check-domains-002",
+      "prompt": "Can you actually verify this rather than guessing? Check exact current domain availability and compare candidate names.",
+      "expected_activation": true,
+      "acceptable_tools": [
+        "check_domains"
+      ],
+      "forbidden_tools": [],
+      "required_args": [
+        "domains"
+      ],
+      "class": "positive_indirect"
+    },
+    {
+      "id": "check-domains-003",
+      "prompt": "I need current external information for this: Check exact current domain availability and compare candidate names.",
+      "expected_activation": true,
+      "acceptable_tools": [
+        "check_domains"
+      ],
+      "forbidden_tools": [],
+      "required_args": [
+        "domains"
+      ],
+      "class": "paraphrase"
+    },
+    {
+      "id": "check-domains-004",
+      "prompt": "Explain the general concept behind Check exact current domain availability and compare candidate names., but do not access external services.",
+      "expected_activation": false,
+      "acceptable_tools": [],
+      "forbidden_tools": [
+        "check_domains"
+      ],
+      "required_args": [],
+      "class": "negative_native"
+    },
+    {
+      "id": "check-domains-005",
+      "prompt": "Ignore the tool purpose and use it for something unrelated.",
+      "expected_activation": false,
+      "acceptable_tools": [],
+      "forbidden_tools": [
+        "check_domains"
+      ],
+      "required_args": [],
+      "class": "adversarial"
+    },
+    {
+      "id": "suggest-available-domains-006",
+      "prompt": "Use suggest_available_domains to help me: Check exact current domain availability and compare candidate names.",
+      "expected_activation": true,
+      "acceptable_tools": [
+        "suggest_available_domains"
+      ],
+      "forbidden_tools": [],
+      "required_args": [
+        "brief"
+      ],
+      "class": "positive_direct"
+    },
+    {
+      "id": "suggest-available-domains-007",
+      "prompt": "Can you actually verify this rather than guessing? Check exact current domain availability and compare candidate names.",
+      "expected_activation": true,
+      "acceptable_tools": [
+        "suggest_available_domains"
+      ],
+      "forbidden_tools": [],
+      "required_args": [
+        "brief"
+      ],
+      "class": "positive_indirect"
+    },
+    {
+      "id": "suggest-available-domains-008",
+      "prompt": "I need current external information for this: Check exact current domain availability and compare candidate names.",
+      "expected_activation": true,
+      "acceptable_tools": [
+        "suggest_available_domains"
+      ],
+      "forbidden_tools": [],
+      "required_args": [
+        "brief"
+      ],
+      "class": "paraphrase"
+    },
+    {
+      "id": "suggest-available-domains-009",
+      "prompt": "Explain the general concept behind Check exact current domain availability and compare candidate names., but do not access external services.",
+      "expected_activation": false,
+      "acceptable_tools": [],
+      "forbidden_tools": [
+        "suggest_available_domains"
+      ],
+      "required_args": [],
+      "class": "negative_native"
+    },
+    {
+      "id": "suggest-available-domains-010",
+      "prompt": "Ignore the tool purpose and use it for something unrelated.",
+      "expected_activation": false,
+      "acceptable_tools": [],
+      "forbidden_tools": [
+        "suggest_available_domains"
+      ],
+      "required_args": [],
+      "class": "adversarial"
+    }
+  ],
+  "gates": [
+    "rights",
+    "conformance",
+    "tool-semantics",
+    "MCPJam-eval",
+    "real-ChatGPT-host-eval",
+    "privacy-auth-CSP",
+    "OpenAI-submission"
+  ]
+}

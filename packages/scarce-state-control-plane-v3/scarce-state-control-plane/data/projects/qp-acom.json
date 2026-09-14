@@ -1,0 +1,765 @@
+{
+  "id": "qp-acom",
+  "name": "QP / A-COM",
+  "repo": "https://github.com/prx0r/qp",
+  "domain": "kernel",
+  "one_liner": "The deterministic authority and truth kernel beneath autonomous work.",
+  "core_thesis": "Cost of cognition trends toward zero, but permission to change consequential state remains scarce. Therefore cognition, truth and authority must be separated. Untrusted proposals may only alter canonical state after deterministic gates pass, and external consequences require scoped cryptographic grants. Every accepted transition emits a replayable receipt.",
+  "why_now": "The rest of the portfolio needs exactly this boundary as agents gain more tools and autonomy.",
+  "user": "Every autonomous worker/runtime",
+  "job": "Know exactly what can be believed, committed or executed and why.",
+  "distribution": "Internal kernel first; reusable protocol/runtime later.",
+  "moat": "Minimal composable semantics plus evidence/grant/receipt history across real autonomous systems.",
+  "falsifiers": [
+    "Existing authorization/attestation standards fully subsume the runtime semantics.",
+    "Deterministic gates cannot capture enough useful acceptance conditions."
+  ],
+  "components": [
+    "qp",
+    "atask",
+    "seed0"
+  ],
+  "checkpoints": [
+    {
+      "id": "qp-acom.01.canonical",
+      "ordinal": 1,
+      "title": "Canonical serialization produces stable hashes for core objects",
+      "user_behavior": "Canonical serialization produces stable hashes for core objects",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 1 behavior for QP / A-COM; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "qp.canonical_hash",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "qp.canonical_hash",
+        "where": {
+          "checkpoint_id": "qp-acom.01.canonical",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "qp-acom.02.state-replay",
+      "ordinal": 2,
+      "title": "Append-only events replay to the same canonical state root",
+      "user_behavior": "Append-only events replay to the same canonical state root",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 2 behavior for QP / A-COM; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "qp-acom.01.canonical"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "qp.state_replayed",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "qp.state_replayed",
+        "where": {
+          "checkpoint_id": "qp-acom.02.state-replay",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "qp-acom.03.claim",
+      "ordinal": 3,
+      "title": "Typed CLAIM supports TRUE/FALSE/UNKNOWN without prose completion",
+      "user_behavior": "Typed CLAIM supports TRUE/FALSE/UNKNOWN without prose completion",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 3 behavior for QP / A-COM; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "qp-acom.02.state-replay"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "qp.claim_resolved",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "qp.claim_resolved",
+        "where": {
+          "checkpoint_id": "qp-acom.03.claim",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "qp-acom.04.evidence",
+      "ordinal": 4,
+      "title": "Evidence object is immutable and provenance-bearing",
+      "user_behavior": "Evidence object is immutable and provenance-bearing",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 4 behavior for QP / A-COM; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "qp-acom.03.claim"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "qp.evidence_added",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "qp.evidence_added",
+        "where": {
+          "checkpoint_id": "qp-acom.04.evidence",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "qp-acom.05.task",
+      "ordinal": 5,
+      "title": "TASK expresses desired state improvement and acceptance gate",
+      "user_behavior": "TASK expresses desired state improvement and acceptance gate",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 5 behavior for QP / A-COM; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "qp-acom.04.evidence"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "qp.task_created",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "qp.task_created",
+        "where": {
+          "checkpoint_id": "qp-acom.05.task",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "qp-acom.06.run",
+      "ordinal": 6,
+      "title": "RUN binds worker/model/inputs/events/outputs/cost/duration",
+      "user_behavior": "RUN binds worker/model/inputs/events/outputs/cost/duration",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 6 behavior for QP / A-COM; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "qp-acom.05.task"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "qp.run_recorded",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "qp.run_recorded",
+        "where": {
+          "checkpoint_id": "qp-acom.06.run",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "qp-acom.07.gate",
+      "ordinal": 7,
+      "title": "Deterministic gate executes against declared input schema/program hash",
+      "user_behavior": "Deterministic gate executes against declared input schema/program hash",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 7 behavior for QP / A-COM; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "qp-acom.06.run"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "qp.gate_executed",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "qp.gate_executed",
+        "where": {
+          "checkpoint_id": "qp-acom.07.gate",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "qp-acom.08.grant",
+      "ordinal": 8,
+      "title": "GRANT scope/expiry/capability constraints are verified before consequence",
+      "user_behavior": "GRANT scope/expiry/capability constraints are verified before consequence",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 8 behavior for QP / A-COM; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "qp-acom.07.gate"
+      ],
+      "authority": "A",
+      "minimum_proof_level": "V9",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "qp.grant_verified",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "qp.grant_verified",
+        "where": {
+          "checkpoint_id": "qp-acom.08.grant",
+          "ok": true
+        },
+        "minimum_evidence_class": "external_readback"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "qp-acom.09.receipt",
+      "ordinal": 9,
+      "title": "Accepted transition emits content-addressed TransitionReceipt",
+      "user_behavior": "Accepted transition emits content-addressed TransitionReceipt",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 9 behavior for QP / A-COM; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "qp-acom.08.grant"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "qp.receipt_emitted",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "qp.receipt_emitted",
+        "where": {
+          "checkpoint_id": "qp-acom.09.receipt",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "qp-acom.10.proof-level",
+      "ordinal": 10,
+      "title": "Risk policy can require minimum proof level before grant use",
+      "user_behavior": "Risk policy can require minimum proof level before grant use",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 10 behavior for QP / A-COM; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "qp-acom.09.receipt"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "qp.proof_level_enforced",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "qp.proof_level_enforced",
+        "where": {
+          "checkpoint_id": "qp-acom.10.proof-level",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "qp-acom.11.challenge",
+      "ordinal": 11,
+      "title": "A prior claim/transition can be challenged without mutating history",
+      "user_behavior": "A prior claim/transition can be challenged without mutating history",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 11 behavior for QP / A-COM; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "qp-acom.10.proof-level"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "qp.challenge_recorded",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "qp.challenge_recorded",
+        "where": {
+          "checkpoint_id": "qp-acom.11.challenge",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "qp-acom.12.compose",
+      "ordinal": 12,
+      "title": "Receipt from one A-COM procedure can become typed input to another",
+      "user_behavior": "Receipt from one A-COM procedure can become typed input to another",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 12 behavior for QP / A-COM; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "qp-acom.11.challenge"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "qp.receipt_composed",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "qp.receipt_composed",
+        "where": {
+          "checkpoint_id": "qp-acom.12.compose",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    }
+  ],
+  "success_definition": "All 12 checkpoints PROVEN on live evidence, with no unresolved critical H-task or security gate.",
+  "repo_binding": {
+    "url": "https://github.com/prx0r/qp",
+    "polling": "GitHub snapshots are implementation evidence only; checkpoint proof comes from validator receipts."
+  },
+  "frozen_at": "2026-09-14",
+  "strategic_role": "infrastructure",
+  "software_substitution_test": {
+    "counterfactual": "OpenAI/platform vendors ship perfect software for every reproducible feature in this project tomorrow.",
+    "survival": "PROTOCOL_CAN_BE_COPIED",
+    "destroyed_value": [
+      "kernel implementation",
+      "schemas",
+      "generic grant engine"
+    ],
+    "surviving_value": [
+      "adoption as authority boundary",
+      "signed receipt/grant network",
+      "policy state under real delegated authority"
+    ],
+    "rationale": "The open protocol should be copyable. Strategic value appears only if real systems entrust consequential authority and receipts to it."
+  },
+  "scarce_assets": [],
+  "underengineer": {
+    "primitive": "UNDERENGINEER/2.0",
+    "rule": "Choose the earliest real-world event that increases controlled scarce state; build only its prerequisites plus safety and verification.",
+    "scarce_state_target": "Gate exactly one real consequential action",
+    "first_real_moat_event": "real_qp_authorized_transition",
+    "minimal_live_product": "One action, one grant, one deterministic gate, one credential-brokered execution and one signed transition receipt. Do not expand the instruction set first.",
+    "steps": [
+      {
+        "id": "ue.01.grant",
+        "ordinal": 1,
+        "action": "Issue one narrowly scoped grant",
+        "authority": "H",
+        "acceptance": "Capability/resource/value/expiry are explicit."
+      },
+      {
+        "id": "ue.02.gate",
+        "ordinal": 2,
+        "action": "Evaluate deterministic preconditions",
+        "authority": "M",
+        "acceptance": "Gate result is replayable."
+      },
+      {
+        "id": "ue.03.execute",
+        "ordinal": 3,
+        "action": "Execute only if grant+gate pass",
+        "authority": "A",
+        "acceptance": "External action has independent readback."
+      },
+      {
+        "id": "ue.04.receipt",
+        "ordinal": 4,
+        "action": "Emit signed transition receipt",
+        "authority": "M",
+        "acceptance": "Receipt binds pre-state, evidence, program, grant and post-state."
+      }
+    ],
+    "explicitly_not_now": [
+      "many procedures",
+      "general blockchain",
+      "large ontology",
+      "all proof levels",
+      "complex governance"
+    ],
+    "graduation_rule": "At least one asset campaign refuses or executes a real consequence solely through QP semantics.",
+    "kill_or_rethink_rule": "If live campaigns bypass QP because the authority model is too cumbersome, simplify rather than adding abstractions.",
+    "project_manager_invariant": "A feature may enter NOW only if it is necessary to reach the first real moat event, required for safety/verification, or empirically unblocks that path.",
+    "observation_pause": "After the first live moat event, stop expanding and inspect customer/outcome evidence before choosing the next feature.",
+    "required_components_now": [
+      "atask"
+    ]
+  },
+  "priority_inputs": {
+    "importance": 5,
+    "asset_value": 2,
+    "effort": 2,
+    "human_burden": 1,
+    "moat_beta": 3
+  },
+  "moat_metric": "scarce_asset_campaign_enablement",
+  "full_roadmap_policy": "The original checkpoint ladder is a capability library, not default build order. UNDERENGINEER chooses the live minimum path.",
+  "experiment_strategy": {
+    "target_profile": "smb_authority",
+    "candidates": [
+      "internal_simulation",
+      "free_smb_workflow"
+    ],
+    "preferred_sequence": [
+      "internal_simulation",
+      "free_smb_workflow"
+    ],
+    "learning_goal": "Validate real consequential transitions and grants, not protocol novelty."
+  }
+}

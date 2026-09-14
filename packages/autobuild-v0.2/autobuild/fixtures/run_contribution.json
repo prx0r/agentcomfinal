@@ -1,0 +1,51 @@
+{
+  "kind": "RUN_CONTRIBUTION",
+  "run_id": "run-demo-001",
+  "operational_result": "FAILED",
+  "cost": 0.13,
+  "duration_ms": 42000,
+  "tokens": 18000,
+  "contributions": {
+    "facts": [
+      {
+        "subject": "marketplace-api",
+        "predicate": "supports_create_listing",
+        "value": true,
+        "source": "integration-test"
+      }
+    ],
+    "negative_facts": [
+      {
+        "subject": "repo:old-comps",
+        "predicate": "usable",
+        "value": false,
+        "reason": "license unknown"
+      }
+    ],
+    "edges": [
+      {
+        "from": "req-listing-live",
+        "relation": "SATISFIABLE_BY",
+        "to": "marketplace-api"
+      }
+    ],
+    "fixtures": [
+      {
+        "id": "duplicate-webhook",
+        "description": "same sale webhook delivered twice must be idempotent"
+      }
+    ],
+    "components": [
+      {
+        "component": "marketplace-api",
+        "fit": 0.86,
+        "latency_ms": 380
+      }
+    ],
+    "outcomes": [],
+    "duplicates": [],
+    "unsupported_claims": []
+  },
+  "contract_root": "sha256:demo",
+  "execution_plan_root": null
+}

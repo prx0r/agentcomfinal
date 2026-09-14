@@ -1,0 +1,178 @@
+{
+  "kind": "PLAN_SPEC",
+  "id": "cmail-authority-v1",
+  "objective": "Allow an agent to communicate as a verified company only under explicit bounded authority and record replies/outcomes.",
+  "strategic_spec": {
+    "id": "seesaw-cmail-v1",
+    "decision": "BUILD",
+    "durable_scarcity": "verified business identity + communication authority + longitudinal outcome state",
+    "kill_conditions": [
+      "portable verified company authority becomes universally free and history-preserving"
+    ]
+  },
+  "features": [
+    {
+      "id": "identity",
+      "name": "Verified company identity",
+      "depends_on": [],
+      "starts_moat_accumulation": true,
+      "scores": {
+        "moat": 1.0,
+        "asset_accumulation": 0.8,
+        "dependency_centrality": 1.0,
+        "validation_value": 1.0,
+        "implementation_cost": 0.4,
+        "lab_attack_risk": 0.0
+      },
+      "requirements": [
+        {
+          "id": "req-domain-control",
+          "statement": "Principal proves control of configured company domain.",
+          "evidence_contract": {
+            "file": ".autobuild/evidence/domain.json"
+          },
+          "validator": {
+            "id": "domain-control-v1",
+            "kind": "eq",
+            "params": {
+              "path": "verified",
+              "value": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "send_authority",
+      "name": "Bounded send authority",
+      "depends_on": [
+        "identity"
+      ],
+      "starts_moat_accumulation": true,
+      "scores": {
+        "moat": 1.0,
+        "asset_accumulation": 1.0,
+        "dependency_centrality": 1.0,
+        "validation_value": 1.0,
+        "implementation_cost": 0.5,
+        "lab_attack_risk": 0.0
+      },
+      "requirements": [
+        {
+          "id": "req-send-grant",
+          "statement": "Outbound send succeeds only with a valid unexpired scoped grant.",
+          "evidence_contract": {
+            "command": "python -m pytest tests/test_send_grants.py -q"
+          },
+          "validator": {
+            "id": "send-grant-tck-v1",
+            "kind": "exit_code",
+            "params": {
+              "value": 0
+            }
+          },
+          "authority": {
+            "required": true,
+            "capability": "company.email.send",
+            "constraints": {
+              "scope": "configured_domain"
+            },
+            "minimum_proof_level": 9
+          }
+        }
+      ]
+    },
+    {
+      "id": "drafting",
+      "name": "Generic email drafting",
+      "depends_on": [
+        "identity"
+      ],
+      "starts_moat_accumulation": false,
+      "scores": {
+        "moat": 0.1,
+        "asset_accumulation": 0.1,
+        "dependency_centrality": 0.4,
+        "validation_value": 0.3,
+        "implementation_cost": 0.2,
+        "lab_attack_risk": 1.0
+      },
+      "requirements": [
+        {
+          "id": "req-draft",
+          "statement": "System can generate an email draft.",
+          "evidence_contract": {
+            "file": ".autobuild/evidence/draft.json"
+          },
+          "validator": {
+            "id": "draft-exists-v1",
+            "kind": "exists",
+            "params": {
+              "path": "body"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "outcome_history",
+      "name": "Reply/conversion history",
+      "depends_on": [
+        "send_authority"
+      ],
+      "starts_moat_accumulation": true,
+      "scores": {
+        "moat": 1.0,
+        "asset_accumulation": 1.0,
+        "dependency_centrality": 0.9,
+        "validation_value": 1.0,
+        "implementation_cost": 0.3,
+        "lab_attack_risk": 0.0
+      },
+      "requirements": [
+        {
+          "id": "req-message-outcome",
+          "statement": "Every sent message can join to delivery/reply/conversion outcome state.",
+          "evidence_contract": {
+            "file": ".autobuild/evidence/message_outcome.json"
+          },
+          "validator": {
+            "id": "message-outcome-v1",
+            "kind": "all",
+            "params": {
+              "validators": [
+                {
+                  "kind": "exists",
+                  "params": {
+                    "path": "message_id"
+                  }
+                },
+                {
+                  "kind": "exists",
+                  "params": {
+                    "path": "outcome"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "economic_validation": {
+    "claimed": false,
+    "metrics": [
+      {
+        "id": "reply-rate",
+        "formula": "replies/sent",
+        "source": "message_outcomes"
+      },
+      {
+        "id": "conversion-rate",
+        "formula": "conversions/sent",
+        "source": "message_outcomes"
+      }
+    ]
+  }
+}

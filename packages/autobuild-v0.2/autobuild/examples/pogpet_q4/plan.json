@@ -1,0 +1,205 @@
+{
+  "kind": "PLAN_SPEC",
+  "id": "pogpet-q4-campaign-v1",
+  "objective": "Launch one personalized pet product campaign and prove the end-to-end path from listing exposure to profitable order.",
+  "strategic_spec": {
+    "id": "seesaw-pogpet-q4-v1",
+    "decision": "VALIDATE",
+    "durable_scarcity": "customer pet relationship/history + physical personalized product + observed conversion outcomes",
+    "kill_conditions": [
+      "no profitable orders after defined paid/organic exposure budget"
+    ]
+  },
+  "features": [
+    {
+      "id": "listing",
+      "name": "Live personalized listing",
+      "depends_on": [],
+      "starts_moat_accumulation": false,
+      "scores": {
+        "moat": 0.4,
+        "asset_accumulation": 0.4,
+        "dependency_centrality": 1.0,
+        "validation_value": 1.0,
+        "implementation_cost": 0.2,
+        "lab_attack_risk": 0.5
+      },
+      "requirements": [
+        {
+          "id": "req-listing",
+          "statement": "Personalized listing is live.",
+          "evidence_contract": {
+            "file": ".autobuild/evidence/listing.json"
+          },
+          "validator": {
+            "id": "listing-v1",
+            "kind": "eq",
+            "params": {
+              "path": "status",
+              "value": "LIVE"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tracking",
+      "name": "Attribution tracking",
+      "depends_on": [
+        "listing"
+      ],
+      "starts_moat_accumulation": true,
+      "scores": {
+        "moat": 0.8,
+        "asset_accumulation": 1.0,
+        "dependency_centrality": 1.0,
+        "validation_value": 1.0,
+        "implementation_cost": 0.2,
+        "lab_attack_risk": 0.1
+      },
+      "requirements": [
+        {
+          "id": "req-track",
+          "statement": "Traffic source and purchase outcome can be joined.",
+          "evidence_contract": {
+            "file": ".autobuild/evidence/tracking.json"
+          },
+          "validator": {
+            "id": "tracking-v1",
+            "kind": "eq",
+            "params": {
+              "path": "joinable",
+              "value": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "creative_set",
+      "name": "Creative set",
+      "depends_on": [
+        "listing"
+      ],
+      "starts_moat_accumulation": false,
+      "scores": {
+        "moat": 0.2,
+        "asset_accumulation": 0.3,
+        "dependency_centrality": 0.8,
+        "validation_value": 0.8,
+        "implementation_cost": 0.2,
+        "lab_attack_risk": 0.8
+      },
+      "requirements": [
+        {
+          "id": "req-creative",
+          "statement": "At least three campaign creatives exist.",
+          "evidence_contract": {
+            "file": ".autobuild/evidence/creatives.json"
+          },
+          "validator": {
+            "id": "creative-count-v1",
+            "kind": "gte",
+            "params": {
+              "path": "count",
+              "value": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "outcome",
+      "name": "Profit outcome ledger",
+      "depends_on": [
+        "tracking"
+      ],
+      "starts_moat_accumulation": true,
+      "scores": {
+        "moat": 1.0,
+        "asset_accumulation": 1.0,
+        "dependency_centrality": 1.0,
+        "validation_value": 1.0,
+        "implementation_cost": 0.2,
+        "lab_attack_risk": 0.0
+      },
+      "requirements": [
+        {
+          "id": "req-order-outcome",
+          "statement": "Orders join revenue, fees, product cost and acquisition source.",
+          "evidence_contract": {
+            "file": ".autobuild/evidence/order.json"
+          },
+          "validator": {
+            "id": "order-outcome-v1",
+            "kind": "all",
+            "params": {
+              "validators": [
+                {
+                  "kind": "exists",
+                  "params": {
+                    "path": "revenue"
+                  }
+                },
+                {
+                  "kind": "exists",
+                  "params": {
+                    "path": "cost"
+                  }
+                },
+                {
+                  "kind": "exists",
+                  "params": {
+                    "path": "source"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "economic_validation": {
+    "claimed": true,
+    "metrics": [
+      {
+        "id": "profit",
+        "formula": "sum(revenue-cost-ad_spend-fees) > 0",
+        "source": "orders"
+      },
+      {
+        "id": "first-10-profitable",
+        "formula": "profitable_orders >= 10",
+        "source": "orders"
+      }
+    ],
+    "qp_circuit": {
+      "op": "AND",
+      "args": [
+        {
+          "op": "GTE",
+          "args": [
+            {
+              "metric": "profitable_orders"
+            },
+            {
+              "const": 10
+            }
+          ]
+        },
+        {
+          "op": "GT",
+          "args": [
+            {
+              "metric": "total_contribution_margin"
+            },
+            {
+              "const": 0
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

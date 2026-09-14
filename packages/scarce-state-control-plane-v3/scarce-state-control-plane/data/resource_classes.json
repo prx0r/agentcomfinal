@@ -1,0 +1,54 @@
+{
+  "version": "1.0",
+  "question": "What scarce economic resource exists behind this MCP/API/tool endpoint?",
+  "classes": [
+    {
+      "class": "oss_computation",
+      "scarcity": "ZERO",
+      "default_action": "internalize_or_ignore"
+    },
+    {
+      "class": "public_data_transformed",
+      "scarcity": "LOW",
+      "default_action": "only_if_outcome_feedback_becomes_private"
+    },
+    {
+      "class": "proprietary_live_data",
+      "scarcity": "HIGH",
+      "default_action": "inspect_rights_and_capture_risk"
+    },
+    {
+      "class": "authenticated_actions",
+      "scarcity": "HIGH",
+      "default_action": "inspect_delegated_authority"
+    },
+    {
+      "class": "marketplace_network",
+      "scarcity": "VERY_HIGH",
+      "default_action": "inspect_liquidity_relationship_and_bypass_risk"
+    },
+    {
+      "class": "physical_execution",
+      "scarcity": "VERY_HIGH",
+      "default_action": "inspect_supply_control_cost_and_verification"
+    },
+    {
+      "class": "regulated_authority",
+      "scarcity": "VERY_HIGH",
+      "default_action": "inspect_license_permission_and_jurisdiction"
+    },
+    {
+      "class": "exclusive_supply",
+      "scarcity": "VERY_HIGH",
+      "default_action": "inspect_contract_duration_and_substitution"
+    }
+  ],
+  "miner_questions": [
+    "What is behind the endpoint?",
+    "Who controls it?",
+    "What rights does the provider have?",
+    "What rights could we acquire?",
+    "Does usage generate proprietary state for us?",
+    "Can the underlying controller bypass us or expose it directly to OpenAI?"
+  ]
+}

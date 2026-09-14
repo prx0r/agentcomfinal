@@ -1,0 +1,13 @@
+{
+  "future_demand": 4,
+  "machine_substitution": 5,
+  "chain_closure": 4,
+  "human_source_premium": 1,
+  "intrinsic_practice_value": 2,
+  "ai_complementarity": 2,
+  "optionality": 2,
+  "asset_compounding": 1,
+  "deployment_friction": 1,
+  "scenario_robustness": 2,
+  "acquisition_cost": 4
+}

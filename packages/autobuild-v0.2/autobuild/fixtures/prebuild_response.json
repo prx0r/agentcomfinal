@@ -1,0 +1,52 @@
+{
+  "kind": "REUSE_PLAN",
+  "version": "2.1",
+  "entries": [
+    {
+      "requirement_id": "req-item-json",
+      "action": "REUSE",
+      "reuse_fitness": 0.92,
+      "candidate": {
+        "kind": "library",
+        "name": "existing-vision-component",
+        "license": "permissive"
+      },
+      "reason": "mature item extraction; adapter only",
+      "rights_status": "AUTHORIZED",
+      "license_status": "PERMISSIVE"
+    },
+    {
+      "requirement_id": "req-valuation",
+      "action": "BUILD",
+      "reuse_fitness": 0.55,
+      "candidate": {
+        "kind": "api+code",
+        "name": "comps-stack"
+      },
+      "reason": "sources reusable; calibrated cross-market valuation remains proprietary delta",
+      "rights_status": "AUTHORIZED",
+      "license_status": "PERMISSIVE"
+    },
+    {
+      "requirement_id": "req-listing-live",
+      "action": "REUSE",
+      "reuse_fitness": 0.86,
+      "candidate": {
+        "kind": "api",
+        "name": "marketplace-listing-api"
+      },
+      "reason": "listing action exists; authority adapter remains",
+      "rights_status": "AUTHORIZED",
+      "license_status": "API_TERMS_OK"
+    },
+    {
+      "requirement_id": "req-outcome-row",
+      "action": "BUILD",
+      "reuse_fitness": 0.2,
+      "candidate": null,
+      "reason": "longitudinal outcome ledger is owned asset"
+    }
+  ],
+  "contract_root": "sha256:d3c9615a4e22b073559f5515e8ef06308c3c973be492e5ba1fe0d59d025bd3d7",
+  "input_plan_root": "sha256:b582eee47283c7dfd2f923a9e9aac19b6d0f0575a9cb3f789512ae2e6be454bb"
+}

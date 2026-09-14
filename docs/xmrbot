@@ -1,0 +1,1750 @@
+Yes. This is probably the **first genuinely useful external economy for `qp`**.
+
+XMRBazaar is not just “a place that accepts Monero.” It already has almost exactly the state machine an autonomous economic agent needs: listings, offers, orders, encrypted messaging, reputation, mediators, bonds, direct XMR payment, and non-custodial 2-of-3 multisig escrow. It launched in May 2024, says it has served 5,000+ buyers and sellers, and its indexed search currently shows thousands of historical listings across physical goods, services and jobs. ([XmrBazaar][1])
+
+The really significant discovery is that **they are building an API specifically for automation**. On May 15, 2026 they announced work on a JSON API for buyers and sellers to manage listings and orders, sync with WooCommerce, support alternative frontends and automate workflows. As of the latest August 16, 2026 changelog it is still listed under upcoming features rather than launched. ([XmrBazaar][2])
+
+So yes: **`qp` + XMRBazaar + Monero is an autonomous procurement protocol hiding in plain sight.**
+
+## What XMRBazaar actually gives us
+
+Their normal order lifecycle is already very structured:
+
+```text
+DISCOVER LISTING
+      ↓
+BUY NOW / MAKE OFFER
+      ↓
+seller accepts
+      ↓
+payment method fixed
+      ↓
+DIRECT XMR
+    or
+2-of-3 MULTISIG
+      ↓
+buyer marks paid
+      ↓
+delivery / work
+      ↓
+seller marks completed
+      ↓
+review
+```
+
+Direct payments go straight from buyer to the seller's external Monero wallet. XMRBazaar never takes custody. Their escrow instead creates a client-side Monero 2-of-3 multisig between buyer, seller and an independently chosen mediator; XMRBazaar itself is not a signer and says it never receives the private keys or mnemonic. ([XmrBazaar][3])
+
+That maps almost absurdly neatly onto `qp`:
+
+```text
+XMRBAZAAR                 QP
+
+listing             →     CLAIM
+seller profile      →     EVIDENCE
+reviews             →     EVIDENCE
+product wanted      →     TASK
+order proposal      →     RUN
+spending budget     →     GRANT
+seller checks       →     GATE
+escrow state        →     STATE
+delivery            →     EVIDENCE
+release payment     →     gated transition
+completed order     →     RECEIPT
+review              →     reputation evidence
+```
+
+That is not forced. The abstractions actually line up.
+
+## The killer workflow
+
+Imagine `qp` receives:
+
+```text
+GOAL
+
+Get a Rust developer to implement
+module X.
+
+Budget:
+≤ 0.4 XMR
+
+Deadline:
+72 hours
+
+Acceptance:
+all tests pass
+cargo clippy passes
+no new unsafe blocks
+```
+
+It can first attempt internally.
+
+If the expected internal cost/value is poor:
+
+```text
+qp
+ ↓
+market.search(
+  capability="rust development",
+  budget<=0.4 XMR
+)
+```
+
+XMRBazaar already has live developer listings, including Rust and general programming services. ([XmrBazaar][4])
+
+The agent gets three candidates:
+
+```text
+seller A
+0.22 XMR
+9 reviews
+escrow ✓
+
+seller B
+0.17 XMR
+0 reviews
+direct only
+
+seller C
+0.31 XMR
+42 reviews
+escrow ✓
+```
+
+Then `qp`, not the LLM, evaluates:
+
+```text
+legal category                     ✓
+budget                             ✓
+seller reputation                  ✓
+escrow available                   ✓
+listing unchanged                  ✓
+price unchanged                    ✓
+required delivery conditions       ✓
+```
+
+and generates:
+
+```text
+PURCHASE_PROPOSAL
+```
+
+The model still cannot spend anything.
+
+Your grant might be:
+
+```yaml
+capability: market.xmrbazaar.purchase
+
+constraints:
+  listing: xyEr
+  max_atomic_xmr: 400000000000
+  escrow_required: true
+  max_shipping: 0
+  physical_goods: false
+  expiry: 2026-09-14T00:00:00Z
+
+gates:
+  - seller_trust >= threshold
+  - listing_hash == approved_hash
+  - legality == PASS
+```
+
+Only then can the wallet capability participate.
+
+The worker returns the code.
+
+`qp` runs:
+
+```text
+pytest
+cargo test
+cargo clippy
+security policy
+```
+
+If:
+
+$$
+V(artifact) \geq threshold
+$$
+
+then:
+
+```text
+RELEASE_ESCROW
+```
+
+Otherwise:
+
+```text
+REQUEST_REVISION
+```
+
+or eventually:
+
+```text
+DISPUTE
+```
+
+That is an actual autonomous business transaction.
+
+## This is much bigger on the seller side
+
+The reverse side might be even better.
+
+A `qp` agent can **earn XMR**.
+
+XMRBazaar supports jobs, people looking to hire services, Wanted ads, forum requests and notifications for matching searches. ([XmrBazaar][3])
+
+So:
+
+```text
+qp worker
+   │
+   ├── scans jobs
+   │
+   ├── identifies tasks it can perform
+   │
+   ├── estimates cost
+   │
+   ├── bids
+   │
+   ├── executes
+   │
+   ├── validates
+   │
+   └── receives XMR
+```
+
+Now we've closed the entire economic loop:
+
+```text
+                   QP
+
+             finds useful work
+                    ↓
+               performs task
+                    ↓
+                 earns XMR
+                    ↓
+              treasury grows
+                    ↓
+            needs external input
+                    ↓
+          finds XMRBazaar seller
+                    ↓
+               buys service
+                    ↓
+            validates delivery
+                    ↓
+             releases XMR
+```
+
+That is an **autonomous economic actor**, rather than an “AI agent with a crypto wallet.”
+
+## The privacy story is strong — but not absolute
+
+XMRBazaar's terms are unusually aligned with this architecture. They say an account needs only username/password; email is optional, they don't store IP addresses or analytics, they provide an onion service, and their encrypted messenger generates/encrypts/decrypts client-side. Order notes, shipping addresses and tracking numbers are stored PGP-encrypted so the server says it cannot decrypt them. ([XmrBazaar][5])
+
+Combined with Monero:
+
+```text
+public reputation identity
+           ≠
+market login
+           ≠
+wallet identity
+           ≠
+network identity
+```
+
+That's excellent.
+
+But I would **not call physical purchases anonymous**.
+
+For a digital service:
+
+```text
+Tor
++
+pseudonymous XMRBazaar account
++
+PGP
++
+Monero
++
+no physical delivery
+
+→ extremely strong separation
+```
+
+For a laptop being mailed to you, the seller eventually needs sufficient delivery information. The marketplace server may only hold that address encrypted, but **the seller necessarily learns whatever delivery information you provide**. Tor and XMR cannot solve that.
+
+So XMRBot should explicitly report:
+
+```text
+PRIVACY
+
+financial graph       PRIVATE
+marketplace identity  PSEUDONYMOUS
+network connection    TOR
+server messages       E2E ENCRYPTED
+physical identity     EXPOSED TO SELLER
+```
+
+rather than displaying a bogus “100% anonymous.”
+
+## Escrow is almost made for `qp`
+
+Their escrow actually has four stages:
+
+```text
+PREPARATION
+DEPOSIT
+DECISION
+PAYOUT
+```
+
+and uses 2-of-3 signing. If buyer and seller disagree, the selected mediator determines which side joins them in signing the result. ([XmrBazaar][6])
+
+That can become a deterministic QP sub-state machine:
+
+```text
+ORDER_CREATED
+      ↓
+ESCROW_PREPARED
+      ↓
+FUNDED
+      ↓
+AWAITING_DELIVERY
+      ↓
+DELIVERY_RECEIVED
+      ↓
+VALIDATING
+      ├───────────────┐
+      ↓               ↓
+ACCEPTED           REJECTED
+      ↓               ↓
+PAYOUT             DISPUTE
+      ↓               ↓
+SETTLED          MEDIATION
+```
+
+Every transition produces a QP receipt.
+
+The wallet/multisig mnemonic lives in a local secrets boundary.
+
+The LLM never sees it.
+
+## `qp` shouldn't simply trust XMRBazaar's trust score
+
+This is important.
+
+Their terms explicitly ban illegal, dangerous and various high-risk listings and scams. ([XmrBazaar][5])
+
+But this is a user-generated marketplace, and current indexed search results demonstrate that odd or questionable listings can still appear before moderation catches them. ([XmrBazaar][7])
+
+Therefore:
+
+```text
+XMRBazaar moderation
+        ≠
+qp policy
+```
+
+QP needs its own deterministic procurement policy.
+
+For example:
+
+```text
+MarketplacePolicy
+
+LEGALITY         hard gate
+CATEGORY         hard gate
+SELLER_RISK      scored
+ESCROW           usually mandatory
+PRICE            hard bounded
+DELIVERY         validated
+PRIVACY          scored
+REPUTATION       evidence only
+```
+
+A seller having 50 five-star reviews must never override a forbidden capability.
+
+That is exactly what your QP architecture is for.
+
+## The adapter I would build
+
+Don't put XMRBazaar into the kernel.
+
+```text
+qp/
+  markets/
+    base.py
+    xmrbazaar/
+       adapter.py
+       schema.py
+       policy.py
+       reputation.py
+       escrow.py
+```
+
+Canonical interface:
+
+```text
+market.search()
+market.get_listing()
+market.get_seller()
+market.quote()
+market.make_offer()
+market.create_order()
+market.message()
+market.order_status()
+market.propose_payment()
+market.confirm_delivery()
+market.open_dispute()
+market.leave_review()
+```
+
+And critically:
+
+```text
+market.propose_payment()
+```
+
+not:
+
+```text
+market.pay()
+```
+
+Payment remains:
+
+```text
+market
+   ↓
+PAYMENT_PROPOSAL
+   ↓
+QP GATES
+   ↓
+GRANT
+   ↓
+settlement.monero
+```
+
+That separation is essential.
+
+## Before their API launches
+
+I would build the adapter in three levels:
+
+```text
+v0  READ-ONLY
+public listings/search/profile parsing
+
+v1  HUMAN-BRIDGED
+QP creates exact proposed orders/messages;
+human submits them
+
+v2  NATIVE
+XMRBazaar JSON API when released
+```
+
+I would **not** architect around fragile automated form-clicking.
+
+They have told us exactly where they are going. Build the typed interface now and swap their API underneath it when it appears. ([XmrBazaar][2])
+
+And I'd actually contact them early.
+
+Their intended API explicitly exists for **automation and alternative frontends**. We are basically their ideal API consumer.
+
+## XMRBot becomes the marketplace router
+
+This should also appear in what we're already building:
+
+```text
+xmrbot.com/market
+```
+
+A human can say:
+
+> Find me a used Ryzen 5950X I can buy with Monero.
+
+XMRBot searches:
+
+```text
+XMRBazaar
+Monero-friendly businesses
+future marketplaces
+```
+
+and returns:
+
+```text
+LISTING             PRICE      TRUST       ESCROW
+5950X workstation   0.61 XMR   high        yes
+5950X CPU            .43 XMR   medium      yes
+5950X system         .52 XMR   unknown     no
+```
+
+An agent sees the same through MCP:
+
+```text
+xmr_market_search
+xmr_market_listing
+xmr_market_seller
+xmr_purchase_plan
+```
+
+That makes XMRBot much more than education/mining infrastructure.
+
+It becomes:
+
+> **the agent interface to the Monero economy.**
+
+## And there's a killer “Wanted” workflow
+
+This might be even better than search.
+
+XMRBazaar explicitly supports **Wanted ads** when a buyer cannot find something. ([XmrBazaar][3])
+
+So the agent can turn:
+
+> Find me a used EPYC server under 0.7 XMR.
+
+into:
+
+```text
+TASK
+ ↓
+search existing market
+ ↓
+nothing acceptable
+ ↓
+publish WANTED
+ ↓
+monitor responses
+ ↓
+score sellers
+ ↓
+negotiate
+ ↓
+PURCHASE_PROPOSAL
+ ↓
+GRANT
+ ↓
+escrow
+ ↓
+purchase
+```
+
+Now agents don't merely consume a marketplace.
+
+They **create demand**.
+
+That is much closer to machine-to-human procurement.
+
+---
+
+The part I think is genuinely novel is this:
+
+```text
+                   QP
+
+      ┌────────────┴─────────────┐
+      │                          │
+  machine workers            humans
+      │                          │
+   Gensyn/etc               XMRBazaar
+      │                          │
+      └──────── TASK ────────────┘
+                   │
+                 GATE
+                   │
+                RECEIPT
+                   │
+                  XMR
+```
+
+So `qp` doesn't actually care whether a task was fulfilled by **an LLM, an anonymous developer, a local process, a distributed compute network, or a seller on XMRBazaar**.
+
+They are all speculative workers.
+
+`qp` cares only that:
+
+$$
+\boxed{\text{the artifact satisfies the verifier}}
+$$
+
+and:
+
+$$
+\boxed{\text{the economic action satisfies its grant}}
+$$
+
+That is exactly the architecture you were converging on.
+
+And XMRBazaar gives us something the abstract crypto-agent designs usually don't have: **an existing marketplace containing actual humans, actual goods, actual services, private money and non-custodial escrow.** ([XmrBazaar][3])
+
+I would make **XMRBazaar the first external `market://` adapter for QP**, and I would make the first end-to-end demo deliberately mundane: **give QP a small XMR budget, have it procure a legitimate coding/design task through escrow, automatically verify the delivered artifact, and release payment only after its deterministic gates pass.**
+
+That would demonstrate the entire protocol in one transaction.
+
+[1]: https://xmrbazaar.com/about/?utm_source=chatgpt.com "About XmrBazaar | XmrBazaar"
+[2]: https://xmrbazaar.com/changelog/?utm_source=chatgpt.com "Changelog | XmrBazaar"
+[3]: https://xmrbazaar.com/faq/ "FAQ | XmrBazaar"
+[4]: https://xmrbazaar.com/listing/xyEr/add-wishlist-TF4H/?utm_source=chatgpt.com "Your Rust Developer | XmrBazaar"
+[5]: https://xmrbazaar.com/terms/ "Terms | XmrBazaar"
+[6]: https://xmrbazaar.com/escrow-guide/?utm_source=chatgpt.com "Escrow Guide | XmrBazaar"
+[7]: https://xmrbazaar.com/search/buy-service/?utm_source=chatgpt.com "Search Listings | XmrBazaar"
+
+
+this is perfect and way less spam than eth 402.. ok compile a full list of tools / marketpales we can hook qp up to omg i cant believe how perfect xmrbazaar is .. think about when someone would want to use a private agent to buy something? that can be a user facing thing right get an untraceable agent to get you a good or service with cryptographic proof, escrow etc using your xmr account heres the mcp to do all of it without leaving your normal eth / agent stack.. now xmrbazaar is opened up to eth worlds and it has a killer anonagent narrative . https://kycnot.me/ find all insane usecases for out xmrbot
+
+
+Yes. The opportunity is bigger than “Monero tools.”
+
+**XMRBot can become the privacy execution layer for ordinary agents.** An Ethereum/x402 agent should not need to understand Monero, Tor, Haveno, escrow, merchant reputation, or wallet RPC. It asks XMRBot for a lawful good/service; `qp` constrains the authority; XMRBot discovers and negotiates; XMR privately settles the economic leg.
+
+The important wording is **private/pseudonymous agent**, not “guaranteed untraceable.” XMR can hide the financial graph, but a physical seller may still learn a shipping address, a VPS sees traffic unless Tor is used, and some counterparties can retain application metadata.
+
+## The core product
+
+```text
+NORMAL AGENT WORLD
+ChatGPT / Claude / ETH agent / x402 / USDC
+                     │
+                     │ MCP
+                     ▼
+               XMRBOT / QP
+        ┌────────────────────────┐
+        │ intent                 │
+        │ policy                 │
+        │ budget/grants          │
+        │ service discovery      │
+        │ reputation/evidence    │
+        │ escrow                 │
+        │ wallet                 │
+        │ receipts               │
+        └───────────┬────────────┘
+                    │
+              private economy
+                    │
+ ┌──────────────────┼─────────────────────┐
+ ▼                  ▼                     ▼
+markets          services             infrastructure
+XMRBazaar        gift cards           VPS
+Monero.Jobs      travel               domains
+Haveno           eSIM                 VPN
+Kuno             shipping             email
+                    │
+                    ▼
+                   XMR
+```
+
+The punchline:
+
+> **Give any agent an MCP and it gains access to the Monero economy without gaining unrestricted access to your wallet.**
+
+That is much more interesting than trying to replace x402.
+
+---
+
+# The service graph I would plug into `qp`
+
+| Adapter                 | What it gives the agent                                             | Automation state                 | QP role                            |
+| ----------------------- | ------------------------------------------------------------------- | -------------------------------- | ---------------------------------- |
+| **XMRBazaar**           | Goods, services, wanted ads, encrypted negotiation, multisig escrow | **API announced/in development** | `market://xmrbazaar`               |
+| **Monero.Jobs**         | Hire or work pseudonymously for XMR                                 | Web today; API worth requesting  | `labor://monerojobs`               |
+| **Haveno**              | P2P XMR ↔ fiat/crypto markets over Tor                              | **Excellent gRPC API**           | `exchange://haveno`                |
+| **OrbitSwap**           | XMR ↔ hundreds of crypto assets                                     | **Excellent REST API**           | `swap://orbit`                     |
+| **Trocador**            | Exchange aggregation + AnonPay                                      | **API/webhooks**                 | `swap://trocador`, `pay://anonpay` |
+| **BasicSwapDEX**        | Trust-minimized atomic swaps                                        | Local/open-source integration    | `swap://basicswap`                 |
+| **1gwei.dev**           | XMR → native ETH/POL/HYPE/BNB gas                                   | **Purpose-built agent REST API** | `gas://1gwei`                      |
+| **XMR.CARDS**           | Gift cards without conventional payment rails                       | Web integration                  | `cards://xmrcards`                 |
+| **CoinsBee**            | 5,000+ gift cards/mobile topups                                     | Web/commercial integration       | `cards://coinsbee`                 |
+| **ShopinBit Concierge** | “Find/buy this item for me” procurement                             | Human-backed concierge           | `concierge://shopinbit`            |
+| **AnonymousLabels**     | Shipping labels paid with XMR, 21 carriers                          | Web/API opportunity              | `shipping://anonymouslabels`       |
+| **Silent Link**         | Private eSIM/data connectivity paid with XMR                        | Web integration                  | `connectivity://silentlink`        |
+| **Njalla**              | Domains, servers, VPN with XMR                                      | API-compatible ecosystem         | `infra://njalla`                   |
+| **1984 Hosting**        | XMR-paid VPS/hosting                                                | Web/provider adapter             | `infra://1984`                     |
+| **Servers Guru**        | cheap XMR VPS, including EPYC instances                             | Web/provider adapter             | `infra://serversguru`              |
+| **Kuno**                | Noncustodial XMR fundraising                                        | RSS/web integration              | `fund://kuno`                      |
+| **XMR Checkout**        | self-hosted merchant invoicing/webhooks                             | **API + webhook native**         | `merchant://xmrcheckout`           |
+| **BTCPay Monero**       | self-hosted merchant checkout                                       | mature programmable stack        | `merchant://btcpay`                |
+| **monero-wallet-rpc**   | wallet creation, subaddresses, balances, transfers                  | **Canonical JSON-RPC**           | `settle://xmr`                     |
+| **monerod**             | chain/network state                                                 | **Canonical RPC**                | `network://xmr`                    |
+| **KYCnot.me**           | service discovery + KYC/risk metadata                               | **Official API**                 | `registry://kycnot`                |
+| **XMRList / Monerica**  | broad merchant discovery                                            | directory ingestion              | `registry://merchants`             |
+
+The individual pieces are already unusually agent-friendly. Haveno exposes wallets/offers/trades/market data through gRPC; OrbitSwap exposes rates and transaction creation over REST; Trocador's AnonPay supports transaction creation, status polling, webhooks and even minimum KYC-rating constraints; `monero-wallet-rpc` explicitly exists for arbitrary wallet automation. ([Haveno][1])
+
+---
+
+# KYCnot is actually an XMRBot primitive
+
+This one surprised me.
+
+KYCnot now has an official API with structured:
+
+```text
+service
+categories
+service URLs
+KYC level 0–4
+verification status
+verified date
+ToS URLs
+onion/I2P URLs
+```
+
+It distinguishes **Verified**, **Approved**, **Community Contributed**, and **Verification Failed**, and distinguishes guaranteed no-KYC from services that may freeze/request KYC under some conditions. ([KYC Not][2])
+
+So do not merely link to KYCnot.
+
+Make it an **oracle**.
+
+```text
+xmr_service_search(
+    need="VPS",
+    max_kyc_level=1,
+    min_verification="APPROVED",
+    requires_xmr=true,
+    requires_tor=true
+)
+```
+
+QP can turn that into evidence:
+
+```text
+EVIDENCE {
+    source: kycnot.me
+    service: ...
+    kyc_level: 0
+    verification: VERIFIED
+    verified_at: ...
+}
+```
+
+Then the gate decides whether the agent may transact.
+
+**That is exactly what `qp` evidence objects are for.**
+
+---
+
+# `1gwei.dev` is an insanely good bridge
+
+This deserves its own adapter immediately.
+
+It currently lets a program pay XMR and deliver native **ETH, POL, HYPE or BNB** to arbitrary EVM addresses across Ethereum, Arbitrum, Base, Robinhood Chain, Polygon, HyperEVM, BNB and Sepolia. More importantly, it published an agent-specific HTTP workflow just days ago:
+
+```text
+GET quote
+POST order
+pay XMR invoice
+poll order
+receive gas
+```
+
+No account/API key/KYC is required for the described workflow. ([1gwei.dev][3])
+
+Think about the implication:
+
+```text
+new ETH agent wallet
+      │
+      │ has no gas
+      ▼
+QP authorizes $1
+      │
+      ▼
+XMR wallet
+      │
+      ▼
+1gwei
+      │
+      ▼
+fresh EVM wallet receives ETH
+```
+
+The agent's EVM address never needed an exchange withdrawal from the user's KYC account.
+
+It doesn't make the EVM address invisible—the payout is public—but it removes the obvious financial-account linkage. 1gwei itself explicitly distinguishes those two things. ([1gwei.dev][4])
+
+This is the **XMR → ETH agent bridge**.
+
+---
+
+# And Trocador solves the reverse problem
+
+Trocador's AnonPay is almost purpose-built for what we want.
+
+Suppose an Ethereum agent has ETH/USDC but a seller wants XMR.
+
+XMRBot can construct:
+
+```text
+seller wants:
+0.1 XMR
+
+payer has:
+ETH
+```
+
+AnonPay can define:
+
+```text
+ticker_to = XMR
+address = seller's XMR address
+amount = 0.1 XMR
+```
+
+and let the payer satisfy that obligation with another supported asset. It provides programmatic transaction creation, status lookup and webhooks. ([Trocador][5])
+
+So:
+
+```text
+ETH AGENT
+   │
+   │ existing crypto
+   ▼
+Trocador
+   │
+   ▼
+XMR settlement
+   │
+   ▼
+private-market seller
+```
+
+The normal agent doesn't necessarily even need to maintain an XMR balance.
+
+### That makes XMRBot an interoperability layer.
+
+Not:
+
+> abandon Ethereum.
+
+Instead:
+
+> **give Ethereum agents access to economic interactions that Ethereum is structurally bad at making private.**
+
+That is a killer narrative.
+
+---
+
+# OrbitSwap gives us generalized crypto → XMR
+
+OrbitSwap is even cleaner from an engineering perspective. Its current API exposes:
+
+```text
+GET /currencies
+GET /rate
+POST /transactions
+GET /transactions/{id}
+```
+
+and advertises more than 600 assets. ([OrbitSwap][6])
+
+So your agent can ask:
+
+```text
+swap.quote(
+  from="USDC",
+  to="XMR",
+  amount=...
+)
+```
+
+where that network/pair is currently supported.
+
+QP then binds the exact quote:
+
+```text
+GRANT:
+  capability: swap.execute
+
+  max_input: 100 USDC
+  minimum_output: 0.19 XMR
+
+  destination:
+    approved_subaddress
+
+  expiry:
+    120 seconds
+```
+
+LLM cannot silently change recipient/amount afterwards.
+
+This is precisely where QP becomes superior to just handing a wallet SDK to an agent.
+
+---
+
+# Haveno might be the strongest financial adapter
+
+Haveno already exposes its noncustodial backend programmatically.
+
+The documented API can:
+
+* inspect wallets,
+* fetch offers,
+* inspect market data,
+* take/create offers,
+* manage trades.
+
+Its daemon connects to the network through Tor. ([Haveno][1])
+
+So we eventually get:
+
+```text
+xmr_liquidity_search
+xmr_haveno_offers
+xmr_haveno_quote
+xmr_haveno_trade_plan
+```
+
+Again:
+
+**plan ≠ execute.**
+
+QP holds execution behind the economic grant.
+
+---
+
+# Then XMRBazaar becomes just one market
+
+This is where the abstraction gets beautiful.
+
+User asks:
+
+> Find somebody to animate my video for ≤0.15 XMR.
+
+XMRBot routes:
+
+```text
+XMRBazaar
+Monero.Jobs
+future marketplaces
+```
+
+User asks:
+
+> Find me a used 5950X.
+
+```text
+XMRBazaar
+XMR merchant indexes
+ShopinBit concierge
+```
+
+User asks:
+
+> I need a server for this agent.
+
+```text
+Njalla
+1984
+Servers Guru
+KYCnot providers
+```
+
+User asks:
+
+> Give the agent internet access in another country.
+
+```text
+Silent Link
+other KYCnot eSIM providers
+```
+
+The service isn't “XMRBazaar MCP.”
+
+It is:
+
+# `xmr.procure`
+
+---
+
+# The user-facing killer product
+
+I'd put this directly into XMRBot:
+
+## Private Procurement
+
+User says:
+
+> Get me a legitimate logo designed for under $40. Don't reveal my normal email/payment identity. Escrow required.
+
+XMRBot:
+
+```text
+Searching private markets...
+
+XMRBazaar
+  seller A       $27 equivalent
+  19 reviews
+  escrow available
+
+Monero.Jobs
+  seller B       $34 equivalent
+  7 completed jobs
+
+Option C
+  $21
+  insufficient trust evidence
+  REJECTED BY POLICY
+```
+
+Then:
+
+```text
+[Procure privately]
+```
+
+QP generates:
+
+```text
+TASK
+budget
+deliverable
+acceptance test
+deadline
+privacy requirements
+escrow requirements
+```
+
+and a spending grant.
+
+That's an extraordinarily understandable consumer product.
+
+---
+
+# Physical procurement is even more interesting
+
+User:
+
+> Find me a used ThinkPad under £250.
+
+Agent:
+
+```text
+SEARCH
+ ↓
+compare listings
+ ↓
+negotiate
+ ↓
+seller reputation
+ ↓
+escrow required
+ ↓
+PURCHASE PROPOSAL
+ ↓
+user approval
+ ↓
+XMR funding
+ ↓
+shipping
+ ↓
+receipt
+```
+
+The privacy model should explicitly show:
+
+```text
+PAYMENT IDENTITY
+private
+
+LONG-TERM WALLET
+not exposed
+
+MARKETPLACE ACCOUNT
+pseudonymous
+
+IP
+Tor
+
+DELIVERY ADDRESS
+seller necessarily sees it
+```
+
+That honesty becomes part of the product.
+
+---
+
+# Digital procurement is where the model gets extreme
+
+For digital goods/services there may be **no necessary real-world identity disclosure at all**.
+
+Examples:
+
+| Need                      | Agent route                              |
+| ------------------------- | ---------------------------------------- |
+| hire programmer           | XMRBazaar / Monero.Jobs                  |
+| logo/design               | XMRBazaar / Monero.Jobs                  |
+| translation               | same                                     |
+| server                    | Njalla / 1984 / Servers Guru             |
+| domain                    | Njalla / privacy registrars              |
+| VPN                       | Njalla / Mullvad / IVPN etc.             |
+| eSIM/data                 | Silent Link                              |
+| AI inference              | private AI services discovered by KYCnot |
+| gift card                 | XMR.CARDS / CoinsBee                     |
+| software/game credit      | gift-card rails                          |
+| mobile recharge           | CoinsBee                                 |
+| EVM gas                   | 1gwei                                    |
+| crypto conversion         | OrbitSwap/Trocador/Haveno                |
+| crowdfunding              | Kuno                                     |
+| receive customer payments | XMR Checkout / BTCPay                    |
+| shipping label            | AnonymousLabels                          |
+
+Silent Link currently offers no-KYC eSIM connectivity across 160+ countries and accepts Monero; XMR.CARDS requires no KYC and exposes gift codes via the order page; CoinsBee exposes thousands of brands and mobile topups; AnonymousLabels accepts XMR for labels across 21 carriers. ([Silent Link][7])
+
+That makes the agent capable of provisioning **its own operational environment**.
+
+---
+
+# Autonomous company bootstrap becomes possible
+
+This may be the sickest workflow.
+
+Give a `qp` agent:
+
+```text
+GOAL:
+launch project foo
+
+BUDGET:
+1.0 XMR
+```
+
+It can potentially:
+
+```text
+buy domain
+       ↓
+buy VPS
+       ↓
+deploy app
+       ↓
+buy VPN
+       ↓
+buy eSIM if needed
+       ↓
+hire designer
+       ↓
+hire translator
+       ↓
+buy SaaS gift card
+       ↓
+open XMR checkout
+       ↓
+begin accepting revenue
+```
+
+Njalla accepts XMR for domains, servers and VPN; 1984 and Servers Guru sell VPS for XMR; Monero.Jobs provides privacy-oriented XMR-paid freelancers. ([Njalla][8])
+
+`qp` gives the whole process bounded economic authority.
+
+Now we have something very close to:
+
+> **incorporation without incorporation for a software agent's operational stack**
+
+—not legally, obviously, but operationally.
+
+---
+
+# Autonomous agents can hire humans
+
+This deserves to become a first-class primitive:
+
+```text
+human.request()
+```
+
+If an agent gets stuck:
+
+```text
+TASK:
+identify this obscure connector
+
+budget:
+0.02 XMR
+
+deadline:
+1 hour
+```
+
+It publishes or searches an appropriate XMR labor market.
+
+A human returns the solution.
+
+QP validates it.
+
+Human receives XMR.
+
+So:
+
+```text
+AI
+ ↓
+can't solve something
+ ↓
+buys human cognition
+ ↓
+gets artifact
+ ↓
+validator
+ ↓
+pays XMR
+```
+
+And humans can hire agents through exactly the same abstraction.
+
+This is much cleaner than creating another bespoke “human-in-the-loop marketplace.”
+
+---
+
+# Agents can sell work too
+
+Reverse it.
+
+XMRBazaar / Monero.Jobs demand:
+
+```text
+logo
+research
+translation
+code
+video
+data cleaning
+```
+
+QP sees:
+
+```text
+job payout = 0.1 XMR
+estimated compute = $2
+expected success = 85%
+```
+
+It bids.
+
+Does the work.
+
+Validates the work internally.
+
+Delivers.
+
+Gets paid XMR.
+
+Now your autonomous agent has **income**.
+
+The current Monero.Jobs site explicitly supports anonymous proposals, zero platform fees and XMR-denominated freelance work. ([Monero.Jobs][9])
+
+---
+
+# Agents can fund themselves
+
+Kuno is interesting because it is noncustodial fundraising rather than commerce. It currently advertises nearly 200 campaigns and over 1,400 XMR raised; funds go directly to fundraiser wallets without platform fees. ([Kuno][10])
+
+So an open-source QP worker could potentially maintain:
+
+```text
+GOAL:
+build feature
+
+required budget:
+2 XMR
+
+progress:
+61%
+
+receipts:
+public
+
+funding:
+Kuno
+```
+
+Now funding itself can reference cryptographically verifiable QP work receipts.
+
+That becomes:
+
+> **proof-of-progress crowdfunding.**
+
+Very cool combination.
+
+---
+
+# Private subscriptions
+
+Another high-frequency use case:
+
+> Maintain my privacy stack.
+
+Agent holds narrowly scoped grants:
+
+```text
+VPN renewal:
+max 0.02 XMR/month
+
+VPS:
+max 0.05 XMR/month
+
+domain:
+max 0.1 XMR/year
+
+eSIM:
+max 0.03 XMR/month
+```
+
+QP automatically renews them.
+
+No corporate card.
+
+No giant SaaS vendor seeing every service the person subscribes to.
+
+This is an extremely normal consumer benefit.
+
+---
+
+# Private business expenses
+
+Think freelancer/creator/consultant.
+
+Instead of:
+
+```text
+Visa transaction history:
+
+hosting
+VPN
+AI tools
+domain
+contractors
+phone
+software
+travel
+```
+
+everything being trivially aggregatable by the banking system, the person can choose to pay XMR where appropriate.
+
+XMRBot still produces **private local accounting receipts**:
+
+```text
+expense
+vendor
+category
+fiat-equivalent
+tax note
+QP receipt
+```
+
+So privacy does not require destroying bookkeeping.
+
+That is a valuable distinction.
+
+---
+
+# Travel is a weaker-but-useful case
+
+Monero.com currently lists Travala as an XMR travel option, and Travala supports purchasing travel credit with crypto. ([Monero][11])
+
+But XMRBot should make clear:
+
+> **private payment ≠ anonymous travel.**
+
+Hotels and airlines can still require names/passports.
+
+The benefit is payment privacy, not magic physical anonymity.
+
+---
+
+# Gift cards massively expand the graph
+
+This is where the “Monero economy is too small” objection dies.
+
+CoinsBee alone says it offers 5,000+ gift-card brands across 185 countries and mobile top-ups while accepting XMR. ([Coinsbee Blog][12])
+
+Therefore:
+
+```text
+XMR
+ ↓
+gift-card rail
+ ↓
+Amazon / Uber / Steam / Spotify /
+retail / food / SaaS / phone etc.
+```
+
+That means `xmr_procure()` can often service things **well outside direct XMR acceptance**.
+
+We could treat cards like synthetic merchant adapters:
+
+```text
+merchant://amazon
+   ↓
+cards.route()
+   ↓
+XMR.CARDS / CoinsBee / Coincards
+```
+
+Agent simply finds lowest final effective cost.
+
+---
+
+# ShopinBit gives us a fallback for weird purchases
+
+Their concierge says they source products, handle third-party procurement and shipping, accept Monero, and charge 10% when sourcing externally. ([ShopinBit][13])
+
+That gives our router a clever fallback:
+
+```text
+direct XMR listing?
+  yes → buy
+
+gift card available?
+  yes → route
+
+XMRBazaar seller?
+  yes → negotiate
+
+nothing?
+  ↓
+concierge.request()
+```
+
+So a user can literally ask:
+
+> Get this exact obscure camera lens for XMR.
+
+XMRBot handles route discovery.
+
+---
+
+# Make `qp` understand economic providers generically
+
+Don't code service logic into tasks.
+
+I would define:
+
+```text
+Provider
+Market
+Quote
+Offer
+Order
+Settlement
+Delivery
+Dispute
+```
+
+Adapters then implement capabilities.
+
+For example:
+
+```text
+market://xmrbazaar
+
+supports:
+  search
+  negotiate
+  escrow
+  purchase
+  sell
+```
+
+while:
+
+```text
+infra://njalla
+
+supports:
+  domain.search
+  domain.register
+  server.create
+  vpn.create
+```
+
+and:
+
+```text
+swap://orbit
+
+supports:
+  quote
+  execute
+  status
+```
+
+and:
+
+```text
+cards://xmrcards
+
+supports:
+  catalog
+  quote
+  purchase
+  retrieve
+```
+
+QP remains ignorant of Monero-specific market quirks.
+
+---
+
+# XMRBot MCP
+
+I'd make the first serious public MCP surface:
+
+```text
+# DISCOVERY
+
+xmr_service_search
+xmr_market_search
+xmr_product_search
+xmr_labor_search
+xmr_service_reputation
+
+# ROUTING
+
+xmr_procurement_plan
+xmr_payment_route
+xmr_swap_quote
+xmr_gas_quote
+
+# XMR
+
+xmr_balance
+xmr_receive_address
+xmr_payment_proposal
+
+# MARKETS
+
+xmr_offer_create
+xmr_offer_accept_proposal
+xmr_order_status
+xmr_message_proposal
+
+# INFRASTRUCTURE
+
+xmr_domain_search
+xmr_server_search
+xmr_connectivity_search
+
+# CARDS
+
+xmr_card_search
+xmr_card_purchase_proposal
+
+# QP
+
+qp_grant_request
+qp_gate_evaluate
+qp_receipt_verify
+```
+
+Note the naming:
+
+```text
+purchase_proposal
+payment_proposal
+offer_accept_proposal
+```
+
+not:
+
+```text
+BUY
+SEND
+ACCEPT
+```
+
+The MCP speaks in proposals.
+
+QP controls consequential transitions.
+
+---
+
+# One MCP unlocks XMR to every agent ecosystem
+
+This is the commercial pitch:
+
+```text
+existing agent
+   │
+   │ MCP
+   ▼
+XMRBot
+```
+
+Nothing else changes.
+
+Claude/Desktop/OpenAI/custom agent still uses:
+
+```text
+Stripe
+x402
+ETH
+USDC
+Shopify
+browser
+```
+
+But whenever the agent needs:
+
+```text
+privacy
+no conventional payment account
+pseudonymous procurement
+XMR merchant
+private contractor
+private infrastructure
+```
+
+it routes:
+
+```text
+→ XMRBot
+```
+
+That makes us complementary rather than ideological.
+
+---
+
+# There is a great XMR ↔ x402 symmetry
+
+x402 solves:
+
+> How can a machine pay an HTTP service automatically?
+
+XMRBot + QP solves:
+
+> **How can a machine perform a private economic action under cryptographically bounded authority?**
+
+Those aren't competitors.
+
+Actually:
+
+```text
+x402
+  │
+machine payment
+  │
+  ▼
+ XMRBOT
+  │
+private procurement
+  ▼
+ XMR
+```
+
+And 1gwei already literally accepts both **XMR and Base USDC/x402**. ([1gwei.dev][3])
+
+Someone else has independently built the bridge we need.
+
+---
+
+# The product name almost writes itself
+
+Inside XMRBot:
+
+## **Private Agent**
+
+Prompt:
+
+> What do you want done?
+
+Examples immediately beneath:
+
+```text
+Buy something
+Hire someone
+Get a server
+Register a domain
+Buy an eSIM
+Pay a merchant
+Swap into XMR
+Get EVM gas
+Find a gift card
+Raise money
+Accept XMR
+```
+
+Then:
+
+> **Your agent can search, negotiate and verify. QP controls what it is allowed to spend. XMR keeps the financial graph private.**
+
+That is understandable in ten seconds.
+
+---
+
+# And I think the deepest version is an `agent://` economic router
+
+Eventually the request isn't even explicitly “use XMR.”
+
+```text
+procure(
+   objective,
+   privacy=HIGH,
+   max_cost=50 USD,
+   escrow=REQUIRED
+)
+```
+
+The router evaluates:
+
+```text
+normal web
+XMRBazaar
+Monero.Jobs
+gift-card route
+concierge
+direct XMR merchant
+```
+
+according to:
+
+$$
+Utility =
+Quality
+-
+Price
+-
+CounterpartyRisk
+-
+IdentityExposure
+-
+SettlementRisk
+-
+Latency
+$$
+
+Privacy becomes an **optimization dimension**, not an ideology.
+
+And XMR is frequently the economically optimal settlement mechanism when that privacy term has significant weight.
+
+---
+
+The sequence I would build now is very clear:
+
+**`monero-wallet-rpc → KYCnot registry → Orbit/Trocador swaps → 1gwei → XMRBazaar → Haveno → Monero.Jobs → cards/infra providers`.**
+
+That already gives us a credible demo where an ordinary ETH/USDC agent invokes **one XMRBot MCP**, obtains XMR privately, buys a legitimate digital service under a QP grant, validates delivery, releases payment, and—if needed—uses leftover XMR to privately fund its next EVM wallet with gas.
+
+That is a *far* more compelling crypto-agent demo than another agent autonomously buying API calls for $0.002.
+
+[1]: https://docs.haveno.exchange/users/haveno-api/?utm_source=chatgpt.com "Haveno API - Haveno Documentation"
+[2]: https://kycnot.me/docs/api?utm_source=chatgpt.com "API | KYCnot.me"
+[3]: https://1gwei.dev/?utm_source=chatgpt.com "1gwei.dev — Buy native gas (ETH, HYPE, POL, BNB) with Monero, Lightning or Base USDC (x402). No KYC."
+[4]: https://1gwei.dev/guides/agent-api-scripted-gas-top-ups?utm_source=chatgpt.com "AI Agent & Scripted EVM Gas API Top-Ups (No API Key) — 1gwei.dev"
+[5]: https://trocador.app/en/anonpaydocumentation?utm_source=chatgpt.com "Trocador.app"
+[6]: https://orbitswap.io/api-docs?utm_source=chatgpt.com "API Documentation - Integrate Crypto Exchange | OrbitSwap"
+[7]: https://silent.link/?utm_source=chatgpt.com "Silent Link"
+[8]: https://njal.la/faq/?utm_source=chatgpt.com "Njalla — FAQ"
+[9]: https://monero.jobs/?utm_source=chatgpt.com "Monero.Jobs - Privacy-First Freelance Marketplace"
+[10]: https://kuno.anne.media/faq/?utm_source=chatgpt.com "Kuno – Fundraise with Monero"
+[11]: https://monero.com/marketplace?utm_source=chatgpt.com "Monero.com by Cake Wallet"
+[12]: https://blog.coinsbee.com/en/spend-monero-xmr-on-gift-cards-mobile-top-ups-privately/?utm_source=chatgpt.com "Spend Monero (XMR) on Gift Cards Privately"
+[13]: https://shopinbit.com/concierge/?utm_source=chatgpt.com "Concierge – ShopinBit"

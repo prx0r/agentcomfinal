@@ -1,0 +1,424 @@
+{
+  "trades": [
+    {
+      "id": "xmr-zec",
+      "name": "XMR > ZEC",
+      "symbol": "XMR/ZEC",
+      "status": "OPEN",
+      "direction": "Relative-value long XMR / short ZEC thesis",
+      "target": "XMR market cap \u2265 ZEC market cap",
+      "horizon": "6\u201324 months",
+      "conviction": 8,
+      "thesis": "Monero is the stronger private-money system in practice: privacy is mandatory, fungibility is native, and the entire transaction graph is designed around default confidentiality. Zcash has stronger zero-knowledge primitives in isolation but optional transparency, shielded-pool boundary leakage, and substantially greater protocol complexity. The current valuation gap therefore looks wider than the fundamental privacy gap.",
+      "bull_case": [
+        "FCMP++/Carrot materially improves Monero sender anonymity by replacing small rings with full-chain membership proofs.",
+        "Privacy demand rises while exchange access and liquidity for XMR stabilize or improve.",
+        "ZEC's recent rerating mean-reverts after narrative momentum fades.",
+        "XMR continues to be the dominant privacy-money unit for users who require default privacy."
+      ],
+      "falsifiers": [
+        "Zcash shielded usage becomes overwhelmingly dominant while transparent-pool leakage becomes economically irrelevant.",
+        "Monero FCMP++ is materially delayed, fails security review, or introduces unacceptable performance/centralization costs.",
+        "A credible chain-analysis breakthrough materially deanonymizes ordinary Monero transactions at scale.",
+        "Regulatory/exchange restrictions impair XMR liquidity far more severely than ZEC for a sustained period.",
+        "Zcash develops durable usage/revenue/network effects that justify a structurally larger valuation."
+      ],
+      "levels": [
+        {
+          "label": "Extreme ZEC premium",
+          "metric": "XMR mcap / ZEC mcap",
+          "value": "< 0.40",
+          "action": "Highest-interest zone; re-check falsifiers before adding"
+        },
+        {
+          "label": "Current zone",
+          "metric": "XMR mcap / ZEC mcap",
+          "value": "~0.52",
+          "action": "Thesis active"
+        },
+        {
+          "label": "Parity",
+          "metric": "XMR mcap / ZEC mcap",
+          "value": "1.00",
+          "action": "Primary relative-value target"
+        },
+        {
+          "label": "Overshoot",
+          "metric": "XMR mcap / ZEC mcap",
+          "value": "> 1.25",
+          "action": "Harvest / reassess"
+        }
+      ],
+      "metrics": [
+        {
+          "name": "XMR market cap",
+          "value": "$9.56B",
+          "asof": "2026-09-11"
+        },
+        {
+          "name": "ZEC market cap",
+          "value": "$18.27B",
+          "asof": "2026-09-11"
+        },
+        {
+          "name": "XMR/ZEC mcap ratio",
+          "value": "0.523",
+          "asof": "2026-09-11"
+        },
+        {
+          "name": "ZEC premium to XMR",
+          "value": "~91%",
+          "asof": "2026-09-11"
+        },
+        {
+          "name": "XMR daily volume",
+          "value": "$102M",
+          "asof": "2026-09-11"
+        },
+        {
+          "name": "ZEC daily volume",
+          "value": "$1.52B",
+          "asof": "2026-09-11"
+        }
+      ],
+      "sources": [
+        {
+          "label": "CoinGecko XMR historical data",
+          "url": "https://www.coingecko.com/en/coins/monero/historical_data"
+        },
+        {
+          "label": "CoinGecko ZEC historical data",
+          "url": "https://www.coingecko.com/en/coins/zcash/historical_data"
+        },
+        {
+          "label": "Monero technical specs",
+          "url": "https://docs.getmonero.org/technical-specs/"
+        },
+        {
+          "label": "Monero FCMP",
+          "url": "https://www.getmonero.org/resources/moneropedia/fcmp/"
+        },
+        {
+          "label": "Zcash protocol ZIPs",
+          "url": "https://zips.z.cash/"
+        }
+      ]
+    },
+    {
+      "id": "nil-010",
+      "name": "NIL \u2192 $0.10",
+      "symbol": "NIL/USD",
+      "status": "OPEN",
+      "direction": "Long NIL",
+      "target": "$0.10",
+      "horizon": "3\u201312 months",
+      "conviction": 7,
+      "thesis": "Nillion is a small-cap privacy-compute network with real usage, a live privacy/AI stack, an Ethereum migration, permissionless staking/node economics, and a current roadmap aimed at encrypted markets. At roughly four cents, $0.10 is a modest absolute target if execution and token utility translate into renewed demand.",
+      "bull_case": [
+        "Dusk/Covenants launch on Ethereum and create visible crypto-native demand for conditional encrypted execution.",
+        "NIL becomes increasingly necessary for staking, node operation, verification and network participation.",
+        "Existing usage converts into token-linked economic activity rather than remaining product usage detached from NIL.",
+        "Privacy + AI + encrypted-markets narratives re-rate the token from a very small market cap."
+      ],
+      "falsifiers": [
+        "Roadmap milestones materially slip or mainnet Ethereum rollout fails to attract developers/users.",
+        "Token utility remains weak relative to product usage; NIL does not capture value from nilDB/nilCC/nilAI.",
+        "Emissions/unlocks create persistent sell pressure that overwhelms demand.",
+        "Node decentralization remains nominal or concentrated.",
+        "Security failure in confidential-compute, custody, bridge, staking or covenant infrastructure."
+      ],
+      "levels": [
+        {
+          "label": "Deep value",
+          "metric": "NIL price",
+          "value": "< $0.035",
+          "action": "Re-underwrite; attractive only if fundamentals intact"
+        },
+        {
+          "label": "Reference",
+          "metric": "NIL price",
+          "value": "~$0.041",
+          "action": "Current thesis zone"
+        },
+        {
+          "label": "First checkpoint",
+          "metric": "NIL price",
+          "value": "$0.065",
+          "action": "Check adoption + token-capture evidence"
+        },
+        {
+          "label": "Primary target",
+          "metric": "NIL price",
+          "value": "$0.10",
+          "action": "Take-profit / rewrite thesis"
+        }
+      ],
+      "metrics": [
+        {
+          "name": "NIL close",
+          "value": "$0.04138",
+          "asof": "2026-09-10"
+        },
+        {
+          "name": "Market cap",
+          "value": "$22.26M",
+          "asof": "2026-09-10"
+        },
+        {
+          "name": "Target upside",
+          "value": "~142%",
+          "asof": "2026-09-10"
+        },
+        {
+          "name": "Network users",
+          "value": "112.6K",
+          "asof": "2026-09-10"
+        },
+        {
+          "name": "Documents",
+          "value": "643.8M",
+          "asof": "2026-09-10"
+        },
+        {
+          "name": "Inference calls",
+          "value": "1.4M",
+          "asof": "2026-09-10"
+        },
+        {
+          "name": "NIL staked",
+          "value": "~20.0M",
+          "asof": "2026-09-10"
+        },
+        {
+          "name": "Blacklight nodes",
+          "value": "40",
+          "asof": "2026-09-10"
+        }
+      ],
+      "sources": [
+        {
+          "label": "CoinGecko NIL historical data",
+          "url": "https://www.coingecko.com/en/coins/nillion/historical_data"
+        },
+        {
+          "label": "Nillion developer metrics",
+          "url": "https://developer.nillion.com/"
+        },
+        {
+          "label": "Nillion roadmap",
+          "url": "https://nillion.com/roadmap/"
+        },
+        {
+          "label": "Encrypted Markets roadmap",
+          "url": "https://nillion.com/news/the-road-to-encrypted-markets/"
+        },
+        {
+          "label": "NIL token migration guide",
+          "url": "https://nillion.com/news/nil-token-migration-guide/"
+        }
+      ]
+    }
+  ],
+  "series": {
+    "xmr-zec": [
+      {
+        "date": "Aug 23",
+        "xmr_mcap": 8.1337,
+        "zec_mcap": 13.5663,
+        "ratio": 0.5996
+      },
+      {
+        "date": "Aug 24",
+        "xmr_mcap": 7.9229,
+        "zec_mcap": 14.404,
+        "ratio": 0.55
+      },
+      {
+        "date": "Aug 25",
+        "xmr_mcap": 8.3147,
+        "zec_mcap": 14.0239,
+        "ratio": 0.5929
+      },
+      {
+        "date": "Aug 26",
+        "xmr_mcap": 8.2546,
+        "zec_mcap": 12.9764,
+        "ratio": 0.6361
+      },
+      {
+        "date": "Aug 27",
+        "xmr_mcap": 8.2255,
+        "zec_mcap": 13.7945,
+        "ratio": 0.5963
+      },
+      {
+        "date": "Aug 28",
+        "xmr_mcap": 8.549,
+        "zec_mcap": 13.6901,
+        "ratio": 0.6245
+      },
+      {
+        "date": "Aug 29",
+        "xmr_mcap": 8.8712,
+        "zec_mcap": 13.5446,
+        "ratio": 0.655
+      },
+      {
+        "date": "Aug 30",
+        "xmr_mcap": 8.8446,
+        "zec_mcap": 14.237,
+        "ratio": 0.6212
+      },
+      {
+        "date": "Aug 31",
+        "xmr_mcap": 9.1524,
+        "zec_mcap": 14.1363,
+        "ratio": 0.6474
+      },
+      {
+        "date": "Sep 1",
+        "xmr_mcap": 9.7869,
+        "zec_mcap": 14.3321,
+        "ratio": 0.6829
+      },
+      {
+        "date": "Sep 2",
+        "xmr_mcap": 9.4909,
+        "zec_mcap": 14.0303,
+        "ratio": 0.6765
+      },
+      {
+        "date": "Sep 3",
+        "xmr_mcap": 9.2876,
+        "zec_mcap": 13.7835,
+        "ratio": 0.6738
+      },
+      {
+        "date": "Sep 4",
+        "xmr_mcap": 9.7839,
+        "zec_mcap": 16.1116,
+        "ratio": 0.6073
+      },
+      {
+        "date": "Sep 5",
+        "xmr_mcap": 9.7875,
+        "zec_mcap": 17.3018,
+        "ratio": 0.5657
+      },
+      {
+        "date": "Sep 6",
+        "xmr_mcap": 10.447,
+        "zec_mcap": 17.355,
+        "ratio": 0.602
+      },
+      {
+        "date": "Sep 7",
+        "xmr_mcap": 10.1411,
+        "zec_mcap": 20.7605,
+        "ratio": 0.4885
+      },
+      {
+        "date": "Sep 8",
+        "xmr_mcap": 9.7548,
+        "zec_mcap": 19.2739,
+        "ratio": 0.5061
+      },
+      {
+        "date": "Sep 9",
+        "xmr_mcap": 9.4024,
+        "zec_mcap": 19.9288,
+        "ratio": 0.4718
+      },
+      {
+        "date": "Sep 10",
+        "xmr_mcap": 9.6408,
+        "zec_mcap": 21.0557,
+        "ratio": 0.4579
+      },
+      {
+        "date": "Sep 11",
+        "xmr_mcap": 9.5563,
+        "zec_mcap": 18.2725,
+        "ratio": 0.523
+      }
+    ],
+    "nil-010": [
+      {
+        "date": "Aug 23",
+        "price": 0.04424898
+      },
+      {
+        "date": "Aug 24",
+        "price": 0.0449457
+      },
+      {
+        "date": "Aug 25",
+        "price": 0.04170858
+      },
+      {
+        "date": "Aug 26",
+        "price": 0.04409068
+      },
+      {
+        "date": "Aug 27",
+        "price": 0.04249978
+      },
+      {
+        "date": "Aug 28",
+        "price": 0.04883307
+      },
+      {
+        "date": "Aug 29",
+        "price": 0.055409
+      },
+      {
+        "date": "Aug 30",
+        "price": 0.050993
+      },
+      {
+        "date": "Aug 31",
+        "price": 0.052602
+      },
+      {
+        "date": "Sep 1",
+        "price": 0.04900425
+      },
+      {
+        "date": "Sep 2",
+        "price": 0.04708017
+      },
+      {
+        "date": "Sep 3",
+        "price": 0.04817286
+      },
+      {
+        "date": "Sep 4",
+        "price": 0.04880436
+      },
+      {
+        "date": "Sep 5",
+        "price": 0.051795
+      },
+      {
+        "date": "Sep 6",
+        "price": 0.052334
+      },
+      {
+        "date": "Sep 7",
+        "price": 0.053015
+      },
+      {
+        "date": "Sep 8",
+        "price": 0.050511
+      },
+      {
+        "date": "Sep 9",
+        "price": 0.04417694
+      },
+      {
+        "date": "Sep 10",
+        "price": 0.04137606
+      }
+    ]
+  }
+}

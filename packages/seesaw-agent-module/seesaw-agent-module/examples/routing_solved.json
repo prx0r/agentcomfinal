@@ -1,0 +1,17 @@
+{
+  "id": "routing-solved",
+  "name": "Agent tool discovery/routing becomes solved infrastructure",
+  "date": "2026-09-14",
+  "description": "Assume platform reliably discovers and invokes relevant tools from large catalogs.",
+  "deltas": {
+    "wrapper_risk": 0.7,
+    "platform_capture": 1.0,
+    "distribution_ambiguity": -1.0,
+    "external_state": 0.3,
+    "authority": 0.3,
+    "trajectories": 0.3
+  },
+  "notes": [
+    "Metadata optimization becomes operational hygiene, not moat."
+  ]
+}

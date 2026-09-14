@@ -1,0 +1,12 @@
+{"checkpoint_id": "geodrop.01.scope", "event_type": "geodrop.scope_frozen", "evidence_class": "fixture", "ok": true, "run_id": "fixture-geodrop", "source": "fixture", "ts": "fixture"}
+{"checkpoint_id": "geodrop.02.source", "event_type": "geodrop.source_ingested", "evidence_class": "fixture", "ok": true, "run_id": "fixture-geodrop", "source": "fixture", "ts": "fixture"}
+{"checkpoint_id": "geodrop.03.normalize", "event_type": "geodrop.observation_normalized", "evidence_class": "fixture", "ok": true, "run_id": "fixture-geodrop", "source": "fixture", "ts": "fixture"}
+{"checkpoint_id": "geodrop.04.dedupe", "event_type": "geodrop.entities_resolved", "evidence_class": "fixture", "ok": true, "run_id": "fixture-geodrop", "source": "fixture", "ts": "fixture"}
+{"checkpoint_id": "geodrop.05.geo", "event_type": "geodrop.location_resolved", "evidence_class": "fixture", "ok": true, "run_id": "fixture-geodrop", "source": "fixture", "ts": "fixture"}
+{"checkpoint_id": "geodrop.06.evidence", "event_type": "geodrop.evidence_bound", "evidence_class": "fixture", "ok": true, "run_id": "fixture-geodrop", "source": "fixture", "ts": "fixture"}
+{"checkpoint_id": "geodrop.07.verify", "event_type": "physical_asset_verified", "evidence_class": "fixture", "ok": true, "run_id": "fixture-geodrop", "source": "fixture", "ts": "fixture"}
+{"checkpoint_id": "geodrop.08.history", "event_type": "geodrop.history_appended", "evidence_class": "fixture", "ok": true, "run_id": "fixture-geodrop", "source": "fixture", "ts": "fixture"}
+{"checkpoint_id": "geodrop.09.query", "event_type": "geodrop.query_answered", "evidence_class": "fixture", "ok": true, "run_id": "fixture-geodrop", "source": "fixture", "ts": "fixture"}
+{"checkpoint_id": "geodrop.10.export", "event_type": "geodrop.exported", "evidence_class": "fixture", "ok": true, "run_id": "fixture-geodrop", "source": "fixture", "ts": "fixture"}
+{"checkpoint_id": "geodrop.11.buyer-test", "event_type": "geodrop.buyer_tested", "evidence_class": "fixture", "ok": true, "run_id": "fixture-geodrop", "source": "fixture", "ts": "fixture"}
+{"checkpoint_id": "geodrop.12.outcome", "event_type": "geodrop.outcome_linked", "evidence_class": "fixture", "ok": true, "run_id": "fixture-geodrop", "source": "fixture", "ts": "fixture"}

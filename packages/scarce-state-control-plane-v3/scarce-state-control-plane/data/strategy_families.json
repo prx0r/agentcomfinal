@@ -1,0 +1,51 @@
+{
+  "version": "3.0.0",
+  "rule": "Replicate mechanisms only after real outcomes. Simulation successes never update empirical family performance.",
+  "families": [
+    {
+      "id": "personalized_identity_product",
+      "projects": [
+        "pogpet"
+      ],
+      "mechanism": "personalized input \u2192 paid artifact \u2192 persistent identity",
+      "prior_alpha": 1,
+      "prior_beta": 1
+    },
+    {
+      "id": "photo_to_money",
+      "projects": [
+        "breadup"
+      ],
+      "mechanism": "photo \u2192 identify/value/list \u2192 realized sale outcome",
+      "prior_alpha": 1,
+      "prior_beta": 1
+    },
+    {
+      "id": "free_workflow_to_authority",
+      "projects": [
+        "agentcom-uk"
+      ],
+      "mechanism": "free pain-point workflow \u2192 measured outcome \u2192 delegated operational authority",
+      "prior_alpha": 1,
+      "prior_beta": 1
+    },
+    {
+      "id": "agent_authored_play",
+      "projects": [
+        "pogtown"
+      ],
+      "mechanism": "agent-generated game \u2192 deterministic acceptance \u2192 human session \u2192 repeat/network state",
+      "prior_alpha": 1,
+      "prior_beta": 1
+    },
+    {
+      "id": "physical_truth_to_decision",
+      "projects": [
+        "geodrop"
+      ],
+      "mechanism": "verified physical observation \u2192 buyer query \u2192 decision usefulness",
+      "prior_alpha": 1,
+      "prior_beta": 1
+    }
+  ]
+}

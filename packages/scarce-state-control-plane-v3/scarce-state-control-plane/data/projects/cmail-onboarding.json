@@ -1,0 +1,783 @@
+{
+  "id": "cmail-onboarding",
+  "name": "Cmail Identity + Social Onboarding",
+  "repo": "https://github.com/prx0r/cmail",
+  "domain": "shared infrastructure",
+  "one_liner": "Provision the reusable identity surface every agent-operated business needs: domain, DNS, email, phone and handles.",
+  "core_thesis": "Business onboarding repeatedly needs the same identity acquisition DAG. This should be a reusable capability rather than reimplemented per vertical. Agents may exercise identity-management authority but must never possess raw credentials; purchases and irreversible actions require explicit grants/H-tasks.",
+  "why_now": "AgentCom, BreadUp storefronts and future plugin businesses all reuse the same bootstrap machinery.",
+  "user": "Any project that needs a real business identity",
+  "job": "Safely get online identities wired with a precise list of unavoidable human blockers.",
+  "distribution": "Internal shared service exposed through AgentCom/MCP.",
+  "moat": "Platform-specific onboarding knowledge, blocker taxonomy and measured autonomy rates.",
+  "falsifiers": [
+    "Identity platforms require so much manual verification that reuse is low.",
+    "Credential brokerage cannot support required providers safely."
+  ],
+  "components": [
+    "cmail",
+    "qp",
+    "atask",
+    "security"
+  ],
+  "checkpoints": [
+    {
+      "id": "cmail-onboarding.01.company-init",
+      "ordinal": 1,
+      "title": "Create a company bootstrap record with desired identity resources",
+      "user_behavior": "Create a company bootstrap record with desired identity resources",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 1 behavior for Cmail Identity + Social Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "cmail.company_init",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "cmail.company_init",
+        "where": {
+          "checkpoint_id": "cmail-onboarding.01.company-init",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "cmail-onboarding.02.domain-check",
+      "ordinal": 2,
+      "title": "Exact domain availability response is recorded with timestamp/provider",
+      "user_behavior": "Exact domain availability response is recorded with timestamp/provider",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 2 behavior for Cmail Identity + Social Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "cmail-onboarding.01.company-init"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "cmail.domain_checked",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "cmail.domain_checked",
+        "where": {
+          "checkpoint_id": "cmail-onboarding.02.domain-check",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "cmail-onboarding.03.domain-grant",
+      "ordinal": 3,
+      "title": "Domain purchase request cannot execute without allowed grant/H-task",
+      "user_behavior": "Domain purchase request cannot execute without allowed grant/H-task",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 3 behavior for Cmail Identity + Social Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "cmail-onboarding.02.domain-check"
+      ],
+      "authority": "A",
+      "minimum_proof_level": "V9",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "cmail.domain_authorized",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "cmail.domain_authorized",
+        "where": {
+          "checkpoint_id": "cmail-onboarding.03.domain-grant",
+          "ok": true
+        },
+        "minimum_evidence_class": "external_readback"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "cmail-onboarding.04.dns",
+      "ordinal": 4,
+      "title": "Authorized DNS record change emits before/after receipt",
+      "user_behavior": "Authorized DNS record change emits before/after receipt",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 4 behavior for Cmail Identity + Social Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "cmail-onboarding.03.domain-grant"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "cmail.dns_changed",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "cmail.dns_changed",
+        "where": {
+          "checkpoint_id": "cmail-onboarding.04.dns",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "cmail-onboarding.05.email",
+      "ordinal": 5,
+      "title": "Email routing/mailbox wiring is externally probeable",
+      "user_behavior": "Email routing/mailbox wiring is externally probeable",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 5 behavior for Cmail Identity + Social Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "cmail-onboarding.04.dns"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "cmail.email_wired",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "cmail.email_wired",
+        "where": {
+          "checkpoint_id": "cmail-onboarding.05.email",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "cmail-onboarding.06.phone-search",
+      "ordinal": 6,
+      "title": "Available phone numbers can be searched without purchase side effect",
+      "user_behavior": "Available phone numbers can be searched without purchase side effect",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 6 behavior for Cmail Identity + Social Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "cmail-onboarding.05.email"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "cmail.phone_searched",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "cmail.phone_searched",
+        "where": {
+          "checkpoint_id": "cmail-onboarding.06.phone-search",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "cmail-onboarding.07.phone-grant",
+      "ordinal": 7,
+      "title": "Phone purchase/KYC path becomes a bounded H-task when required",
+      "user_behavior": "Phone purchase/KYC path becomes a bounded H-task when required",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 7 behavior for Cmail Identity + Social Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "cmail-onboarding.06.phone-search"
+      ],
+      "authority": "A",
+      "minimum_proof_level": "V9",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "cmail.phone_blocked_or_authorized",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "cmail.phone_blocked_or_authorized",
+        "where": {
+          "checkpoint_id": "cmail-onboarding.07.phone-grant",
+          "ok": true
+        },
+        "minimum_evidence_class": "external_readback"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "cmail-onboarding.08.phone-wire",
+      "ordinal": 8,
+      "title": "Provisioned number routes into configured agent/endpoint",
+      "user_behavior": "Provisioned number routes into configured agent/endpoint",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 8 behavior for Cmail Identity + Social Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "cmail-onboarding.07.phone-grant"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "cmail.phone_wired",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "cmail.phone_wired",
+        "where": {
+          "checkpoint_id": "cmail-onboarding.08.phone-wire",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "cmail-onboarding.09.social-check",
+      "ordinal": 9,
+      "title": "Desired social handles are checked across configured providers",
+      "user_behavior": "Desired social handles are checked across configured providers",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 9 behavior for Cmail Identity + Social Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "cmail-onboarding.08.phone-wire"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "cmail.social_checked",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "cmail.social_checked",
+        "where": {
+          "checkpoint_id": "cmail-onboarding.09.social-check",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "cmail-onboarding.10.social-queue",
+      "ordinal": 10,
+      "title": "Manual/OTP-only social steps appear in exact H-task queue",
+      "user_behavior": "Manual/OTP-only social steps appear in exact H-task queue",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 10 behavior for Cmail Identity + Social Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "cmail-onboarding.09.social-check"
+      ],
+      "authority": "H",
+      "minimum_proof_level": "V7",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "cmail.social_htask",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "cmail.social_htask",
+        "where": {
+          "checkpoint_id": "cmail-onboarding.10.social-queue",
+          "ok": true
+        },
+        "minimum_evidence_class": "external_readback"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "cmail-onboarding.11.credential-ref",
+      "ordinal": 11,
+      "title": "Agent receives capability reference but never raw provider secret",
+      "user_behavior": "Agent receives capability reference but never raw provider secret",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 11 behavior for Cmail Identity + Social Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "cmail-onboarding.10.social-queue"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "cmail.credential_safe",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "cmail.credential_safe",
+        "where": {
+          "checkpoint_id": "cmail-onboarding.11.credential-ref",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "cmail-onboarding.12.autonomy-rate",
+      "ordinal": 12,
+      "title": "Bootstrap run calculates machine-vs-human task autonomy rate",
+      "user_behavior": "Bootstrap run calculates machine-vs-human task autonomy rate",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 12 behavior for Cmail Identity + Social Onboarding; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "cmail-onboarding.11.credential-ref"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "cmail.autonomy_measured",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "cmail.autonomy_measured",
+        "where": {
+          "checkpoint_id": "cmail-onboarding.12.autonomy-rate",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    }
+  ],
+  "success_definition": "All 12 checkpoints PROVEN on live evidence, with no unresolved critical H-task or security gate.",
+  "repo_binding": {
+    "url": "https://github.com/prx0r/cmail",
+    "polling": "GitHub snapshots are implementation evidence only; checkpoint proof comes from validator receipts."
+  },
+  "frozen_at": "2026-09-14",
+  "strategic_role": "hybrid_infrastructure",
+  "software_substitution_test": {
+    "counterfactual": "OpenAI/platform vendors ship perfect software for every reproducible feature in this project tomorrow.",
+    "survival": "YES_ONLY_AS_DELEGATED_IDENTITY_LAYER",
+    "destroyed_value": [
+      "domain search",
+      "DNS wrapper",
+      "email setup scripts",
+      "social handle checker"
+    ],
+    "surviving_value": [
+      "delegated control of real business identities/resources",
+      "customer onboarding relationships",
+      "verified resource state"
+    ],
+    "rationale": "Provisioning code is replaceable. Permission to manage a company domain/number/email on its behalf is consequential external state."
+  },
+  "scarce_assets": [
+    {
+      "id": "identity_authority",
+      "class": "delegated_authority",
+      "controller": "business owner",
+      "our_right": "delegated_write",
+      "unit": "managed identity resources",
+      "acquisition_event": "identity_capability_granted",
+      "decay_event": "identity_capability_revoked",
+      "economic_value": 5,
+      "exclusivity": 5,
+      "externality": 4,
+      "feedback": 2,
+      "trust": 5,
+      "ai_moat_beta": 5,
+      "current_stock": 0,
+      "network_effects": 1,
+      "public_replicability": 2,
+      "platform_capture": 3,
+      "synthetic_substitutability": 2
+    }
+  ],
+  "underengineer": {
+    "primitive": "UNDERENGINEER/2.0",
+    "rule": "Choose the earliest real-world event that increases controlled scarce state; build only its prerequisites plus safety and verification.",
+    "scarce_state_target": "Safely manage one real identity resource for one live campaign",
+    "first_real_moat_event": "identity_capability_granted",
+    "minimal_live_product": "For one real business/campaign, obtain delegated DNS or email authority and complete one externally verifiable change without exposing credentials to the worker.",
+    "steps": [
+      {
+        "id": "ue.01.grant",
+        "ordinal": 1,
+        "action": "Bind one owner grant to one resource/capability",
+        "authority": "H",
+        "acceptance": "Grant scope and expiry are explicit."
+      },
+      {
+        "id": "ue.02.act",
+        "ordinal": 2,
+        "action": "Perform one real change through credential broker",
+        "authority": "A",
+        "acceptance": "Before/after readback proves mutation."
+      },
+      {
+        "id": "ue.03.retain",
+        "ordinal": 3,
+        "action": "Store only capability reference and receipt",
+        "authority": "M",
+        "acceptance": "Worker-visible output contains no secret."
+      }
+    ],
+    "explicitly_not_now": [
+      "all providers",
+      "social automation",
+      "phone procurement",
+      "general onboarding wizard",
+      "large MCP surface"
+    ],
+    "graduation_rule": "The same bounded identity authority is reused by at least two asset campaigns or one customer repeatedly.",
+    "kill_or_rethink_rule": "If provider restrictions force raw credential exposure or manual work for every action, keep it narrow rather than generalizing.",
+    "project_manager_invariant": "A feature may enter NOW only if it is necessary to reach the first real moat event, required for safety/verification, or empirically unblocks that path.",
+    "observation_pause": "After the first live moat event, stop expanding and inspect customer/outcome evidence before choosing the next feature.",
+    "required_components_now": [
+      "atask",
+      "qp",
+      "security"
+    ]
+  },
+  "priority_inputs": {
+    "importance": 4,
+    "asset_value": 4,
+    "effort": 2,
+    "human_burden": 2,
+    "moat_beta": 4
+  },
+  "moat_metric": "delta_controlled_scarce_state",
+  "full_roadmap_policy": "The original checkpoint ladder is a capability library, not default build order. UNDERENGINEER chooses the live minimum path.",
+  "experiment_strategy": {
+    "target_profile": "smb_authority",
+    "candidates": [
+      "internal_simulation",
+      "free_smb_workflow"
+    ],
+    "preferred_sequence": [
+      "internal_simulation",
+      "free_smb_workflow"
+    ],
+    "learning_goal": "Validate delegated identity changes with no credential exposure."
+  }
+}

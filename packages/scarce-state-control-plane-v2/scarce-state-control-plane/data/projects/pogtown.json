@@ -1,0 +1,824 @@
+{
+  "id": "pogtown",
+  "name": "Pogtown",
+  "repo": "https://github.com/prx0r/pogtown",
+  "domain": "entertainment",
+  "one_liner": "One shared AI-native world protocol with phone AR, browser 3D, VR and live-show views.",
+  "core_thesis": "The product is not a show with an AR mode; it is one authoritative world/runtime with many views. Persistent actors\u2014human, AI, pet or agent\u2014can enter live formats, games and performances. Audience Pog scoring produces rankings and clips, turning the world into its own distribution engine.",
+  "why_now": "Realtime voice agents, browser 3D, generative worlds and live interaction can now be composed without requiring a human host.",
+  "user": "Audience member, contestant, agent developer or character owner",
+  "job": "Enter or watch a bizarre live AI-native world and generate shareable moments.",
+  "distribution": "Clips and live events; Pog.pet provides a character acquisition funnel.",
+  "moat": "Persistent actor protocol + deterministic world events + cross-view runtime + accumulated interaction/game formats.",
+  "falsifiers": [
+    "AI-only hosting is less entertaining than human-led formats.",
+    "Realtime latency or moderation constraints break the live experience.",
+    "Generated moments do not convert into repeat audience."
+  ],
+  "components": [
+    "qp",
+    "atask",
+    "seed0",
+    "security"
+  ],
+  "checkpoints": [
+    {
+      "id": "pogtown.01.actor-manifest",
+      "ordinal": 1,
+      "title": "Human/AI/pet/agent character loads from one portable actor manifest",
+      "user_behavior": "Human/AI/pet/agent character loads from one portable actor manifest",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 1 behavior for Pogtown; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogtown.actor_loaded",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogtown.actor_loaded",
+        "where": {
+          "checkpoint_id": "pogtown.01.actor-manifest",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogtown.02.world-state",
+      "ordinal": 2,
+      "title": "Authoritative runtime emits ordered world events and replayable state",
+      "user_behavior": "Authoritative runtime emits ordered world events and replayable state",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 2 behavior for Pogtown; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogtown.01.actor-manifest"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogtown.world_event",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogtown.world_event",
+        "where": {
+          "checkpoint_id": "pogtown.02.world-state",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogtown.03.desktop-view",
+      "ordinal": 3,
+      "title": "Browser 3D view renders the same world cursor",
+      "user_behavior": "Browser 3D view renders the same world cursor",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 3 behavior for Pogtown; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogtown.02.world-state"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogtown.desktop_view",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogtown.desktop_view",
+        "where": {
+          "checkpoint_id": "pogtown.03.desktop-view",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogtown.04.ar-view",
+      "ordinal": 4,
+      "title": "Phone AR view maps onto the same actor/world identity",
+      "user_behavior": "Phone AR view maps onto the same actor/world identity",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 4 behavior for Pogtown; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogtown.03.desktop-view"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogtown.ar_view",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogtown.ar_view",
+        "where": {
+          "checkpoint_id": "pogtown.04.ar-view",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogtown.05.vr-view",
+      "ordinal": 5,
+      "title": "VR-capable client can consume the same protocol without forked game truth",
+      "user_behavior": "VR-capable client can consume the same protocol without forked game truth",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 5 behavior for Pogtown; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogtown.04.ar-view"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogtown.vr_view",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogtown.vr_view",
+        "where": {
+          "checkpoint_id": "pogtown.05.vr-view",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogtown.06.live-voice",
+      "ordinal": 6,
+      "title": "Actor can participate in low-latency live voice turn exchange",
+      "user_behavior": "Actor can participate in low-latency live voice turn exchange",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 6 behavior for Pogtown; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogtown.05.vr-view"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogtown.voice_turn",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogtown.voice_turn",
+        "where": {
+          "checkpoint_id": "pogtown.06.live-voice",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogtown.07.judge",
+      "ordinal": 7,
+      "title": "AI judge/host decision is represented as an event, not hidden state",
+      "user_behavior": "AI judge/host decision is represented as an event, not hidden state",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 7 behavior for Pogtown; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogtown.06.live-voice"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogtown.judge_event",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogtown.judge_event",
+        "where": {
+          "checkpoint_id": "pogtown.07.judge",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogtown.08.pog-button",
+      "ordinal": 8,
+      "title": "Audience Pog input updates score through a deterministic event path",
+      "user_behavior": "Audience Pog input updates score through a deterministic event path",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 8 behavior for Pogtown; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogtown.07.judge"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogtown.pog_recorded",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogtown.pog_recorded",
+        "where": {
+          "checkpoint_id": "pogtown.08.pog-button",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogtown.09.clip",
+      "ordinal": 9,
+      "title": "High-Pog segment can be resolved to exact event/time range and rendered as a clip job",
+      "user_behavior": "High-Pog segment can be resolved to exact event/time range and rendered as a clip job",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 9 behavior for Pogtown; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogtown.08.pog-button"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogtown.clip_created",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogtown.clip_created",
+        "where": {
+          "checkpoint_id": "pogtown.09.clip",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogtown.10.agent-entry",
+      "ordinal": 10,
+      "title": "An autonomous agent can enter via the same legal action protocol as other actors",
+      "user_behavior": "An autonomous agent can enter via the same legal action protocol as other actors",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 10 behavior for Pogtown; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogtown.09.clip"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogtown.agent_entered",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogtown.agent_entered",
+        "where": {
+          "checkpoint_id": "pogtown.10.agent-entry",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogtown.11.game-pack",
+      "ordinal": 11,
+      "title": "A game pack can be loaded without modifying core runtime semantics",
+      "user_behavior": "A game pack can be loaded without modifying core runtime semantics",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 11 behavior for Pogtown; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogtown.10.agent-entry"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogtown.game_loaded",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogtown.game_loaded",
+        "where": {
+          "checkpoint_id": "pogtown.11.game-pack",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    },
+    {
+      "id": "pogtown.12.replay",
+      "ordinal": 12,
+      "title": "A completed show/session can deterministically replay event ordering and scores",
+      "user_behavior": "A completed show/session can deterministically replay event ordering and scores",
+      "implies": "If this passes on live evidence, the build has demonstrated checkpoint 12 behavior for Pogtown; it does not imply later checkpoints.",
+      "justification": "Checkpoint is phrased as an externally observable state transition so an agent cannot satisfy it with code presence or narrative completion alone.",
+      "depends_on": [
+        "pogtown.11.game-pack"
+      ],
+      "authority": "M",
+      "minimum_proof_level": "V4",
+      "inputs": [
+        {
+          "name": "events",
+          "type": "jsonl",
+          "description": "Append-only normalized run events."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "receipt",
+          "type": "object",
+          "required": [
+            "checkpoint_id",
+            "validator_id",
+            "result",
+            "evidence_root"
+          ]
+        }
+      ],
+      "evidence_contract": {
+        "required_event": "pogtown.replay_verified",
+        "source_policy": "Fixtures may exercise validator semantics, but PROVEN requires an independently attested live event at or above minimum_evidence_class. Self-reported source=live is only a claim."
+      },
+      "validator": {
+        "kind": "attested_event",
+        "event_type": "pogtown.replay_verified",
+        "where": {
+          "checkpoint_id": "pogtown.12.replay",
+          "ok": true
+        },
+        "minimum_evidence_class": "local_active_probe"
+      },
+      "reward": {
+        "pass": 1.0,
+        "fail": 0.0,
+        "unknown": 0.0,
+        "bonus": "Lower cost/time may break ties only after PASS."
+      },
+      "status": "UNSTARTED",
+      "roadmap_status": "NOT_NOW_UNLESS_REQUIRED_BY_UNDERENGINEER",
+      "scarce_asset_delta": []
+    }
+  ],
+  "success_definition": "All 12 checkpoints PROVEN on live evidence, with no unresolved critical H-task or security gate.",
+  "repo_binding": {
+    "url": "https://github.com/prx0r/pogtown",
+    "polling": "GitHub snapshots are implementation evidence only; checkpoint proof comes from validator receipts."
+  },
+  "frozen_at": "2026-09-14",
+  "strategic_role": "asset_campaign",
+  "software_substitution_test": {
+    "counterfactual": "OpenAI/platform vendors ship perfect software for every reproducible feature in this project tomorrow.",
+    "survival": "YES_AFTER_NETWORK_FORMATION",
+    "destroyed_value": [
+      "3D runtime",
+      "AI host",
+      "generic party games",
+      "AR/VR clients"
+    ],
+    "surviving_value": [
+      "persistent actors",
+      "creator/game ecosystem",
+      "audience relationships",
+      "interaction graph",
+      "reputation/Pog history",
+      "attention/liquidity"
+    ],
+    "rationale": "The code for a virtual town is reproducible. The town becomes defensible only when actors, creators, audiences and their histories accumulate."
+  },
+  "scarce_assets": [
+    {
+      "id": "actor_network",
+      "class": "network_identity",
+      "controller": "participant",
+      "our_right": "platform_custody",
+      "unit": "persistent actors",
+      "acquisition_event": "actor_joined_live_session",
+      "decay_event": "actor_deleted",
+      "economic_value": 4,
+      "exclusivity": 5,
+      "externality": 5,
+      "feedback": 5,
+      "trust": 4,
+      "ai_moat_beta": 5,
+      "current_stock": 0,
+      "network_effects": 3,
+      "public_replicability": 1,
+      "platform_capture": 3,
+      "synthetic_substitutability": 1
+    },
+    {
+      "id": "game_creator_graph",
+      "class": "creator_network",
+      "controller": "creator",
+      "our_right": "platform_distribution",
+      "unit": "published playable games",
+      "acquisition_event": "game_played_by_humans",
+      "decay_event": "game_removed",
+      "economic_value": 4,
+      "exclusivity": 5,
+      "externality": 5,
+      "feedback": 5,
+      "trust": 4,
+      "ai_moat_beta": 5,
+      "current_stock": 0,
+      "network_effects": 3,
+      "public_replicability": 1,
+      "platform_capture": 3,
+      "synthetic_substitutability": 1
+    },
+    {
+      "id": "interaction_history",
+      "class": "proprietary_outcome_data",
+      "controller": "participants",
+      "our_right": "platform_custody",
+      "unit": "verified play/interactions",
+      "acquisition_event": "session_completed",
+      "decay_event": "retention_expired",
+      "economic_value": 4,
+      "exclusivity": 5,
+      "externality": 5,
+      "feedback": 5,
+      "trust": 3,
+      "ai_moat_beta": 5,
+      "current_stock": 0,
+      "network_effects": 1,
+      "public_replicability": 1,
+      "platform_capture": 3,
+      "synthetic_substitutability": 1
+    }
+  ],
+  "underengineer": {
+    "primitive": "UNDERENGINEER/1.0",
+    "rule": "Choose the earliest real-world event that increases controlled scarce state; build only its prerequisites plus safety and verification.",
+    "scarce_state_target": "Prove agents can create games humans actually choose to play",
+    "first_real_moat_event": "game_played_by_humans",
+    "minimal_live_product": "A tiny browser runtime with a strict game-pack schema: an agent can submit/generate a game, deterministic validation accepts it, humans join a room and play it, and session/Pog events are recorded.",
+    "steps": [
+      {
+        "id": "ue.01.schema",
+        "ordinal": 1,
+        "action": "Define the smallest safe game-pack/action protocol",
+        "authority": "M",
+        "acceptance": "One static sample game validates and runs."
+      },
+      {
+        "id": "ue.02.agent-create",
+        "ordinal": 2,
+        "action": "Let an agent produce a valid game pack from a prompt",
+        "authority": "M",
+        "acceptance": "Generated pack passes schema/security validator."
+      },
+      {
+        "id": "ue.03.human-play",
+        "ordinal": 3,
+        "action": "Two humans can join and complete the generated game in browser",
+        "authority": "H",
+        "acceptance": "Session event log reaches completion."
+      },
+      {
+        "id": "ue.04.signal",
+        "ordinal": 4,
+        "action": "Collect replay/Pog/replay-intent signal",
+        "authority": "H",
+        "acceptance": "Game and creator receive linked outcome data."
+      }
+    ],
+    "explicitly_not_now": [
+      "AR",
+      "VR",
+      "3D town",
+      "LiveKit voices",
+      "AI celebrity hosts",
+      "clip studio",
+      "complex avatars",
+      "persistent economy"
+    ],
+    "graduation_rule": "Humans voluntarily play multiple agent-generated games and at least one creator/agent generates another because of observed play.",
+    "kill_or_rethink_rule": "If agent-generated games are not fun enough to cause repeat human play, do not build the larger world yet.",
+    "project_manager_invariant": "A feature may enter NOW only if it is necessary to reach the first real moat event, required for safety/verification, or empirically unblocks that path.",
+    "observation_pause": "After the first live moat event, stop expanding and inspect customer/outcome evidence before choosing the next feature.",
+    "required_components_now": [
+      "atask",
+      "security"
+    ]
+  },
+  "priority_inputs": {
+    "importance": 4,
+    "asset_value": 5,
+    "effort": 3,
+    "human_burden": 2,
+    "moat_beta": 5
+  },
+  "moat_metric": "delta_controlled_scarce_state",
+  "full_roadmap_policy": "The original checkpoint ladder is a capability library, not default build order. UNDERENGINEER chooses the live minimum path."
+}

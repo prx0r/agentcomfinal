@@ -1,0 +1,135 @@
+---
+original_r2_key: "seesawagent"
+sha12: fe09b1e82d5f
+size_bytes: 4046
+description: "Seesaw strategy-agent module summary (OWN/BUILD/REUSE...)"
+---
+
+[Download `seesaw-agent-module-v0.1.zip`](sandbox:/mnt/data/seesaw-agent-module-v0.1.zip)
+
+This is now a working **Seesaw strategy-agent module**, not just a thesis. It has 38 files and the included tests pass.
+
+The canonical loop is:
+
+$$
+\boxed{
+\text{New information}
+\rightarrow
+\Delta\text{Capability}
+\rightarrow
+\Delta\text{Constraint}
+\rightarrow
+\Delta\text{Scarcity}
+\rightarrow
+\Delta\text{Project Value}
+\rightarrow
+\Delta\text{Feature Priority}
+}
+$$
+
+and every feature gets classified as:
+
+`OWN / BUILD / REUSE / BUY / VALIDATE / WATCH / DROP`
+
+The most important rule embedded throughout it is:
+
+$$
+\boxed{
+\text{If a frontier lab can destroy the differentiated value merely by writing software, don't own that layer.}
+}
+$$
+
+Instead Seesaw explicitly scores what remains scarce: **external state, authority, state→action→outcome trajectories, network liquidity, physical supply, trust, longitudinal state, verifiability, externality, and positive AI beta.**
+
+I also encoded the project architecture we've converged on:
+
+```text
+SCARCE STATE
+├── proprietary data
+├── identity / permissions
+├── trajectories
+├── physical/economic supply
+├── trust
+└── network state
+        ↓
+ CAPABILITY KERNEL
+        ↓
+ replaceable adapters
+ ├── ChatGPT
+ ├── MCP
+ ├── API
+ ├── x402
+ └── web
+```
+
+So **plugins are distribution adapters, not the company**.
+
+The initial portfolio config includes Cmail, VoiceAgent, Company Graph, Breadup, AISec/Csec, XMRBot, GeoDrop and Pog Pet, with individual feature-level decisions. For example:
+
+* Cmail: `generic email drafting → REUSE`; `verified identity → OWN`; `send authority → OWN`; `reply/conversion trajectories → OWN`.
+* Breadup: `AI listing copy → REUSE`; `photo→valuation→cross-list → OWN`; `realized price/time-to-sale dataset → OWN`; `social-feed UI → low priority`.
+* Security: generic scanner UI is weak; deterministic gates and especially `attack → mitigation → actual outcome` data are strong.
+* GeoDrop: public company-map UI is replaceable; verified physical installed-base observations and subsequent installation/sale outcomes are the asset.
+* XMRBot: wallet UI is commodity; settlement/escrow authority and private transaction trajectories are the actual value.
+
+It also includes event-driven repricing. For example:
+
+```bash
+python -m seesaw.cli event \
+  examples/plugin_compiler_free.json \
+  data/projects.json
+```
+
+simulates **“OpenAI makes prompt→plugin free tomorrow”** and reprices the whole portfolio.
+
+There are also example shocks for:
+
+* pluginization becoming free,
+* tool routing/discovery becoming solved,
+* a major world-model capability jump.
+
+The repo contains an `AGENTS.md` specifically so a coding/research agent can use Seesaw as its strategic governor. The critical sequence is:
+
+```text
+event
+→ what became commodity?
+→ what became scarcer?
+→ which project owns that scarcity?
+→ reprice feature backlog
+→ search GitHub for commodity components
+→ reuse them
+→ build only proprietary delta
+→ instrument real outcomes
+→ update Seesaw
+```
+
+That last part is important: **GitHub mining is downstream of Seesaw.**
+
+We shouldn't say “reuse everything possible” indiscriminately. Instead:
+
+$$
+\text{Seesaw decides WHAT must be owned}
+$$
+
+$$
+\text{GitHub archaeology decides HOW LITTLE we must build}
+$$
+
+So an agent should aggressively reuse auth, UI, orchestration, model calls, MCP plumbing, generic analytics, generic scanners, billing primitives, etc., while refusing to outsource the layer producing the actual scarce state.
+
+The package also has a falsification framework so this doesn't become doctrine. Every strategic claim can store:
+
+```text
+date
+event
+decision
+reason
+falsifier
+6m outcome
+12m outcome
+24m outcome
+```
+
+That means we can eventually backtest **Seesaw itself** and learn which weights actually predict durable project value.
+
+This is probably the right control plane to put **above almost everything else we're building**.

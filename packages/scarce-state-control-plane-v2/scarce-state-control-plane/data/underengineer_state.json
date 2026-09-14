@@ -1,0 +1,53 @@
+{
+  "version": "1.0",
+  "projects": {
+    "geodrop": {
+      "completed_steps": [],
+      "last_observation": null
+    },
+    "pogtown": {
+      "completed_steps": [],
+      "last_observation": null
+    },
+    "astra-plugin-factory": {
+      "completed_steps": [],
+      "last_observation": null
+    },
+    "control-plane": {
+      "completed_steps": [],
+      "last_observation": null
+    },
+    "agentcom-uk": {
+      "completed_steps": [],
+      "last_observation": null
+    },
+    "cmail-onboarding": {
+      "completed_steps": [],
+      "last_observation": null
+    },
+    "demand-sensing": {
+      "completed_steps": [],
+      "last_observation": null
+    },
+    "qp-acom": {
+      "completed_steps": [],
+      "last_observation": null
+    },
+    "xmrbot": {
+      "completed_steps": [],
+      "last_observation": null
+    },
+    "pogpet": {
+      "completed_steps": [],
+      "last_observation": null
+    },
+    "security-plane": {
+      "completed_steps": [],
+      "last_observation": null
+    },
+    "breadup": {
+      "completed_steps": [],
+      "last_observation": null
+    }
+  }
+}

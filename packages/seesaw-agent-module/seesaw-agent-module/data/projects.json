@@ -1,0 +1,693 @@
+{
+  "version": "0.1",
+  "projects": [
+    {
+      "id": "cmail",
+      "name": "Cmail / Agent Identity & Email Authority",
+      "thesis": "Give agents real business identity, domain/email authority, communication permissions and outcome history.",
+      "scarcity": {
+        "external_state": 4.5,
+        "authority": 5.0,
+        "trajectories": 4.5,
+        "network": 2.0,
+        "physical": 0.5,
+        "trust": 4.0,
+        "longitudinal_state": 4.5,
+        "ai_complementarity": 5.0,
+        "verifiability": 4.5,
+        "externality": 5.0
+      },
+      "fragility": {
+        "wrapper_risk": 1.0,
+        "public_replicability": 1.5,
+        "platform_capture": 2.5,
+        "synthetic_substitutability": 0.5,
+        "internalization_risk": 0.5,
+        "human_distribution_burden": 2.0
+      },
+      "ownership": {
+        "state": 4.0,
+        "authority": 5.0,
+        "trajectories": 3.5,
+        "network": 1.5,
+        "supply": 1.0
+      },
+      "features": [
+        {
+          "name": "generic email drafting",
+          "scores": {
+            "external_state": 0,
+            "authority": 0,
+            "trajectories": 1,
+            "ai_complementarity": 0,
+            "scarcity": 0,
+            "trust": 0,
+            "verifiability": 2,
+            "necessity": 2,
+            "lab_attack": 5,
+            "public_replicability": 5,
+            "maintenance": 1
+          }
+        },
+        {
+          "name": "verified domain/email identity",
+          "scores": {
+            "external_state": 5,
+            "authority": 5,
+            "trajectories": 3,
+            "ai_complementarity": 5,
+            "scarcity": 4,
+            "trust": 5,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 0,
+            "public_replicability": 1,
+            "maintenance": 2
+          }
+        },
+        {
+          "name": "send/receive authority + consent policy",
+          "scores": {
+            "external_state": 5,
+            "authority": 5,
+            "trajectories": 5,
+            "ai_complementarity": 5,
+            "scarcity": 4,
+            "trust": 5,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 0,
+            "public_replicability": 1,
+            "maintenance": 3
+          }
+        },
+        {
+          "name": "reply/conversion outcome ledger",
+          "scores": {
+            "external_state": 5,
+            "authority": 3,
+            "trajectories": 5,
+            "ai_complementarity": 5,
+            "scarcity": 4,
+            "trust": 4,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 0,
+            "public_replicability": 1,
+            "maintenance": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "voiceagent",
+      "name": "VoiceAgent",
+      "thesis": "Agents act through real phone identities, calls, bookings and measurable call outcomes.",
+      "scarcity": {
+        "external_state": 4.0,
+        "authority": 5.0,
+        "trajectories": 5.0,
+        "network": 2.0,
+        "physical": 1.0,
+        "trust": 4.0,
+        "longitudinal_state": 4.0,
+        "ai_complementarity": 5.0,
+        "verifiability": 5.0,
+        "externality": 5.0
+      },
+      "fragility": {
+        "wrapper_risk": 1.5,
+        "public_replicability": 2.0,
+        "platform_capture": 2.5,
+        "synthetic_substitutability": 1.0,
+        "internalization_risk": 1.0,
+        "human_distribution_burden": 2.0
+      },
+      "ownership": {
+        "state": 3.5,
+        "authority": 5.0,
+        "trajectories": 4.0,
+        "network": 1.5,
+        "supply": 1.5
+      },
+      "features": [
+        {
+          "name": "generic voice generation",
+          "scores": {
+            "external_state": 0,
+            "authority": 0,
+            "trajectories": 1,
+            "ai_complementarity": 1,
+            "scarcity": 0,
+            "trust": 0,
+            "verifiability": 2,
+            "necessity": 3,
+            "lab_attack": 5,
+            "public_replicability": 5,
+            "maintenance": 2
+          }
+        },
+        {
+          "name": "phone number + verified caller identity",
+          "scores": {
+            "external_state": 5,
+            "authority": 5,
+            "trajectories": 3,
+            "ai_complementarity": 5,
+            "scarcity": 4,
+            "trust": 5,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 0,
+            "public_replicability": 1,
+            "maintenance": 3
+          }
+        },
+        {
+          "name": "call->booking/payment outcome trajectories",
+          "scores": {
+            "external_state": 5,
+            "authority": 4,
+            "trajectories": 5,
+            "ai_complementarity": 5,
+            "scarcity": 4,
+            "trust": 4,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 0,
+            "public_replicability": 1,
+            "maintenance": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "companygraph",
+      "name": "Company Graph",
+      "thesis": "Maintain changing, verified company state and relationships as machine-usable external context.",
+      "scarcity": {
+        "external_state": 5.0,
+        "authority": 1.5,
+        "trajectories": 4.0,
+        "network": 3.0,
+        "physical": 1.5,
+        "trust": 4.0,
+        "longitudinal_state": 5.0,
+        "ai_complementarity": 5.0,
+        "verifiability": 4.5,
+        "externality": 4.5
+      },
+      "fragility": {
+        "wrapper_risk": 1.0,
+        "public_replicability": 2.5,
+        "platform_capture": 1.5,
+        "synthetic_substitutability": 1.0,
+        "internalization_risk": 1.0,
+        "human_distribution_burden": 1.0
+      },
+      "ownership": {
+        "state": 4.0,
+        "authority": 1.0,
+        "trajectories": 3.0,
+        "network": 2.0,
+        "supply": 1.0
+      },
+      "features": [
+        {
+          "name": "generic public company enrichment",
+          "scores": {
+            "external_state": 2,
+            "authority": 0,
+            "trajectories": 1,
+            "ai_complementarity": 2,
+            "scarcity": 1,
+            "trust": 1,
+            "verifiability": 3,
+            "necessity": 3,
+            "lab_attack": 4,
+            "public_replicability": 5,
+            "maintenance": 2
+          }
+        },
+        {
+          "name": "verified temporal company state",
+          "scores": {
+            "external_state": 5,
+            "authority": 1,
+            "trajectories": 5,
+            "ai_complementarity": 5,
+            "scarcity": 4,
+            "trust": 5,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 1,
+            "public_replicability": 2,
+            "maintenance": 3
+          }
+        },
+        {
+          "name": "company change/outcome graph",
+          "scores": {
+            "external_state": 5,
+            "authority": 1,
+            "trajectories": 5,
+            "ai_complementarity": 5,
+            "scarcity": 4,
+            "trust": 4,
+            "verifiability": 4,
+            "necessity": 5,
+            "lab_attack": 1,
+            "public_replicability": 2,
+            "maintenance": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "breadup",
+      "name": "Breadup",
+      "thesis": "Reselling/action layer that turns physical items into listings, prices, transactions and proprietary realized-sale trajectories.",
+      "scarcity": {
+        "external_state": 4.5,
+        "authority": 4.0,
+        "trajectories": 5.0,
+        "network": 3.0,
+        "physical": 4.0,
+        "trust": 3.5,
+        "longitudinal_state": 4.0,
+        "ai_complementarity": 5.0,
+        "verifiability": 5.0,
+        "externality": 5.0
+      },
+      "fragility": {
+        "wrapper_risk": 1.5,
+        "public_replicability": 2.0,
+        "platform_capture": 3.0,
+        "synthetic_substitutability": 1.0,
+        "internalization_risk": 1.0,
+        "human_distribution_burden": 2.5
+      },
+      "ownership": {
+        "state": 3.5,
+        "authority": 3.5,
+        "trajectories": 4.0,
+        "network": 1.5,
+        "supply": 2.5
+      },
+      "features": [
+        {
+          "name": "AI listing description",
+          "scores": {
+            "external_state": 0,
+            "authority": 0,
+            "trajectories": 1,
+            "ai_complementarity": 0,
+            "scarcity": 0,
+            "trust": 0,
+            "verifiability": 2,
+            "necessity": 2,
+            "lab_attack": 5,
+            "public_replicability": 5,
+            "maintenance": 1
+          }
+        },
+        {
+          "name": "photo->valuation->cross-list action",
+          "scores": {
+            "external_state": 4,
+            "authority": 4,
+            "trajectories": 5,
+            "ai_complementarity": 5,
+            "scarcity": 3,
+            "trust": 3,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 2,
+            "public_replicability": 2,
+            "maintenance": 3
+          }
+        },
+        {
+          "name": "realized price/time-to-sale dataset",
+          "scores": {
+            "external_state": 5,
+            "authority": 2,
+            "trajectories": 5,
+            "ai_complementarity": 5,
+            "scarcity": 5,
+            "trust": 4,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 0,
+            "public_replicability": 1,
+            "maintenance": 2
+          }
+        },
+        {
+          "name": "social feed UI",
+          "scores": {
+            "external_state": 1,
+            "authority": 0,
+            "trajectories": 2,
+            "ai_complementarity": 1,
+            "scarcity": 1,
+            "trust": 1,
+            "verifiability": 2,
+            "necessity": 1,
+            "lab_attack": 4,
+            "public_replicability": 4,
+            "maintenance": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "aisec",
+      "name": "AISec / Csec",
+      "thesis": "Security infrastructure that captures adversarial state, findings, mitigations and verified defense outcomes.",
+      "scarcity": {
+        "external_state": 5.0,
+        "authority": 4.0,
+        "trajectories": 5.0,
+        "network": 2.5,
+        "physical": 1.0,
+        "trust": 5.0,
+        "longitudinal_state": 4.5,
+        "ai_complementarity": 5.0,
+        "verifiability": 5.0,
+        "externality": 5.0
+      },
+      "fragility": {
+        "wrapper_risk": 1.0,
+        "public_replicability": 1.5,
+        "platform_capture": 1.5,
+        "synthetic_substitutability": 0.5,
+        "internalization_risk": 0.5,
+        "human_distribution_burden": 2.0
+      },
+      "ownership": {
+        "state": 4.0,
+        "authority": 3.0,
+        "trajectories": 4.0,
+        "network": 1.5,
+        "supply": 1.0
+      },
+      "features": [
+        {
+          "name": "generic vulnerability scan UI",
+          "scores": {
+            "external_state": 2,
+            "authority": 1,
+            "trajectories": 2,
+            "ai_complementarity": 2,
+            "scarcity": 1,
+            "trust": 2,
+            "verifiability": 4,
+            "necessity": 3,
+            "lab_attack": 4,
+            "public_replicability": 4,
+            "maintenance": 2
+          }
+        },
+        {
+          "name": "sensitive-data deterministic pre-push gate",
+          "scores": {
+            "external_state": 3,
+            "authority": 4,
+            "trajectories": 4,
+            "ai_complementarity": 5,
+            "scarcity": 3,
+            "trust": 5,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 1,
+            "public_replicability": 3,
+            "maintenance": 2
+          }
+        },
+        {
+          "name": "attack->mitigation->outcome corpus",
+          "scores": {
+            "external_state": 5,
+            "authority": 3,
+            "trajectories": 5,
+            "ai_complementarity": 5,
+            "scarcity": 5,
+            "trust": 5,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 0,
+            "public_replicability": 1,
+            "maintenance": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "xmrbot",
+      "name": "XMRBot",
+      "thesis": "Private agent commerce: settlement, escrow, marketplace access and action authority rather than another wallet UI.",
+      "scarcity": {
+        "external_state": 4.5,
+        "authority": 5.0,
+        "trajectories": 4.0,
+        "network": 4.0,
+        "physical": 1.0,
+        "trust": 4.0,
+        "longitudinal_state": 3.5,
+        "ai_complementarity": 5.0,
+        "verifiability": 4.5,
+        "externality": 5.0
+      },
+      "fragility": {
+        "wrapper_risk": 1.0,
+        "public_replicability": 2.0,
+        "platform_capture": 1.5,
+        "synthetic_substitutability": 0.5,
+        "internalization_risk": 0.5,
+        "human_distribution_burden": 2.5
+      },
+      "ownership": {
+        "state": 3.0,
+        "authority": 4.0,
+        "trajectories": 3.0,
+        "network": 2.0,
+        "supply": 1.0
+      },
+      "features": [
+        {
+          "name": "generic XMR wallet UI",
+          "scores": {
+            "external_state": 2,
+            "authority": 3,
+            "trajectories": 1,
+            "ai_complementarity": 2,
+            "scarcity": 1,
+            "trust": 2,
+            "verifiability": 4,
+            "necessity": 2,
+            "lab_attack": 4,
+            "public_replicability": 5,
+            "maintenance": 2
+          }
+        },
+        {
+          "name": "agent escrow/settlement authority",
+          "scores": {
+            "external_state": 5,
+            "authority": 5,
+            "trajectories": 4,
+            "ai_complementarity": 5,
+            "scarcity": 5,
+            "trust": 5,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 0,
+            "public_replicability": 2,
+            "maintenance": 4
+          }
+        },
+        {
+          "name": "private marketplace adapters + verified transaction outcomes",
+          "scores": {
+            "external_state": 5,
+            "authority": 5,
+            "trajectories": 5,
+            "ai_complementarity": 5,
+            "scarcity": 5,
+            "trust": 4,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 0,
+            "public_replicability": 2,
+            "maintenance": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "geodrop",
+      "name": "GeoDrop",
+      "thesis": "Country/company installed-base and physical infrastructure graph with field-verifiable observations.",
+      "scarcity": {
+        "external_state": 5.0,
+        "authority": 2.0,
+        "trajectories": 4.5,
+        "network": 3.0,
+        "physical": 5.0,
+        "trust": 4.0,
+        "longitudinal_state": 5.0,
+        "ai_complementarity": 5.0,
+        "verifiability": 4.5,
+        "externality": 5.0
+      },
+      "fragility": {
+        "wrapper_risk": 0.5,
+        "public_replicability": 2.0,
+        "platform_capture": 1.0,
+        "synthetic_substitutability": 0.5,
+        "internalization_risk": 0.5,
+        "human_distribution_burden": 2.0
+      },
+      "ownership": {
+        "state": 4.0,
+        "authority": 1.0,
+        "trajectories": 3.0,
+        "network": 1.5,
+        "supply": 2.0
+      },
+      "features": [
+        {
+          "name": "public company map UI",
+          "scores": {
+            "external_state": 2,
+            "authority": 0,
+            "trajectories": 1,
+            "ai_complementarity": 2,
+            "scarcity": 1,
+            "trust": 1,
+            "verifiability": 2,
+            "necessity": 2,
+            "lab_attack": 4,
+            "public_replicability": 5,
+            "maintenance": 2
+          }
+        },
+        {
+          "name": "verified installed-base observations",
+          "scores": {
+            "external_state": 5,
+            "authority": 1,
+            "trajectories": 5,
+            "ai_complementarity": 5,
+            "scarcity": 5,
+            "trust": 5,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 0,
+            "public_replicability": 1,
+            "maintenance": 3
+          }
+        },
+        {
+          "name": "field outcome / sale / installation trajectories",
+          "scores": {
+            "external_state": 5,
+            "authority": 3,
+            "trajectories": 5,
+            "ai_complementarity": 5,
+            "scarcity": 5,
+            "trust": 4,
+            "verifiability": 5,
+            "necessity": 5,
+            "lab_attack": 0,
+            "public_replicability": 1,
+            "maintenance": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "pog_pet",
+      "name": "Pog Pet / AR Product",
+      "thesis": "Physical personalized product and fan/provenance experience; software generation layer is commodity.",
+      "scarcity": {
+        "external_state": 3.0,
+        "authority": 2.0,
+        "trajectories": 4.0,
+        "network": 3.0,
+        "physical": 4.0,
+        "trust": 3.0,
+        "longitudinal_state": 3.0,
+        "ai_complementarity": 4.0,
+        "verifiability": 5.0,
+        "externality": 3.5
+      },
+      "fragility": {
+        "wrapper_risk": 2.0,
+        "public_replicability": 3.0,
+        "platform_capture": 2.0,
+        "synthetic_substitutability": 2.5,
+        "internalization_risk": 2.0,
+        "human_distribution_burden": 3.0
+      },
+      "ownership": {
+        "state": 2.5,
+        "authority": 1.0,
+        "trajectories": 3.0,
+        "network": 1.0,
+        "supply": 2.5
+      },
+      "features": [
+        {
+          "name": "generic pet AR generation",
+          "scores": {
+            "external_state": 1,
+            "authority": 0,
+            "trajectories": 1,
+            "ai_complementarity": 1,
+            "scarcity": 1,
+            "trust": 1,
+            "verifiability": 3,
+            "necessity": 3,
+            "lab_attack": 5,
+            "public_replicability": 5,
+            "maintenance": 2
+          }
+        },
+        {
+          "name": "customer pet asset/history + repeat gifting",
+          "scores": {
+            "external_state": 4,
+            "authority": 2,
+            "trajectories": 4,
+            "ai_complementarity": 4,
+            "scarcity": 3,
+            "trust": 3,
+            "verifiability": 5,
+            "necessity": 4,
+            "lab_attack": 2,
+            "public_replicability": 2,
+            "maintenance": 2
+          }
+        },
+        {
+          "name": "physical product + creator/fan provenance",
+          "scores": {
+            "external_state": 3,
+            "authority": 1,
+            "trajectories": 3,
+            "ai_complementarity": 4,
+            "scarcity": 4,
+            "trust": 4,
+            "verifiability": 5,
+            "necessity": 4,
+            "lab_attack": 1,
+            "public_replicability": 2,
+            "maintenance": 3
+          }
+        }
+      ]
+    }
+  ]
+}

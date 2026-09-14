@@ -1,0 +1,34 @@
+from __future__ import annotations
+from xmrbot.core.types import RiskClass
+
+TOOL_RISK = {
+    "xmr_tools": RiskClass.R0,
+    "xmr_site_map": RiskClass.R0,
+    "xmr_search": RiskClass.R0,
+    "xmr_network_status": RiskClass.R0,
+    "xmr_mining_profitability": RiskClass.R0,
+    "xmr_cpu_lookup": RiskClass.R0,
+    "xmr_mine_or_buy": RiskClass.R0,
+    "xmr_resource_find": RiskClass.R0,
+    "xmr_node_plan": RiskClass.R0,
+    "xmr_wallet_plan": RiskClass.R0,
+    "xmr_machine_inspect": RiskClass.R0,
+    "xmr_machine_benchmark": RiskClass.R1,
+    "xmr_computer_opportunities": RiskClass.R0,
+    "xmr_blog_list": RiskClass.R0,
+    "xmr_blog_get": RiskClass.R0,
+    "xmr_blog_draft": RiskClass.R1,
+    "xmr_blog_publish": RiskClass.R1,
+    "xmr_content_recipe": RiskClass.R0,
+    "xmr_content_from_blog": RiskClass.R0,
+    "xmr_provider_list": RiskClass.R0,
+    "xmr_provider_get": RiskClass.R0,
+    "xmr_procurement_route": RiskClass.R0,
+    "xmr_provider_propose": RiskClass.R0,
+    "xmr_provider_read": RiskClass.R0,
+    "qp_grant_request": RiskClass.R0,
+    "qp_gate_evaluate": RiskClass.R0,
+    "qp_receipt_verify": RiskClass.R0,
+}
+
+DISABLED_WALLET_ACTIONS = {"wallet.export_seed", "wallet.export_keys"}

@@ -1,0 +1,14 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="XMRBot internal content automation recipes for blog, YouTube and social distribution."><title>Content Recipes — XMRBot</title><link rel="icon" href="/static/mark.svg"><link rel="stylesheet" href="/static/styles.css"></head><body><div id="nav"></div><div id="pagebar"></div><main>
+<section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">Internal distribution system</div><h1>One research object. Every channel.</h1><p>Recipes preserve the canonical blog post and source references while producing the operational package required for YouTube, Shorts, X and Instagram. Publishing adapters remain separate credentialed boundaries.</p></div><aside class="hero-ledger"><div class="ledger-head">RECIPE CONTRACT</div><div class="ledger-row"><span>Source of truth</span><b>Blog + data</b></div><div class="ledger-row"><span>Video output</span><b>Manifest + script</b></div><div class="ledger-row"><span>Social output</span><b>Structured copy</b></div><div class="ledger-row"><span>Upload</span><b>Adapter boundary</b></div><div class="ledger-foot">No fake “published” result: YouTube upload requires a real OAuth publisher implementation.</div></aside></div></section>
+<section class="section white"><div class="wrap"><div class="section-head"><div><div class="eyebrow">Available recipes</div><h2>Automation that remains inspectable.</h2></div><div class="aside">MCP TOOL<br>xmr_content_recipe</div></div><div id="recipes"></div><div class="panel"><div class="panel-head"><h3>Example internal-agent chain</h3><span class="label">BLOG → VIDEO</span></div><div class="panel-body"><pre class="code">xmr_blog_draft(...sources...)
+      ↓ editor/source validation
+xmr_blog_publish(slug)
+      ↓
+xmr_content_from_blog(slug)
+      ↓
+render video from canonical script/data
+      ↓ human approval
+YouTube publisher adapter (OAuth)
+      ↓
+publish Shorts / X / Instagram variants</pre></div></div></div></section>
+</main><div id="footer"></div><script src="/static/app.js"></script><script>(async()=>{XMR.mountShell('RECIPES');const data=await XMR.api('/v1/content/recipes');recipes.innerHTML=data.recipes.map(r=>`<section class="recipe"><div class="recipe-head"><h3>${XMR.esc(r.title)}</h3><span class="label">${XMR.esc(r.id)}</span></div><div class="recipe-body"><p class="intro">${XMR.esc(r.description)}</p><ol>${r.steps.map(s=>`<li>${XMR.esc(s)}</li>`).join('')}</ol><div class="outputs">OUTPUTS: ${r.outputs.map(XMR.esc).join(' · ')}</div></div></section>`).join('')})();</script></body></html>

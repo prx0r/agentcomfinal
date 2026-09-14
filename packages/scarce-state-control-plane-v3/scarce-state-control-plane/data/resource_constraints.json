@@ -1,0 +1,103 @@
+{
+  "version": "3.0.0",
+  "rule": "Model bottlenecks explicitly. An account, store, human minute, KYC step or cash commitment is a resource; software is not allowed to pretend the resource is infinitely parallel.",
+  "resources": [
+    {
+      "id": "etsy_store_primary",
+      "kind": "platform_account",
+      "capacity": 1,
+      "parallelism": 1,
+      "setup_cost": {
+        "currency": "GBP",
+        "amount": 14,
+        "provenance": "user_assumption"
+      },
+      "allocation": "one active economic phenotype at a time until evidence justifies another store",
+      "human_required": true
+    },
+    {
+      "id": "chatgpt_app_account_primary",
+      "kind": "platform_account",
+      "capacity": 1,
+      "parallelism": 1,
+      "setup_cost": {
+        "currency": "GBP",
+        "amount": 0,
+        "provenance": "planning_assumption"
+      },
+      "allocation": "one primary live app probe at a time; simulations can run in parallel",
+      "human_required": true
+    },
+    {
+      "id": "market_data",
+      "kind": "data",
+      "capacity": "unbounded_read",
+      "parallelism": 20,
+      "setup_cost": {
+        "currency": "GBP",
+        "amount": 0,
+        "provenance": "paper_lab"
+      },
+      "allocation": "many frozen paper hypotheses may resolve concurrently",
+      "human_required": false
+    },
+    {
+      "id": "compute",
+      "kind": "compute",
+      "capacity": "bounded_by_runtime",
+      "parallelism": 20,
+      "setup_cost": {
+        "currency": "GBP",
+        "amount": 0,
+        "provenance": "local_or_existing"
+      },
+      "allocation": "simulations only; never a proof source",
+      "human_required": false
+    },
+    {
+      "id": "human_sales_attention",
+      "kind": "human",
+      "capacity": "explicit_queue",
+      "parallelism": 1,
+      "setup_cost": null,
+      "allocation": "reserve for high-value conversations and physical/platform steps",
+      "human_required": true
+    },
+    {
+      "id": "business_permission_slot",
+      "kind": "authority",
+      "capacity": "grows_with_customers",
+      "parallelism": 1,
+      "setup_cost": null,
+      "allocation": "one initial business until workflow is proven",
+      "human_required": true
+    },
+    {
+      "id": "marketplace_account",
+      "kind": "platform_account",
+      "capacity": 1,
+      "parallelism": 1,
+      "setup_cost": null,
+      "allocation": "start with one real account/marketplace; expand only after outcome data",
+      "human_required": true
+    },
+    {
+      "id": "web_surface",
+      "kind": "distribution",
+      "capacity": "shared",
+      "parallelism": 20,
+      "setup_cost": null,
+      "allocation": "cheap parallel probes allowed",
+      "human_required": false
+    },
+    {
+      "id": "physical_observation_capacity",
+      "kind": "human_or_partner",
+      "capacity": "explicit_queue",
+      "parallelism": 1,
+      "setup_cost": null,
+      "allocation": "batch observations only after buyer question is fixed",
+      "human_required": true
+    }
+  ]
+}

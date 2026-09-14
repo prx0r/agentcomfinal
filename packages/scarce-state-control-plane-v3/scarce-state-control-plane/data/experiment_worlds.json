@@ -1,0 +1,198 @@
+{
+  "version": "3.0.0",
+  "invariant": "Choose the cheapest real environment that can materially falsify or strengthen the current claim. Simulation may rank experiments but cannot graduate a claim.",
+  "formula": "ExperimentValue=(information_gain*feedback_quality*economic_relevance)/(money_cost_factor*time_factor*human_burden_factor*irreversibility_factor)",
+  "classes": [
+    {
+      "id": "A_TRUTH",
+      "name": "Truth experiment",
+      "question": "Does the causal hypothesis predict external reality?",
+      "examples": [
+        "paper_trading",
+        "frozen_forecast"
+      ],
+      "graduation_signal": "resolved external outcome"
+    },
+    {
+      "id": "B_DEMAND",
+      "name": "Demand experiment",
+      "question": "Will a user voluntarily invoke/use this?",
+      "examples": [
+        "chatgpt_app",
+        "free_tool",
+        "landing_page"
+      ],
+      "graduation_signal": "real usage/repeat/intent events"
+    },
+    {
+      "id": "C_ECONOMIC",
+      "name": "Economic experiment",
+      "question": "Will someone exchange money or accept a concrete economic tradeoff?",
+      "examples": [
+        "etsy_listing",
+        "paid_pilot",
+        "marketplace_sale"
+      ],
+      "graduation_signal": "real purchase/payment/accepted commercial action"
+    },
+    {
+      "id": "D_SCARCE_STATE",
+      "name": "Scarce-state experiment",
+      "question": "Can we acquire durable consequential state that perfect software cannot synthesize?",
+      "examples": [
+        "delegated_business_permission",
+        "real_transaction_outcome",
+        "verified_physical_observation",
+        "network_participant"
+      ],
+      "graduation_signal": "verified ledger-incrementing receipt"
+    }
+  ],
+  "worlds": [
+    {
+      "id": "paper_trading",
+      "class": "A_TRUTH",
+      "money_cost": 0,
+      "feedback_hours": 24,
+      "human_minutes": 5,
+      "irreversibility": 1,
+      "feedback_quality": 5,
+      "economic_relevance": 5,
+      "information_gain": 5,
+      "resources": [
+        "market_data"
+      ],
+      "canonical_proof_ceiling": "external_readback",
+      "notes": "Freeze thesis, horizon and falsifiers before observing outcome. Paper success validates forecast logic, not live execution alpha."
+    },
+    {
+      "id": "internal_simulation",
+      "class": "A_TRUTH",
+      "money_cost": 0,
+      "feedback_hours": 0.05,
+      "human_minutes": 0,
+      "irreversibility": 1,
+      "feedback_quality": 1,
+      "economic_relevance": 2,
+      "information_gain": 2,
+      "resources": [
+        "compute"
+      ],
+      "canonical_proof_ceiling": "replay",
+      "notes": "Ranks variants only. Never counts as demand, revenue or scarce-state proof."
+    },
+    {
+      "id": "chatgpt_app",
+      "class": "B_DEMAND",
+      "money_cost": 0,
+      "feedback_hours": 12,
+      "human_minutes": 10,
+      "irreversibility": 1,
+      "feedback_quality": 4,
+      "economic_relevance": 3,
+      "information_gain": 5,
+      "resources": [
+        "chatgpt_app_account_primary"
+      ],
+      "canonical_proof_ceiling": "external_readback",
+      "notes": "Disposable intent probe. Do not mistake app usage for a moat."
+    },
+    {
+      "id": "free_tool",
+      "class": "B_DEMAND",
+      "money_cost": 0,
+      "feedback_hours": 24,
+      "human_minutes": 10,
+      "irreversibility": 1,
+      "feedback_quality": 3,
+      "economic_relevance": 3,
+      "information_gain": 4,
+      "resources": [
+        "web_surface"
+      ],
+      "canonical_proof_ceiling": "external_readback",
+      "notes": "Useful when app distribution is unavailable or the workflow needs a public URL."
+    },
+    {
+      "id": "etsy_listing",
+      "class": "C_ECONOMIC",
+      "money_cost": 14,
+      "feedback_hours": 72,
+      "human_minutes": 15,
+      "irreversibility": 2,
+      "feedback_quality": 5,
+      "economic_relevance": 5,
+      "information_gain": 5,
+      "resources": [
+        "etsy_store_primary"
+      ],
+      "canonical_proof_ceiling": "real_economic_outcome",
+      "notes": "Configured with the user-stated \u00a314 store setup assumption. Treat as editable, not platform truth."
+    },
+    {
+      "id": "marketplace_sale",
+      "class": "C_ECONOMIC",
+      "money_cost": 0,
+      "feedback_hours": 72,
+      "human_minutes": 15,
+      "irreversibility": 2,
+      "feedback_quality": 5,
+      "economic_relevance": 5,
+      "information_gain": 5,
+      "resources": [
+        "marketplace_account"
+      ],
+      "canonical_proof_ceiling": "real_economic_outcome",
+      "notes": "Real sell-through/clearing-price feedback."
+    },
+    {
+      "id": "free_smb_workflow",
+      "class": "D_SCARCE_STATE",
+      "money_cost": 0,
+      "feedback_hours": 168,
+      "human_minutes": 45,
+      "irreversibility": 3,
+      "feedback_quality": 5,
+      "economic_relevance": 5,
+      "information_gain": 5,
+      "resources": [
+        "human_sales_attention",
+        "business_permission_slot"
+      ],
+      "canonical_proof_ceiling": "signed_third_party_receipt",
+      "notes": "Give one useful workflow free; seek delegated authority and measured operational outcome before broader tooling."
+    },
+    {
+      "id": "physical_probe",
+      "class": "D_SCARCE_STATE",
+      "money_cost": 0,
+      "feedback_hours": 168,
+      "human_minutes": 60,
+      "irreversibility": 2,
+      "feedback_quality": 5,
+      "economic_relevance": 4,
+      "information_gain": 4,
+      "resources": [
+        "physical_observation_capacity"
+      ],
+      "canonical_proof_ceiling": "signed_third_party_receipt",
+      "notes": "Timestamped physical observations only."
+    },
+    {
+      "id": "network_session",
+      "class": "D_SCARCE_STATE",
+      "money_cost": 0,
+      "feedback_hours": 48,
+      "human_minutes": 20,
+      "irreversibility": 1,
+      "feedback_quality": 4,
+      "economic_relevance": 3,
+      "information_gain": 4,
+      "resources": [
+        "web_surface"
+      ],
+      "canonical_proof_ceiling": "external_readback",
+      "notes": "Use for Pogtown: real humans play agent-authored content; persistent network state is the target."
+    }
+  ]
+}

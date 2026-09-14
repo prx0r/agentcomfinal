@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Scarce State Control Plane</title><link rel="stylesheet" href="/web/style.css"></head>
+<body><header><div><div class="eyebrow">FROZEN v2 · 2026-09-14</div><h1>Scarce State Control Plane</h1><p id="northstar"></p><p class="invariant" id="invariant"></p></div><div class="stats" id="stats"></div></header>
+<nav><button data-view="underengineer" class="active">UNDERENGINEER</button><button data-view="portfolio">Portfolio</button><button data-view="assets">Scarce assets</button><button data-view="components">Shared stack</button><button data-view="bottlenecks">Bottlenecks</button></nav>
+<main>
+<section id="underengineer" class="view active"><div id="currentOrder"></div><div class="sectionhead"><div><span class="eyebrow">PROJECT MANAGER</span><h2>Shortest path to real moat</h2></div><p>Asset campaigns first. Infrastructure is pulled only when the selected minimum path requires it.</p></div><div id="ueGroups"></div></section>
+<section id="portfolio" class="view"><div id="projects" class="grid"></div></section>
+<section id="assets" class="view"><div class="sectionhead"><div><span class="eyebrow">LEDGER</span><h2>Declared scarce assets</h2></div><p>Thesis declarations do not increment stock. Only verified acquisition/decay receipts do.</p></div><div id="assetGrid" class="grid"></div></section>
+<section id="components" class="view"><div id="componentGrid" class="grid"></div></section>
+<section id="bottlenecks" class="view"><div id="bottleneckGrid" class="grid"></div></section>
+</main>
+<dialog id="projectDialog"><button class="close" onclick="this.closest('dialog').close()">×</button><div id="projectDetail"></div></dialog>
+<script src="/web/app.js"></script></body></html>

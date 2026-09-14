@@ -1,0 +1,46 @@
+{
+  "agent": {
+    "model_name": "",
+    "name": "agentcom-worker",
+    "version": "0.1.0"
+  },
+  "final_metrics": {
+    "total_cached_tokens": null,
+    "total_completion_tokens": null,
+    "total_cost_usd": 0,
+    "total_prompt_tokens": null,
+    "total_steps": 1
+  },
+  "schema_version": "ATIF-v1.8",
+  "session_id": "trajectory:d7252d924dafc0c2e053d2409f932f83f800d7109178c077565458ff8199ad75",
+  "steps": [
+    {
+      "message": "/usr/bin/python3 -m pytest tests/ -q",
+      "metrics": {
+        "cached_tokens": null,
+        "completion_tokens": null,
+        "cost_usd": null,
+        "prompt_tokens": null
+      },
+      "observation": {
+        "results": [
+          {
+            "content": "PASS",
+            "source_call_id": "call-0"
+          }
+        ]
+      },
+      "reasoning_content": "",
+      "source": "agent",
+      "step_id": 0,
+      "timestamp": "2026-09-14T00:00:00Z",
+      "tool_calls": [
+        {
+          "arguments": {},
+          "function_name": "TEST",
+          "tool_call_id": "call-0"
+        }
+      ]
+    }
+  ]
+}

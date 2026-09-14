@@ -277,3 +277,28 @@ def test_cg_adapter_live():
     assert s["status"] == "ok" and s["request_hash"].startswith("req_")
     m = A_cg.lane_to_worldpack("cr:1", "abc123", "policy.seeker3")
     assert m["scenario"]["contract_root"] == "cr:1"
+
+
+def test_cg_runs_scripted_openai_lane():
+    """P2 minimal: AgentCom lane -> cg run_lane -> scripted OpenAI executor
+    -> CG-style receipt stored in trajectory. Same shape the live executor
+    will fill when credentials exist."""
+    import sys as _sys
+    _sys.path.insert(0, "/agentcomfinal/experiments/openai_native/src")
+    _sys.path.insert(0, "/agentcomfinal/agentcombuild/agentloop/src")
+    from adapters import cg as A_cg
+    from opennative import executor as _ex
+
+    def work():
+        out = _ex.run_scripted(
+            [{"tool": "gg.search", "args": {"query": "seesaw"}}],
+            lineage={"contract": "cr:lane-1"})
+        return {"events": [{"kind": "tool", "hash": e["id"]}
+                           for e in out["events"]],
+                "metrics": {"wall_ms": 5, "tools": len(out["events"])}}
+
+    r = A_cg.run_lane("cr:lane-1", "candabc", "policy.seeker3", work,
+                      seed=7, base_sha="base123")
+    assert r["run_id"].startswith("run_")
+    assert r["scenario"]["contract_root"] == "cr:lane-1"
+    assert r["metrics"]["tools"] == 1

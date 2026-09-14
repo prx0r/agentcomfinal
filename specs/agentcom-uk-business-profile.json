@@ -1,0 +1,11 @@
+{
+  "kind": "product",
+  "product": "agentcom-uk-business-profile",
+  "user": "UK small business owner",
+  "job": "Show me how my business appears to ChatGPT and expose verified company/business context through ChatGPT.",
+  "surface": "chatgpt-plugin",
+  "capabilities": ["business.lookup", "business.profile"],
+  "company": "acme-plumbing-leeds",
+  "contract_claim": "business.lookup returns verified structured business context; plugin conformance gates pass",
+  "policy_id": "autobuild-worker-v1"
+}

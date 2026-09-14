@@ -1,0 +1,27 @@
+{
+  "compact_tokens": 43,
+  "full_tokens": 75,
+  "records": [
+    {
+      "content": "memory projection",
+      "role": "meta",
+      "source": "bank"
+    },
+    {
+      "content": "attempt ATT-0: PASS (/usr/bin/python3 -m pytest agentcom/tests/ -q)",
+      "role": "observation",
+      "timestamp": "2026-09-14T00:00:00Z"
+    },
+    {
+      "content": "......                                                                   [100%]",
+      "role": "reasoning",
+      "timestamp": "2026-09-14T00:00:00Z"
+    },
+    {
+      "content": "6 passed in 2.96s",
+      "role": "reasoning",
+      "timestamp": "2026-09-14T00:00:00Z"
+    }
+  ],
+  "reduction": 1.74
+}

@@ -68,3 +68,40 @@ def test_e4_corpus_and_lessons_banked(tmp_path):
     assert "proposals" in out["lessons"]  # real seed0.learn.propose ran
     assert any(t["level"] == "L0-observation"
                for t in out["trajectories"].values())
+
+
+def test_contract_root_changes_on_proof_semantics():
+    """Constitutional (test.md P0): WHAT changes move ContractRoot."""
+    import copy
+    base = AC.compile_uk()
+    mutations = {
+        "judge": {"engine": "cel", "expression": "e.status == 200"},
+        "evidence_schema": {"type": "object", "required": ["other"]},
+        "evidence_class": "direct",
+        "freshness_s": 30 * 86400,
+        "authority": "none",
+        "proof_requirement": 0,
+    }
+    changed = dict(mutations)
+    changed["evidence_class"] = "external_readback"  # outbound-sent is direct
+    idx = 4  # outbound-sent leaf
+    for field, value in changed.items():
+        mut = copy.deepcopy(AC.UK_LEAVES)
+        mut[idx][field] = value
+        c = AC.compile_contract(AC.UK_CLAIM, mut)
+        assert c["contract_root"] != base["contract_root"], field
+
+
+def test_contract_stable_plan_moves_on_how():
+    """HOW changes (probe/repo/model/policy/runner) keep ContractRoot."""
+    import copy
+    base = AC.compile_uk(plan_ref="route-A")
+    for route in ({"probe": "other.send"}, {"repo": "other/repo"},
+                  {"model": "other-model"}, {"policy": "other-policy"},
+                  {"runner": "other-runner"}):
+        mut = copy.deepcopy(AC.UK_LEAVES)
+        mut[4]["probe"] = route.get("probe", mut[4]["probe"])
+        c = AC.compile_contract(AC.UK_CLAIM, mut, plan_ref="route-A",
+                                route=route)
+        assert c["contract_root"] == base["contract_root"], route
+        assert c["plan_root"] != base["plan_root"], route

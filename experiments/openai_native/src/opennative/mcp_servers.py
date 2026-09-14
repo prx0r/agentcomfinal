@@ -18,6 +18,7 @@ PROTOCOL_VERSION = "2024-11-05"
 SERVER_INFO = {"name": "agentcom-qp-gateway", "version": "0.2.0"}
 
 TOOLS = {
+
     "qp.authorize": {"description": "Real QP grant check for a proposed action",
                      "inputSchema": {"type": "object",
                                      "required": ["action", "grant"],
@@ -36,7 +37,33 @@ TOOLS = {
                   "inputSchema": {"type": "object",
                                   "required": ["query"],
                                   "properties": {"query": {"type": "string"}}}},
+    "business.lookup": {"description": "Read-only verified business context lookup",
+                        "inputSchema": {"type": "object",
+                                        "required": ["company"],
+                                        "properties": {
+                                            "company": {"type": "string"}}}},
 }
+
+
+def _directory():
+    import os as _os
+    base = _os.path.normpath(_os.path.join(
+        _os.path.dirname(_os.path.abspath(__file__)), "..", "..", "examples",
+        "business_directory.json"))
+    with open(base, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def _business_lookup(params, deps):
+    del deps
+    want = str(params.get("company", "")).strip().lower()
+    for b in _directory().get("businesses", []):
+        if want and (want == b["id"] or want in b["name"].lower()
+                     or want in b["domain"].lower()):
+            return {"found": True, "business": b}
+    known = [b["id"] for b in _directory().get("businesses", [])]
+    return {"found": False, "error": "unknown-company",
+            "known": known}
 
 
 def _qp_authorize(params, deps):
@@ -62,7 +89,7 @@ def _gg_search(params, deps):
 
 
 DISPATCH = {"qp.authorize": _qp_authorize, "qp.verify": _qp_verify,
-            "gg.search": _gg_search}
+            "gg.search": _gg_search, "business.lookup": _business_lookup}
 
 
 def default_deps():

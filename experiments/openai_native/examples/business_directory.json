@@ -1,0 +1,12 @@
+{"businesses": [
+  {"id": "acme-plumbing-leeds", "name": "Acme Plumbing Leeds",
+   "domain": "acme-plumbing.example", "services": ["emergency repairs", "boiler service"],
+   "service_area": "Leeds, UK", "hours": "Mon-Sat 8:00-18:00",
+   "channels": ["phone", "email"],
+   "note": "SIMULATED fixture data for offline plugin development. Not a real business."},
+  {"id": "brite-spark-electrical", "name": "Brite Spark Electrical",
+   "domain": "brite-spark.example", "services": ["rewiring", "EICR certificates"],
+   "service_area": "Manchester, UK", "hours": "Mon-Fri 9:00-17:00",
+   "channels": ["phone", "email"],
+   "note": "SIMULATED fixture data for offline plugin development. Not a real business."}
+]}

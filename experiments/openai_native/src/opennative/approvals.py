@@ -16,6 +16,7 @@ TOOL_REGISTRY = {
     "company.send_email": ("consequential", "email.send"),
     "marketplace.purchase": ("consequential", "marketplace.purchase"),
     "company.lookup": ("non-consequential", None),
+    "business.lookup": ("non-consequential", None),
     "gg.search": ("non-consequential", None),
 }
 

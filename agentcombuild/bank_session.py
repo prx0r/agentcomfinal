@@ -85,6 +85,8 @@ def main():
          os.path.join(ROOT, "experiments", "openai_native"),
          {"PYTHONPATH": "src:" + os.path.join(
              ROOT, "agentcombuild", "agentloop", "src") + ":" + ROOT}),
+        ("agentcom", [py, "-m", "pytest", "agentcom/tests/", "-q"], ROOT,
+         {"PYTHONPATH": ROOT}),
     ]
     for name, cmd, cwd, extra in suites:
         env = dict(os.environ)

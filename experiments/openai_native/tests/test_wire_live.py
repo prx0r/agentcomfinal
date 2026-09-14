@@ -42,10 +42,16 @@ def test_official_mcp_client_handshake():
                 tools = await s.list_tools()
                 names = sorted(t.name for t in tools.tools)
                 assert {"qp.authorize", "qp.verify",
-                        "gg.search"} <= set(names)
+                        "gg.search", "business.lookup"} <= set(names)
                 r = await s.call_tool("gg.search",
                                       {"query": "seesaw gates"})
                 assert r.content, "gg.search returned no content"
+                b = await s.call_tool("business.lookup",
+                                      {"company": "acme-plumbing-leeds"})
+                assert "acme-plumbing-leeds" in b.content[0].text
+                bad = await s.call_tool("business.lookup",
+                                        {"company": "no-such-company-zzz"})
+                assert "unknown-company" in bad.content[0].text
                 neg = await s.call_tool(
                     "qp.authorize",
                     {"action": {"capability": "email.send"},

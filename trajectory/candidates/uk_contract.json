@@ -1,6 +1,6 @@
 {
-  "contract_root": "contract:48677d76de7c1bc22e4f5f7ba0acc9e4cb7d36f9c6a912e9e54236dc8acf5fe8",
-  "plan_root": "plan:b5da79a9c8e1bd90bcd1fb4135a5fc665524d5526d5f18b45972b7db65f1c858",
+  "contract_root": "contract:883427345d80572606f08bea321e7bc4c1d1b4b226d076553dd002a2dd1eaad2",
+  "plan_root": "plan:0c9f9c9455d58031b670c300c17e05335e50a0587e2705fc8f836796c9f217f3",
   "claim": "one real inbound lead receives one bounded booking reply",
   "leaves": [
     {
@@ -18,7 +18,8 @@
       },
       "freshness_s": 86400,
       "evidence_class": "direct",
-      "authority": "none"
+      "authority": "none",
+      "proof_requirement": 3
     },
     {
       "id": "delegated-authority-exists",
@@ -35,7 +36,8 @@
       },
       "freshness_s": 3600,
       "evidence_class": "direct",
-      "authority": "grant"
+      "authority": "grant",
+      "proof_requirement": 9
     },
     {
       "id": "incoming-lead-observed",
@@ -52,7 +54,8 @@
       },
       "freshness_s": 600,
       "evidence_class": "direct",
-      "authority": "none"
+      "authority": "none",
+      "proof_requirement": 3
     },
     {
       "id": "response-constructed",
@@ -69,7 +72,8 @@
       },
       "freshness_s": 3600,
       "evidence_class": "direct",
-      "authority": "none"
+      "authority": "none",
+      "proof_requirement": 3
     },
     {
       "id": "outbound-sent",
@@ -86,7 +90,8 @@
       },
       "freshness_s": 600,
       "evidence_class": "direct",
-      "authority": "grant"
+      "authority": "grant",
+      "proof_requirement": 9
     },
     {
       "id": "readback-agrees",
@@ -104,7 +109,8 @@
       },
       "freshness_s": 300,
       "evidence_class": "external_readback",
-      "authority": "none"
+      "authority": "none",
+      "proof_requirement": 9
     },
     {
       "id": "outcome-observed",
@@ -121,7 +127,8 @@
       },
       "freshness_s": 86400,
       "evidence_class": "external_readback",
-      "authority": "none"
+      "authority": "none",
+      "proof_requirement": 9
     }
   ],
   "unprovable": []

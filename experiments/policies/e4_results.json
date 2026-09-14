@@ -1,7 +1,7 @@
 {
-  "contract_root": "contract:6ae3c110ed1975b6223ed705f506fdc06fd309920ada49a95593553070075237",
+  "contract_root": "contract:2ac255014b34097a3d19aafc90ca216c8958bcc9a5dbbe7cd7664c5b44ee0552",
   "tournament": {
-    "contract_root": "contract:6ae3c110ed1975b6223ed705f506fdc06fd309920ada49a95593553070075237",
+    "contract_root": "contract:2ac255014b34097a3d19aafc90ca216c8958bcc9a5dbbe7cd7664c5b44ee0552",
     "ranking": [
       [
         "gitgoblin-first",
@@ -23,7 +23,7 @@
         "detail": "send-only, no readback"
       }
     ],
-    "tournament_id": "tournament:afe9fc9828898caae1237ba20d505b8834c74dca9756e908a1edaae6741892ae"
+    "tournament_id": "tournament:778cb76c5233df339d1e9f9c18d4f6596f1c40009cdf5e7ca4dc6f221a1d2c1f"
   },
   "disqualified": [
     {
@@ -33,7 +33,7 @@
   ],
   "trajectories": {
     "direct": {
-      "contract_root": "contract:6ae3c110ed1975b6223ed705f506fdc06fd309920ada49a95593553070075237",
+      "contract_root": "contract:2ac255014b34097a3d19aafc90ca216c8958bcc9a5dbbe7cd7664c5b44ee0552",
       "plan_root": "plan:e4-direct",
       "problem_class": "",
       "policy_id": "policy.direct",
@@ -60,10 +60,10 @@
         "human_minutes": 0
       },
       "level": "L0-observation",
-      "trajectory_id": "trajectory:031691f3b5ac3c5e9cb57e72a2648d8c719ac83ea1c8c8c4966a7f69f0f31450"
+      "trajectory_id": "trajectory:49a95a64dddbd04109a2fe5e33520b38e9c5c77ba66c143005b573e6967c8369"
     },
     "seeker3": {
-      "contract_root": "contract:6ae3c110ed1975b6223ed705f506fdc06fd309920ada49a95593553070075237",
+      "contract_root": "contract:2ac255014b34097a3d19aafc90ca216c8958bcc9a5dbbe7cd7664c5b44ee0552",
       "plan_root": "plan:e4-seeker3",
       "problem_class": "",
       "policy_id": "policy.seeker3",
@@ -90,10 +90,10 @@
         "human_minutes": 0
       },
       "level": "L0-observation",
-      "trajectory_id": "trajectory:b7519637e6f7eeb790af78f0fbce57587ed31ada3f963b5f4c263f50b2b08afd"
+      "trajectory_id": "trajectory:68da6d7dcfd02103b324f96230c74634cffc9c1246793ce7362ae85ebacc7958"
     },
     "gitgoblin-first": {
-      "contract_root": "contract:6ae3c110ed1975b6223ed705f506fdc06fd309920ada49a95593553070075237",
+      "contract_root": "contract:2ac255014b34097a3d19aafc90ca216c8958bcc9a5dbbe7cd7664c5b44ee0552",
       "plan_root": "plan:e4-gitgoblin-first",
       "problem_class": "",
       "policy_id": "policy.gitgoblinfirst",
@@ -120,11 +120,11 @@
         "human_minutes": 0
       },
       "level": "L0-observation",
-      "trajectory_id": "trajectory:e41559c6111e9cad9c2e318531d242c68c9a5c0331d888909ca7e996d65a8f76"
+      "trajectory_id": "trajectory:f0746ac3f82a86c68f557c99ee1d62dcd81f2832ba47671e276ed62d515bb4da"
     }
   },
   "lessons": {
-    "generated_at": 1789373479.0875869,
+    "generated_at": 1789374178.237148,
     "min_seeds": 2,
     "clusters": 2,
     "proposals": [],

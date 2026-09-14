@@ -188,10 +188,36 @@ def test_chain_acceptance():
     assert out["ok"] is True
     assert [s["name"] for s in out["steps"]] == [
         "session-bind", "mcp-read", "qp-authorize", "mcp-enforce",
-        "qp-settle", "qp-verify", "readback", "trajectory-L1"]
+        "action", "readback", "qp-settle", "qp-verify", "trajectory-L1"]
     assert out["trajectory"]["level"] == "L1-fact"
     assert len(out["trajectory"]["qp_receipts"]) == 1
     assert out["receipt"]["id"] == out["trajectory"]["qp_receipts"][0]
+
+
+def test_readback_false_mints_no_receipt():
+    """Constitutional: reality precedes settlement. Readback FALSE means
+    settlement is structurally unreachable — no receipt, no fact, L0."""
+    out = chain.run_chain(spec(), readback_ok=False)
+    assert out["ok"] is False
+    assert out["receipt"] is None
+    assert out["trajectory"]["qp_receipts"] == []
+    assert out["trajectory"]["level"] == "L0-observation"
+    assert out["trajectory"]["actuality_after"] != {"reply": "TRUE"}
+    assert "qp-settle" not in [s["name"] for s in out["steps"]]
+
+
+def test_settle_unreachable_on_false_readback(monkeypatch):
+    """Even if settlement were attempted on the refusal path, it must not
+    be reachable: monkeypatched settle raising still completes the run."""
+    import opennative.chain as _chainmod
+    from adapters import qp as _qp
+
+    def boom(*a, **k):
+        raise AssertionError("settlement attempted without TRUE readback")
+
+    monkeypatch.setattr(_qp, "settle_transition", boom)
+    out = _chainmod.run_chain(spec(), readback_ok=False)
+    assert out["ok"] is False and out["receipt"] is None
 
 
 def test_chain_readback_disagreement_stops():
@@ -200,6 +226,18 @@ def test_chain_readback_disagreement_stops():
     by_name = {s["name"]: s for s in out["steps"]}
     assert by_name["readback"]["ok"] is False
     assert by_name["qp-authorize"]["ok"] is True  # auth passed; reality didn't
+
+
+def test_live_mode_refuses_without_key():
+    from opennative import executor
+    import os as _os
+    if _os.environ.get("OPENAI_API_KEY"):
+        pytest.skip("key present: live path is manual-only")
+    ok, reason = executor.live_available()
+    assert ok is False and reason in ("no-openai-package", "no-api-key",
+                                      "no-sessions-create")
+    with pytest.raises(executor.NotConfigured):
+        executor.run_live("hi", lineage={"project": "p"})
 
 
 def test_scripted_executor_offline():

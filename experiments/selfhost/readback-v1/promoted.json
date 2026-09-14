@@ -1,0 +1,9 @@
+{
+  "state": "PROMOTED",
+  "candidate": {
+    "policy": "direct",
+    "rev": "a097c313af60f6cd40d51cdcb070f3268f1f7a1b",
+    "contract": "QP cannot settle a consequential claim before independent readback establishes the postcondition"
+  },
+  "note": "single-lane direct repair; multi-policy next cycle"
+}

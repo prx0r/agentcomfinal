@@ -1,9 +1,11 @@
-"""Acceptance chain (brief acceptance, SIMULATED services, REAL QP).
+"""Acceptance chain (REAL QP, REAL order): action -> provider response ->
+independent readback -> normalized evidence -> judges -> QP settlement.
 
-One session -> one MCP action -> REAL QP authorization -> REAL QP
-settlement (signed TransitionReceipt, independently verified) -> independent
-readback -> trajectory carrying the receipt id (L0 -> L1 advance requires
-it: qp_receipts==[] can never graduate beyond observation).
+Constitutional order: REALITY PRECEDES SETTLEMENT. QP evidence is built
+ONLY from observations that already exist (action evidence + agreeing
+readback). If readback is not TRUE, settlement is structurally unreachable:
+no evidence is constructed, settle is never called, no receipt exists,
+trajectory stays L0. Tests prove this by making settle raise.
 
 Services (MCP transport, provider channels) are simulated and labeled;
 authority and settlement are real ~/qp entrypoints via adapters/qp.
@@ -31,9 +33,9 @@ DEMO_SEED = bytes.fromhex(
     "9d61b19deffd5a60ba844af492ec2af44449c5697b326919703bac031cae58d1")
 
 
-def settle_send(grant, facts, evidence):
-    """REAL QP settlement for the send transition. Returns (receipt, check).
-    Evidence: real make_evidence items (metric/value/as_of/source.class)."""
+def settle_send(grant, evidence):
+    """REAL QP settlement. Call ONLY with evidence built from already-
+    observed reality (action response + agreeing readback)."""
     claim = _qp.make_claim("lead-123 reply delivered", "email")
     claim = dict(claim, result="TRUE")
     task = _qp.make_task("send", "lead-123", {"delivered": True})
@@ -48,7 +50,7 @@ def settle_send(grant, facts, evidence):
 
 def run_chain(spec, readback_ok=True):
     """Run the full acceptance chain. Returns
-    {ok, steps[{name, ok, detail}], trajectory, receipt}."""
+    {ok, steps[{name, ok, detail}], trajectory, receipt|None}."""
     steps = []
 
     def step(name, ok, detail=""):
@@ -69,7 +71,7 @@ def run_chain(spec, readback_ok=True):
     read = mcp_servers.call("gg.search", {"query": "lead reply"})
     step("mcp-read", isinstance(read.get("candidates"), list), "simulated read")
 
-    # 3+4. real QP grant + both belts for the consequential send
+    # 3. real QP grant + both belts for the consequential send
     secret, pub = _qp.keypair(DEMO_SEED)
     grant = _qp.make_grant(pub.hex(), "email.send", {"max_risk_usd": 50},
                            ["risk_usd <= 50"], "2026-12-31T00:00:00Z")
@@ -84,37 +86,46 @@ def run_chain(spec, readback_ok=True):
                                  {"grant": grant, "facts": facts, "now": NOW})
     step("mcp-enforce", bool(enforced.get("authorized")), "gateway enforced")
 
-    # 5. REAL QP settlement of the send (evidence from two channels)
-    evidence = [
-        _qp.make_evidence("send.status", 202, "http", NOW,
-                          {"class": "mcp-send"}),
-        _qp.make_evidence("readback.found_id", "lead-123", "id", NOW,
-                          {"class": "provider-api"}),
-    ]
-    receipt, check = settle_send(grant, facts, evidence)
-    step("qp-settle", bool(check.get("ok")), check.get("reason", ""))
-    signed = _qp.sign_receipt(secret, receipt)
-    recheck = _qp.verify_settlement(signed, evidence)
-    step("qp-verify", bool(recheck.get("ok")), "independent re-settlement")
+    # 4. MCP action execution (simulated provider response — observation)
+    action_ev = {"created_id": "lead-123", "status": 202, "source": "mcp-send"}
+    step("action", action_ev["status"] == 202, "provider response observed")
 
-    # 6. independent readback (simulated provider channel)
-    action_ev = {"created_id": "lead-123", "source": "mcp-send"}
+    # 5. independent readback + judge (simulated independent channel)
     readback_ev = {"created_id": "lead-123" if readback_ok else "lead-999",
                    "source": "provider-api"}
     val, detail = _rb.check_readback(action_ev, readback_ev)
     step("readback", val == "TRUE", detail)
 
-    # 7. trajectory carries the REAL receipt id (L0 -> L1 needs it)
+    # 6. QP settlement happens ONLY here, ONLY on TRUE, built ONLY from
+    # observations already in hand. Otherwise structurally unreachable.
+    receipt = None
+    if val == "TRUE":
+        evidence = [
+            _qp.make_evidence("send.status", action_ev["status"], "http", NOW,
+                              {"class": "mcp-send"}),
+            _qp.make_evidence("readback.found_id",
+                              readback_ev["created_id"], "id", NOW,
+                              {"class": "provider-api"}),
+        ]
+        receipt, check = settle_send(grant, evidence)
+        step("qp-settle", bool(check.get("ok")), check.get("reason", ""))
+        signed = _qp.sign_receipt(secret, receipt)
+        recheck = _qp.verify_settlement(signed, evidence)
+        step("qp-verify", bool(recheck.get("ok")), "independent re-settlement")
+        receipt = signed
+
+    # 7. trajectory: receipt-bearing advances L0 -> L1; anything else stays L0
     traj = _traj.build(spec["contract_root"], spec.get("plan_root", ""),
                        spec.get("policy_id", "autobuild-worker-v1"),
                        [{"step": s["name"], "ok": s["ok"]} for s in steps],
-                       {"reply": "UNKNOWN"}, {"reply": "TRUE" if val == "TRUE"
+                       {"reply": "UNKNOWN"}, {"reply": "TRUE" if receipt
                                                        else "UNKNOWN"},
-                       qp_receipts=[signed["id"]],
+                       qp_receipts=[receipt["id"]] if receipt else [],
                        cost={"tokens": None, "wall_ms": None, "usd": 0,
                              "human_minutes": 0})
-    traj, adv_ok, _ = _traj.advance(traj, {"qp_receipt": signed["id"]})
-    step("trajectory-L1", adv_ok, "receipt-bearing trajectory advances")
+    if receipt:
+        traj, adv_ok, _ = _traj.advance(traj, {"qp_receipt": receipt["id"]})
+        step("trajectory-L1", adv_ok, "receipt-bearing trajectory advances")
     ok = all(s["ok"] for s in steps)
     return {"ok": ok, "steps": steps, "trajectory": traj,
-            "receipt": signed, "mode": "SIMULATED-SERVICES-REAL-QP"}
+            "receipt": receipt, "mode": "SIMULATED-SERVICES-REAL-QP"}

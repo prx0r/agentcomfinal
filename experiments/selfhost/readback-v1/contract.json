@@ -1,0 +1,13 @@
+{
+  "kind": "selfhost",
+  "id": "readback-before-settlement",
+  "contract": "QP cannot settle a consequential claim before independent readback establishes the postcondition",
+  "test_nodes": [
+    "experiments/openai_native/tests/test_openai_native.py::test_readback_false_mints_no_receipt",
+    "experiments/openai_native/tests/test_openai_native.py::test_settle_unreachable_on_false_readback",
+    "experiments/openai_native/tests/test_openai_native.py::test_chain_acceptance",
+    "core/tests/test_boundary.py::test_canonical_archive_isolation"
+  ],
+  "out": "experiments/selfhost/readback-v1",
+  "policy_id": "direct"
+}

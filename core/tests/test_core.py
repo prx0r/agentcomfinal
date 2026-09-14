@@ -267,3 +267,13 @@ def test_r15_proposal_is_not_work():
     b = CProp.bind(p, "req-9", "sched:1")
     assert not CProp.is_work_order(p) and not CProp.is_work_order(b)
     assert b["binding"]["scheduler_ref"] == "sched:1"
+
+
+def test_cg_adapter_live():
+    from adapters import cg as A_cg
+    v = A_cg.version()
+    assert v["kernel"] == "cogymkernel" and len(v["rev"]) == 40
+    s = A_cg.smoke()
+    assert s["status"] == "ok" and s["request_hash"].startswith("req_")
+    m = A_cg.lane_to_worldpack("cr:1", "abc123", "policy.seeker3")
+    assert m["scenario"]["contract_root"] == "cr:1"

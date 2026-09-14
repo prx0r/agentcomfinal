@@ -11,9 +11,6 @@ ROOT = os.path.normpath(os.path.join(HERE, "..", "..", ".."))
 sys.path.insert(0, os.path.join(HERE, "..", "src"))
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "agentcombuild", "agentloop", "src"))
-sys.path.insert(0, os.path.join(ROOT, "agentcombuild", "autobuild1", "src"))
-sys.path.insert(0, os.path.join(ROOT, "agentcombuild", "autobuild2", "src"))
-sys.path.insert(0, os.path.join(ROOT, "agentcombuild", "autobuild3", "src"))
 
 from opennative import approvals, bundle, chain, mcp_servers  # noqa: E402
 from opennative import session, skill, vault  # noqa: E402
@@ -100,18 +97,45 @@ def test_mcp_tools_list_and_unknown():
     assert "error" in r
 
 
+def _signed_grant(seed_hex="ab" * 32, cap="email.send", constraints=None,
+                  predicates=None, expiry="2026-12-31T00:00:00Z"):
+    from adapters import qp as _qp
+    secret, pub = _qp.keypair(bytes.fromhex(seed_hex))
+    g = _qp.make_grant(pub.hex(), cap, constraints or {}, predicates or [],
+                       expiry)
+    body = {k: v for k, v in g.items() if k not in ("id", "signature")}
+    return dict(g, signature=_qp.sign_grant(secret, body))
+
+
 def test_mcp_authorize_roundtrip():
-    from ab2 import crypto, grants
-    secret, pub = crypto.keypair_from_seed_hex("ab" * 32)
-    g = grants.issue(pub, "email.send", {}, [], "2026-12-31T00:00:00Z", secret)
+    g = _signed_grant()
     r = mcp_servers.call("qp.authorize",
-                         {"action": "email.send", "grant": g,
-                          "facts": {}, "now": "2026-09-14T00:00:00Z"})
-    assert r == {"authorized": True, "reason": "ok"}
+                         {"action": {"capability": "email.send"},
+                          "grant": g, "facts": {},
+                          "now": "2026-09-14T00:00:00Z"})
+    assert r == {"authorized": True, "reason": "grant authorizes action"}
     r = mcp_servers.call("qp.authorize",
-                         {"action": "email.send", "grant": {},
-                          "facts": {}, "now": "2026-09-14T00:00:00Z"})
+                         {"action": {"capability": "email.send"},
+                          "grant": {}, "facts": {},
+                          "now": "2026-09-14T00:00:00Z"})
     assert r["authorized"] is False
+
+
+def test_mcp_verify_roundtrip():
+    from adapters import qp as _qp
+    claim = _qp.make_claim("s?", "d")
+    claim = dict(claim, result="TRUE")
+    task = _qp.make_task("t", "x", {})
+    run = _qp.make_run(task["id"], "w", "m")
+    ev = [_qp.make_evidence("m", 1, "u", "2026-09-14T00:00:00Z", {"class": "a"}),
+          _qp.make_evidence("m", 2, "u", "2026-09-14T00:00:00Z", {"class": "b"})]
+    receipt = _qp.settle_transition({"cursor": 0}, {"id": "t", "claim": claim},
+                                    ev, ["two-sources-v1"], run)
+    r = mcp_servers.call("qp.verify", {"receipt": receipt, "evidence": ev})
+    assert r["valid"] is True
+    bad = dict(receipt, id="receipt:0" * 2)
+    r = mcp_servers.call("qp.verify", {"receipt": bad, "evidence": ev})
+    assert r["valid"] is False
 
 
 def test_mcp_stdio_roundtrip():
@@ -119,15 +143,14 @@ def test_mcp_stdio_roundtrip():
             '{"jsonrpc":"2.0","id":2,"method":"tools/call",'
             '"params":{"name":"gg.search","arguments":{"query":"seesaw"}}}\n')
     env = dict(os.environ, PYTHONPATH=os.pathsep.join(
-        [os.path.join(HERE, "..", "src"), ROOT,
-         os.path.join(ROOT, "agentcombuild", "autobuild1", "src"),
-         os.path.join(ROOT, "agentcombuild", "autobuild2", "src")]))
+        [os.path.join(HERE, "..", "src"), ROOT]))
     p = subprocess.run([sys.executable, "-m", "opennative.mcp_servers"],
                        input=reqs, capture_output=True, text=True, timeout=60,
                        cwd=os.path.join(HERE, "..", "src"), env=env)
     lines = [json.loads(l) for l in p.stdout.splitlines() if l.strip()]
     assert len(lines) == 2 and "result" in lines[0] and "result" in lines[1]
-    assert isinstance(lines[1]["result"]["candidates"], list)
+    body = json.loads(lines[1]["result"]["content"][0]["text"])
+    assert isinstance(body["candidates"], list)
 
 
 # ---- vault + approvals ----
@@ -142,9 +165,7 @@ def test_vault_split():
 
 
 def test_both_belts_and_bypass_proof():
-    from ab2 import crypto, grants
-    secret, pub = crypto.keypair_from_seed_hex("cd" * 32)
-    g = grants.issue(pub, "email.send", {}, [], "2026-12-31T00:00:00Z", secret)
+    g = _signed_grant("cd" * 32)
     act = {"capability": "email.send", "consequential": True}
     now = "2026-09-14T00:00:00Z"
     ok = approvals.decide(act, g, {}, now)
@@ -163,12 +184,14 @@ def test_both_belts_and_bypass_proof():
 
 def test_chain_acceptance():
     out = chain.run_chain(spec())
-    assert out["mode"] == "SIMULATED"
+    assert out["mode"] == "SIMULATED-SERVICES-REAL-QP"
     assert out["ok"] is True
     assert [s["name"] for s in out["steps"]] == [
         "session-bind", "mcp-read", "qp-authorize", "mcp-enforce",
-        "readback", ]
-    assert out["trajectory"]["level"] == "L0-observation"
+        "qp-settle", "qp-verify", "readback", "trajectory-L1"]
+    assert out["trajectory"]["level"] == "L1-fact"
+    assert len(out["trajectory"]["qp_receipts"]) == 1
+    assert out["receipt"]["id"] == out["trajectory"]["qp_receipts"][0]
 
 
 def test_chain_readback_disagreement_stops():
@@ -177,3 +200,49 @@ def test_chain_readback_disagreement_stops():
     by_name = {s["name"]: s for s in out["steps"]}
     assert by_name["readback"]["ok"] is False
     assert by_name["qp-authorize"]["ok"] is True  # auth passed; reality didn't
+
+
+def test_scripted_executor_offline():
+    from opennative import executor
+    out = executor.run_scripted(
+        [{"tool": "gg.search", "args": {"query": "seesaw"}},
+         {"tool": "evil.tool", "args": {}}],
+        lineage={"contract": "cr:1"}, session_id="sess-t")
+    assert out["mode"] == "SCRIPTED-OFFLINE"
+    assert out["trajectory"]["tools_seen"] == ["gg.search"]
+    assert out["errors"] == ["evil.tool"]  # unknown fails closed via gateway
+    assert out["trajectory"]["event_count"] == 2
+
+
+# ---- P0 fail-closed ----
+
+def test_unknown_approval_policy_refuses():
+    r = approvals.request_approval({}, "foobar")
+    assert r == {"needed": True, "belt": "unknown-policy-refuse"}
+    r = approvals.request_approval({}, None)
+    assert r["needed"] is True
+    r = approvals.request_approval({}, "never")
+    assert r == {"needed": False, "belt": "none"}
+
+
+def test_ungranted_approval_refuses():
+    g = _signed_grant("ee" * 32)
+    act = {"capability": "email.send", "consequential": True}
+    now = "2026-09-14T00:00:00Z"
+    for bad in ("skipped", None, "", "maybe"):
+        d = approvals.decide(act, g, {}, now, approval=bad)
+        assert d["decision"] == "REFUSE", bad
+
+
+def test_unknown_tool_refuses():
+    r = approvals.enforce("evil.deploy", {"now": "2026-09-14T00:00:00Z"})
+    assert r == {"authorized": False, "reason": "unknown-tool:REFUSE"}
+    r = approvals.enforce("company.lookup", {})
+    assert r == {"authorized": True, "reason": "non-consequential"}
+
+
+def test_unknown_credential_unclassified():
+    assert vault.classify("x", {})[0] == "UNCLASSIFIED"
+    assert vault.classify("x", None)[0] == "UNCLASSIFIED"
+    assert vault.classify("x", {"kind": "unknown"})[0] == "UNCLASSIFIED"
+    assert vault.classify("x", {"kind": "read"})[0] == "VAULT"

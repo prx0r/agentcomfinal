@@ -31,7 +31,6 @@ NOT on ubuntu (remote only): `prx0r/atask` ✓ exists, `prx0r/plugin` ✓
 exists — cloned 2026-09-14 to the paths above.
 
 ## OpenAI Agents SDK (live dependency, outside the kernel)
-
 - Package: `openai-agents==0.22.2` in `/home/ubuntu/.venvs/agentcom`
   (matches `~/acom-openai/requirements.txt` pin). System python does NOT
   have it — factory suites stay stdlib-only and skip live tests there.
@@ -41,6 +40,23 @@ exists — cloned 2026-09-14 to the paths above.
 - Consumer: `agentloop/src/loop/tracing.py` (lazy import, mirror fallback);
   live wire-compat proven by `agentloop/tests/test_tracing_live.py` under
   the venv (trace + nested custom spans reach a real TracingProcessor).
+
+## Frontier clones (reference, 2026-09-14)
+
+- `/home/ubuntu/harbor` (harbor-framework/harbor) — trial runtime, ATIF
+  spec at `docs/content/docs/agents/trajectory-format.mdx`. Consumer:
+  `trajectory/atif.py` (export our trajectories to ATIF shape).
+- `/home/ubuntu/letta-trajectory` (@letta-ai/trajectory v0.3.0, TS/bun —
+  no Python wrapper), schema at `schema/trajectory-v1.schema.json`.
+  Consumer: `trajectory/memory.py` (compact projection in letta shape).
+- `/home/ubuntu/cg` (cogymkernel) — canonical local experiment executor:
+  `cogym_kernel` imports stdlib-clean; `DeterministicExecutor`,
+  content-addressed RunReceipts, hard gates. Consumer: `adapters/cg.py`
+  (version + smoke + lane→worldpack manifest). Full AsyncRunner episodes
+  run inside /cg, receipts banked here.
+- gg-as vs gitgoblin: SAME family, gg-as is the LIVE working copy
+  (campaigns, sector configs, run data + history); `gitgoblin/` is the
+  reference copy. Canonicalize on gg-as for prebuild data.
 
 ## In this repo
 

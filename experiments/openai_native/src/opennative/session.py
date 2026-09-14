@@ -31,8 +31,16 @@ def session_payload(model, tools, lineage, vault_ids=None, environment=None,
 
 
 def _h(obj):
+    """Full SHA-256 hex (64). Anything entering trajectory/evidence/dedupe
+    uses full identity; short display ids are derived at view time, never
+    stored as identity."""
     return hashlib.sha256(json.dumps(
-        obj, sort_keys=True, separators=(",", ":")).encode()).hexdigest()[:16]
+        obj, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+
+def short_id(full, n=16):
+    """Display truncation. Never stored as identity."""
+    return (full or "")[:n]
 
 
 def normalize_event(event, lineage=None):
@@ -66,7 +74,9 @@ def events_to_trajectory(events, lineage=None, contract_root=""):
     """Session event list -> trajectory-shaped evidence (feeds trajectory/
     bank + Seed0 lanes). Pure."""
     recs = [normalize_event(e, lineage) for e in events or []]
-    tools = sorted({r["tool"] for r in recs if r["tool"]})
+    tools = sorted({r["tool"] for r in recs
+                    if r["tool"] and r["event_type"] == "tool.call"})
+    attempted = sorted({r["tool"] for r in recs if r["tool"]})
     return {"contract_root": contract_root or (lineage or {}).get("contract", ""),
-            "events": recs, "tools_seen": tools,
+            "events": recs, "tools_seen": tools, "tools_attempted": attempted,
             "event_count": len(recs)}

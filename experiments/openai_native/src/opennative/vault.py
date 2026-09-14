@@ -12,8 +12,12 @@ and the gateway enforces grant+scope+readback itself. Pure classifier.
 
 def classify(name, capability):
     """capability: {kind: read|write, moves_value: bool, asserts_identity:
-    bool, revocable: bool}. Returns VAULT|QP_GATEWAY + reason."""
+    bool, revocable: bool}. Returns VAULT|QP_GATEWAY|UNCLASSIFIED + reason.
+    Unknown goes to UNCLASSIFIED (refuse), never VAULT: an unclassified
+    credential must not become a Vault credential."""
     capability = capability or {}
+    if capability.get("kind") not in ("read", "write"):
+        return "UNCLASSIFIED", "unknown-or-missing-kind"
     if capability.get("moves_value") or capability.get("asserts_identity"):
         return "QP_GATEWAY", "value-or-identity"
     if capability.get("kind") == "write":

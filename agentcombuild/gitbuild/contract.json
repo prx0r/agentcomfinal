@@ -1,0 +1,12 @@
+{"contract": "agentcombuild-selfhost-v1",
+ "claim": "AgentComBuild improves itself through git lanes under frozen evaluation",
+ "leaves": [
+  {"id": "canonical_archive_isolation", "evidence": "core/tests/test_boundary.py", "judge": "pytest"},
+  {"id": "real_qp_authority_path", "evidence": "adapters/qp.py + chain receipt", "judge": "pytest"},
+  {"id": "real_qp_transition_receipt", "evidence": "trajectory qp_receipts + settle", "judge": "pytest"},
+  {"id": "official_mcp_wire_compatibility", "evidence": "official MCP client handshake", "judge": "pytest-venv"},
+  {"id": "openai_sdk_wire_compatibility", "evidence": "SDK constructors accept bundle", "judge": "pytest-venv"},
+  {"id": "security_defaults_fail_closed", "evidence": "P0 unknown-refuse tests", "judge": "pytest"},
+  {"id": "telemetry_full_hash", "evidence": "64-hex identity, no truncation", "judge": "pytest"},
+  {"id": "git_commit_bound_validation", "evidence": "worktree receipts with exact SHAs", "judge": "runner"},
+  {"id": "promotion_requires_external_validation", "evidence": "merge only after frozen gates", "judge": "review"}]}

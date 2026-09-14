@@ -1,0 +1,70 @@
+"""Format bridges: ATIF export, memory projection, OTel mapping."""
+import os
+import sys
+
+import pytest
+
+ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                     "..", ".."))
+sys.path.insert(0, ROOT)
+
+from trajectory import atif, memory, otel  # noqa: E402
+
+
+def attempts():
+    return [
+        {"attempt_id": "ATT-0", "action": {"kind": "TEST", "description": "send probe"},
+         "observed_effect": {"verdict": "FAIL", "reasons": ["no readback"]},
+         "cost": {"duration_ms": 120, "tokens": None, "usd": 0.01}},
+        {"attempt_id": "ATT-1", "action": {"kind": "TEST", "description": "send with readback"},
+         "observed_effect": {"verdict": "PASS", "reasons": []},
+         "cost": {"duration_ms": 340, "tokens": None, "usd": 0.02}},
+    ]
+
+
+def test_atif_export_shape():
+    out = atif.from_trajectory({"trajectory_id": "t1", "model": "sim",
+                                "attempts": attempts()},
+                               agent={"name": "w", "version": "0.1.0"},
+                               session_id="sess-1")
+    ok, reasons = atif.check_shape(out)
+    assert ok, reasons
+    assert out["steps"][0]["observation"]["results"][0]["content"] == "FAIL"
+    assert out["final_metrics"]["total_steps"] == 2
+    assert out["final_metrics"]["total_cost_usd"] == 0.03
+
+
+def test_atif_shape_rejects_garbage():
+    ok, reasons = atif.check_shape({"nope": True})
+    assert not ok and reasons
+
+
+def test_memory_projection_and_fidelity():
+    proj = memory.project(attempts(), source="test")
+    assert proj["records"][0]["role"] == "meta"
+    assert proj["reduction"] >= 1.0  # measured, not claimed
+    ok, missing = memory.fidelity(attempts(), proj)
+    assert ok, missing
+
+
+def test_memory_quality_axes():
+    cand = {"idea": "cache readback receipts, for example keyed by order id",
+            "statement": "receipts speed up retry verdicts"}
+    held = {"task_text": "prove send with readback receipts",
+            "needs": ["readback", "receipts"]}
+    axes = memory.quality_axes(cand, held)
+    assert axes["adherence"] is True and axes["retrieval"] is True
+    assert axes["hygiene"] is True
+    assert set(axes) == {"adherence", "retrieval", "generalization", "hygiene"}
+
+
+def test_otel_span_shape():
+    spans = otel.to_spans([{"attempt_id": "ATT-0", "model": "m",
+                            "run_id": "r1",
+                            "observed_effect": {"verdict": "PASS"},
+                            "cost": {"tokens": 10}}])
+    (s,) = spans
+    assert s["kind"] == "CLIENT" and s["status"] == {"code": "OK"}
+    assert s["attributes"]["gen_ai.request.model"] == "m"
+    assert s["attributes"]["gen_ai.usage.input_tokens"] == 10
+    assert otel.to_spans([{"attempt_id": "X"}])[0]["status"] == {"code": "UNSET"}

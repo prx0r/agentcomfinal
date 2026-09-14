@@ -45,7 +45,7 @@ step "openai-native-0 suite"
 (cd "$ROOT/../experiments/openai_native" && PYTHONPATH=src:/agentcomfinal/agentcombuild/agentloop/src:/agentcomfinal python3 -m pytest tests/ -q) && ok "openai-native suite" || no "openai-native suite"
 
 step "compiler + E4 tournament suite"
-(cd "$ROOT/.." && PYTHONPATH=/agentcomfinal python3 -m pytest autobuild/compiler/ -q) && ok "compiler+E4 suite" || no "compiler+E4 suite"
+(cd "$ROOT/.." && PYTHONPATH=/agentcomfinal python3 -m pytest autobuild/compiler/ trajectory/test_formats.py -q) && ok "compiler+E4+formats suite" || no "compiler+E4+formats suite"
 
 echo "--- chain: $pass ok, $miss miss ---"
 [ "$miss" -eq 0 ]

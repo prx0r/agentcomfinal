@@ -67,6 +67,10 @@ def make_grant(subject, capability, constraints, predicates, expiry):
                                       predicates, expiry)
 
 
+def make_run(task_id, worker, model="", inputs_root=""):
+    return _mod("objects").make_run(task_id, worker, model, inputs_root)
+
+
 def make_evidence(metric, value, unit, as_of, source):
     return _mod("objects").make_evidence(metric, value, unit, as_of, source)
 
@@ -79,3 +83,48 @@ def bind_requirement(contract_root, requirement_id, claim, task, gate,
             "qp_claim_id": claim["id"], "qp_task_id": task["id"],
             "qp_gate_id": gate["id"],
             "minimum_proof_level": minimum_proof_level}
+
+
+def _crypto():
+    return _mod("crypto")
+
+
+def keypair(secret: bytes):
+    """Authority-side key generation (real qp crypto, not a copy)."""
+    return _crypto().keypair(secret)
+
+
+def sign_grant(secret: bytes, grant_body: dict) -> str:
+    return _crypto().sign_grant(secret, grant_body)
+
+
+def verify_grant(grant: dict, action: dict, facts: dict, now_iso: str):
+    """REAL qp grant verification (action: {capability, value?, calls?,
+    risk_usd?, asset?}; predicates are 'dotted.key op literal' strings).
+    Unsigned grants deny — fail closed inside QP itself."""
+    return _mod("grants").verify_grant(grant, action, facts, now_iso)
+
+
+def authorize(action: dict, grant: dict, facts: dict, now_iso: str):
+    """Authoritative belt. Returns {authorized, reason}."""
+    r = verify_grant(grant, action, facts, now_iso)
+    return {"authorized": bool(r.get("ok")), "reason": r.get("reason", "")}
+
+
+def settle_transition(state_before: dict, proposal: dict, evidence: list,
+                      gate_ids: list, run: dict, proof_level: int = 9,
+                      transition_type: str = "RESOLVE"):
+    """REAL qp settlement: gates execute inside QP, receipt minted by QP."""
+    return _mod("receipts").transition(
+        state_before, proposal, evidence, gate_ids, run,
+        proof_level=proof_level, transition_type=transition_type)
+
+
+def verify_settlement(receipt: dict, evidence: list):
+    """REAL qp independent settlement check (id + gate replay)."""
+    return _mod("receipts").settle(receipt, evidence)
+
+
+def sign_receipt(secret: bytes, receipt: dict):
+    """Authority-side signing via real qp crypto (kernel never signs)."""
+    return _mod("receipts").sign_receipt(secret, receipt)

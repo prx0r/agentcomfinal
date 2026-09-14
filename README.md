@@ -40,5 +40,6 @@ See `AUDIT.md §7` for merge plan. Do not commit secrets — R2/GitHub tokens st
 - **Attempt 1 (working):** `agentcombuild/autobuild1/` — stdlib oneshot, 17/17 green
 - **Attempt 2 (working):** `agentcombuild/autobuild2/` — signed receipts + grant gates, 15/15 green
 - **Attempt 3 (working):** `agentcombuild/autobuild3/` — a-log telemetry + Actuality core (probe/judge, CEL, DAG, readback, registry), 29/29 green
+- **Agent harness (working):** `agentcombuild/agentloop/` — RUN records, seeker, research backends, compiler, generated policy, 27/27 green
 - **Attempts 4–10:** hypotheses stubbed, see `agentcombuild/DEV_PLAN.md §5`
 - **Click go:** `bash agentcombuild/GO.sh` — simulated chain (reviews + suites + demos + redteam)

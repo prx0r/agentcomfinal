@@ -1,9 +1,15 @@
 # axioms.md — what structurally bounds the agent (enforced, not asked)
 
+$$
+\boxed{\text{Invariants constrain reality; axioms constrain cognition.}}
+$$
+
 Two layers run this system. This file is the first: **bounds the agent
 cannot break even if it tries** — enforced by code, gates, and review.
 The second layer is `agents.md`: principles the agent is *instructed* to
-follow. Confusion between the two is the root of most agent-system failures:
+follow (plus Layer C dynamic policy — spend/attempt/tool/repo budgets as
+structured data in `agentloop/agent_policy.json`, never buried in prompts).
+Confusion between the two is the root of most agent-system failures:
 never enforce by prompt what you can enforce by structure, and never leave
 to structure what only judgment can do.
 
@@ -39,3 +45,5 @@ Enforced by: ab1 gates + ab3 stoplight + DAG (`actuality.py`).
 - Not validators for specific claims (those live in the registry).
 - Not unchangeable: an axiom changes only by a governed transition with a
   reasoned record — never by a single run's convenience.
+
+> **Agents speculate. Reality validates. QP commits. History compounds.**

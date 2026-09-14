@@ -71,16 +71,44 @@ RUN record (`agentloop/schemas/run_record.schema.json`), validated by shape:
 }
 ```
 
-Rules: `next10` holds **exactly 10** entries (forces prioritization);
+Rules: `next10` holds **1–10 entries (up-to-10 anti-filler rule: a short
+honest list beats filler; impact ranking buries filler anyway)**;
 `visionary` holds **≥1** (forces endgame thinking); every `working` claim
 names its validation; every `not_working` claim names failure + fixture so
 no later run rediscovers the dead route. Records append to
 `runs/<project>.jsonl` — relative to the project, forever.
 
 ## 5. The compound effect
-
 Run 1 banks a few ideas. By run 4 the project holds ~20 visionary ideas,
 a failure map nobody has to re-walk, and a ranked next-10 drawn from all
 prior evidence. Optimization, dissection, and endgame planning draw from the
 banks — never from memory, never from vibes. Each response generates the
 data the next response compounds on. That is the whole game.
+
+## 6. Machine map (microprocessor correspondence)
+
+Contract = instruction definition · Requirement = register target ·
+Actual state = register value · Validator = logic gate · Grant =
+permission bit · Worker = speculative execution unit · A-Task = instruction
+scheduler · QP = commit/retirement unit · A-log = observation bus · Run
+ledger = trace buffer · GitGoblin/web/arXiv = external memory/cache
+hierarchy · Agent policy = branch/search policy · Autobuild = compiler ·
+AgentCom = control plane/scheduler. Architecture state commits only when
+QP retires the transition — speculation never writes through.
+
+## 7. Cache-miss hierarchy (discovery escalation)
+
+L0 current target/run context → L1 project knowledge → L2 cross-project
+primitive/failure library → L3 GitGoblin → L4 official docs → L5 GitHub →
+L6 web → L7 papers/arXiv → L8 human. Escalate only as needed
+(`research.escalate` stops at the first level with hits); reaching L8
+records a deferred human escalation. Stale EXECUTING work re-checks L0–L2
+before burning external search.
+
+## 8. Policy is data
+
+`agentloop/agent_policy.json` is canonical. `AGENTS.md` and
+`SYSTEM_PROMPT.md` in that folder are generated projections — change the
+JSON, re-render, never hand-edit. Policies compete experimentally:
+worker-policy-v1 vs v2 vs v3 against identical ContractRoots, scored on
+verified progress per cost from banked trajectories.

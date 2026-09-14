@@ -75,3 +75,53 @@ def compile_runs(records):
             "stats": {"runs": len(records or []), "ideas": len(ideas),
                       "failures_banked": failures,
                       "tasks_proposed": len(decisions)}}
+
+
+def priority(task):
+    """Priority(t) = P(dActuality)*Centrality*InfoGain*Strategic /
+    (1+Cost+Human+Irreversibility), 0..1. Tasks without expected_progress
+    fall back to impact/5 on the same 0..1 scale (motion never outranks
+    evidence by scale trickery — only by number)."""
+    if task.get("expected_progress") is None:
+        return round(float(task.get("impact", 0)) / 5.0, 6), \
+            {"mode": "impact-fallback"}
+    p = float(task["expected_progress"])
+    b = float(task.get("bottleneck_centrality", 0.5))
+    g = float(task.get("information_value", 0.5))
+    s = float(task.get("strategic_value", 0.5))
+    c = float(task.get("cost", 0.5))
+    h = float(1 if task.get("human_needed") else 0)
+    r = 1.0 - float(task.get("reversibility", 0.5))
+    inputs = {"p": p, "bottleneck": b, "info": g, "strategic": s, "cost": c,
+              "human": h, "irreversibility": round(r, 4)}
+    return round((p * b * g * s) / (1 + c + h + r), 6), inputs
+
+
+def rank_tasks(tasks):
+    """Rank by priority where available, else impact. Inputs stored per task."""
+    out = []
+    for t in tasks or []:
+        t = dict(t)
+        score, inputs = priority(t)
+        t["priority_score"] = score
+        t["priority_inputs"] = inputs
+        out.append(t)
+    out.sort(key=lambda e: (-e["priority_score"], e.get("task") or ""))
+    return out
+
+
+def cluster(ideas_bank):
+    """Duplicates (reinforcing, runs>1), themes, cross-project primitive
+    candidates (scale/proof themes). Ideas never become tasks here — the
+    scope guard: compile output tasks come only from RUN next10 entries."""
+    by_theme, reinforcing, prims = {}, [], []
+    for idea in ideas_bank or []:
+        for th in idea.get("themes", []):
+            by_theme.setdefault(th, []).append(idea.get("idea"))
+        if len(idea.get("runs", [])) > 1:
+            reinforcing.append(idea.get("idea"))
+        if set(idea.get("themes", [])) & {"scale", "proof"}:
+            prims.append(idea.get("idea"))
+    return {"by_theme": {k: sorted(set(v)) for k, v in by_theme.items()},
+            "reinforcing": sorted(set(reinforcing)),
+            "primitive_candidates": sorted(set(prims))}

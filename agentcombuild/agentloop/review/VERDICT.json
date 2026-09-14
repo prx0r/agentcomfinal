@@ -12,12 +12,12 @@
     {
       "id": "records",
       "status": "PASS",
-      "note": "15 passed"
+      "note": "27 passed"
     },
     {
       "id": "suite-green",
       "status": "PASS",
-      "note": "15/0"
+      "note": "27/0"
     },
     {
       "id": "hygiene",
@@ -27,11 +27,11 @@
   ],
   "tests": {
     "ok": true,
-    "passed": 15,
+    "passed": 27,
     "failed": 0,
     "tail": [
-      "...............                                                          [100%]",
-      "15 passed in 0.05s"
+      "...........................                                              [100%]",
+      "27 passed in 0.07s"
     ]
   },
   "files": [
@@ -41,6 +41,18 @@
     },
     {
       "path": "schemas/run_record.schema.json",
+      "ok": true
+    },
+    {
+      "path": "agent_policy.json",
+      "ok": true
+    },
+    {
+      "path": "AGENTS.md",
+      "ok": true
+    },
+    {
+      "path": "SYSTEM_PROMPT.md",
       "ok": true
     },
     {
@@ -57,6 +69,22 @@
     },
     {
       "path": "src/loop/compile.py",
+      "ok": true
+    },
+    {
+      "path": "src/loop/intel.py",
+      "ok": true
+    },
+    {
+      "path": "src/loop/policy.py",
+      "ok": true
+    },
+    {
+      "path": "src/loop/knowledge.py",
+      "ok": true
+    },
+    {
+      "path": "src/loop/blocker.py",
       "ok": true
     },
     {

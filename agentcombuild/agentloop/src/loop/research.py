@@ -98,3 +98,44 @@ def multi_search(query, backends):
         except Exception as exc:  # noqa: BLE001 - errors are evidence
             errors.append({"backend": b.name, "error": str(exc)[:200]})
     return hits, errors
+
+
+# Cache-miss hierarchy (agents.md §2): escalate only as needed. L8-human has
+# no backend; reaching it records a deferred escalation, never a crash.
+LEVELS = ("L0-target", "L1-project", "L2-cross-project", "L3-gitgoblin",
+          "L4-docs", "L5-github", "L6-web", "L7-arxiv", "L8-human")
+
+
+def escalate(query, level_backends, min_hits=1):
+    """Walk levels in order; stop at the first level yielding >= min_hits.
+    level_backends: {level: [backends]}. Returns {hits, tried, errors}."""
+    hits, tried, errors = [], [], []
+    for level in LEVELS:
+        backends = level_backends.get(level, [])
+        if not backends:
+            continue
+        tried.append(level)
+        h, e = multi_search(query, backends)
+        hits.extend(h)
+        errors.extend(e)
+        if len(hits) >= min_hits:
+            break
+    else:
+        if "L8-human" not in tried:
+            tried.append("L8-human:deferred")
+    return {"hits": hits, "tried": tried, "errors": errors}
+
+
+def record_research(question, source_type, query, hits, decision_effect="",
+                    run_id=""):
+    """Structured RES record: research must not disappear into context."""
+    from ab1.canonical import canonical, sha12
+    rec = {"research_id": "res:" + sha12(canonical(
+        {"question": question, "query": query,
+         "sources": [h.get("url") for h in hits or []]}))[:16],
+        "question": question, "source_type": source_type, "query": query,
+        "sources": [{"ref": h.get("url", ""),
+                     "relevance": h.get("relevance", 0.5)} for h in hits or []],
+        "claims_extracted": [], "decision_effect": decision_effect,
+        "origin_run": run_id}
+    return rec

@@ -33,14 +33,18 @@ def test_good_record_validates():
 
 def test_next10_count_enforced():
     r = good_record()
-    r["next10"] = r["next10"][:9]
+    r["next10"] = []
     ok, reasons = runlog.check_record(r)
-    assert not ok and any("exactly 10" in x for x in reasons)
+    assert not ok and any("1-10" in x for x in reasons)
     r = good_record()
     r["next10"] = r["next10"] + [{"task": "extra", "justification": "j",
                                   "impact": 1}]
     ok, reasons = runlog.check_record(r)
-    assert not ok and any("exactly 10" in x for x in reasons)
+    assert not ok and any("1-10" in x for x in reasons)
+    r = good_record()
+    r["next10"] = r["next10"][:4]
+    ok, reasons = runlog.check_record(r)
+    assert ok, reasons
 
 
 def test_visionary_required():
@@ -101,11 +105,14 @@ PROBLEM = {"invariant_id": "ACT5", "context": "readback channels",
 def test_seeker_picks_winner_and_logs_all():
     logged = []
     v = seeker.seek(PROBLEM, [FakeBackend()],
-                    lambda c: {"verdict": "PASS" if c["id"] == "cand-1" else "FAIL",
+                    lambda c: {"verdict": "PASS" if c["solution_id"] == "sol-1" else "FAIL",
                                "reasons": ["sim"]},
                     logged.append)
-    assert v["winner"] == "cand-1" and v["logged"] == 3
-    assert [r["verdict"] for r in v["results"]] == ["FAIL", "PASS", "FAIL"]
+    assert v["winner"] == "sol-1" and v["logged"] == 3
+    # ranked highest-value-first: sol-1 (local, cheaper) outranks sol-0
+    assert [r["candidate"] for r in v["results"]] == ["sol-1", "sol-2", "sol-0"]
+    assert [r["verdict"] for r in v["results"]] == ["PASS", "FAIL", "FAIL"]
+    assert all("attempt" in r for r in v["results"])
 
 
 def test_seeker_all_fail_honest():
@@ -167,3 +174,156 @@ def test_compile_merges_leaderboard():
 def test_tags_deterministic():
     assert comp.tag("endgame proof DAG library") == comp.tag("endgame proof DAG library")
     assert "endgame" in comp.tag("vision of the endgame horizon")
+
+
+# ---- worker-advice upgrades ----
+
+def test_policy_generates_projections(tmp_path):
+    from loop import policy
+    p = policy.load()
+    assert p["policy_id"] == "autobuild-worker-v1"
+    md = policy.render_agents_md(p)
+    assert "cannot declare completion" in md
+    assert "Do not hand-edit" in md
+    sp = policy.render_system_prompt(p)
+    assert "speculative execution unit" in sp
+    import shutil
+    shutil.copy(os.path.join(HERE, "..", "agent_policy.json"), str(tmp_path))
+    out = policy.write_projections(str(tmp_path))
+    assert out == "autobuild-worker-v1"
+    gen = open(os.path.join(str(tmp_path), "AGENTS.md")).read()
+    assert "cannot declare completion" in gen
+
+
+def test_knowledge_ledger():
+    from loop import knowledge
+    ok, _ = knowledge.check_entry({"type": "NOPE", "subject": "s",
+                                   "statement": "x", "origin_run": "r"})
+    assert not ok
+    ok, _ = knowledge.check_entry({"type": "IDEA", "subject": "s",
+                                   "statement": "x", "origin_run": "r",
+                                   "action": "EXECUTE_NOW"})
+    assert not ok  # ideas store, never execute
+    buf = knowledge.idea_buffer("streaming validators", "run:1",
+                                "endgame corpus", "no corpus effect")
+    assert "target" not in buf and buf["action"] == "STORE_NOT_EXECUTE"
+    ok, reasons = knowledge.check_entry(buf)
+    assert ok, reasons
+
+
+def test_blocker_lifecycle(tmp_path):
+    from loop import blocker
+    b = blocker.open_blocker("checkout.order", "API_INCOMPATIBILITY",
+                             observed=["201 != 200"], unknowns=["provider TLS"])
+    b = blocker.attach_attempt(b, "sol-0", "FAIL", ["timeout"])
+    b = blocker.set_untried(b, ["sol-1"])
+    assert b["state"] == "OPEN" and len(b["attempted_solutions"]) == 1
+    b = blocker.resolve(b, "ATT-4")
+    bid = blocker.save(str(tmp_path / "b.jsonl"), b)
+    assert bid.startswith("blk:")
+    with pytest.raises(blocker.BadBlocker):
+        blocker.save(str(tmp_path / "b.jsonl"), {"nope": 1})
+
+
+def test_solutions_rich_and_distinct():
+    hits = [{"source": "github", "backend": "github", "url": "u1", "summary": "s1"},
+            {"source": "github", "backend": "github", "url": "u2", "summary": "s2"},
+            {"source": "arxiv", "backend": "arxiv", "url": "u3", "summary": "s3"}]
+    cands = seeker.propose(PROBLEM, hits)
+    assert len(cands) == 3
+    mechs = [c["mechanism"] for c in cands]
+    assert len(set(mechs)) == 3  # materially distinct, never 3 timeout tweaks
+    for c in cands:
+        assert c["falsifier"] and c["cost"] and "reversibility" in c
+
+
+def test_ordering_cheapest_info_first():
+    cands = seeker.propose(PROBLEM, [])
+    ranked = seeker.order(cands, {"sol-0": {"p": 0.1}, "sol-1": {"p": 0.9},
+                                  "sol-2": {"p": 0.5}})
+    assert ranked[0][0]["solution_id"] == "sol-1"
+    assert "score_inputs" in ranked[0][0] and ranked[0][1] > 0
+
+
+def test_attempts_measured():
+    logged = []
+    v = seeker.seek(PROBLEM, [FakeBackend()],
+                    lambda c: {"verdict": "FAIL", "reasons": []}, logged.append)
+    assert all(a["attempt_id"].startswith("ATT-") for a in v["attempts"])
+    assert all(a["cost"]["duration_ms"] >= 0 for a in v["attempts"])
+    assert v["blocker_hint"] == "open-blocker"  # all failed -> durable halt
+    assert v["states"][0] == "OBSERVE" and "DISCOVERY" in v["states"]
+
+
+def test_escalate_stops_early_and_defers_human():
+    lv = {"L0-target": [FakeBackend(hits=[])],
+          "L5-github": [FakeBackend(hits=[{"source": "github", "url": "u", "summary": "s"}])]}
+    out = research.escalate("q", lv)
+    assert out["tried"] == ["L0-target", "L5-github"] and len(out["hits"]) == 1
+    out2 = research.escalate("q", {"L0-target": [FakeBackend(hits=[])]})
+    assert out2["hits"] == [] and "L8-human:deferred" in out2["tried"]
+
+
+def test_research_record_shape():
+    rec = research.record_research("q?", "GITHUB", "q",
+                                   [{"url": "u1"}], "raised sol-2", "run:9")
+    assert rec["research_id"].startswith("res:") and rec["origin_run"] == "run:9"
+
+
+def test_priority_outranks_motion():
+    probe = {"task": "probe X", "justification": "resolves UNKNOWN",
+             "impact": 1, "expected_progress": 0.9, "bottleneck_centrality": 0.9,
+             "information_value": 0.9, "strategic_value": 0.8, "cost": 0.1,
+             "human_needed": False, "reversibility": 1.0}
+    feat = {"task": "build big feature", "justification": "motion",
+            "impact": 2}
+    ranked = comp.rank_tasks([feat, probe])
+    assert ranked[0]["task"] == "probe X"  # tiny probe beats big motion
+    assert "priority_inputs" in ranked[0]
+
+
+def test_cluster_and_scope_guard():
+    bank = [{"idea": "validator trace corpus", "themes": ["proof", "scale"],
+             "runs": ["run:1", "run:2"], "endgame_link": "e", "falsifier": "f"},
+            {"idea": "faster timeouts", "themes": ["speed"], "runs": ["run:1"],
+             "endgame_link": "e", "falsifier": "f"}]
+    cl = comp.cluster(bank)
+    assert cl["reinforcing"] == ["validator trace corpus"]
+    assert "validator trace corpus" in cl["primitive_candidates"]
+    assert "validator trace corpus" in cl["by_theme"]["proof"]
+    # scope guard: ideas never leak into task outputs
+    tasks = {t for t in cl["by_theme"].get("tasks", [])}
+    assert tasks == set()
+
+
+def test_intel_built_from_data():
+    from loop import intel
+    rec = good_record()
+    logged = []
+    v = seeker.seek(PROBLEM, [FakeBackend()],
+                    lambda c: {"verdict": "PASS", "reasons": []}, logged.append)
+    out = intel.build_intel(rec, v, contract_root="cr:1", model="sim",
+                            costs={"wall_time_ms": 120, "human_minutes": 0})
+    assert out["schema"] == "run-intelligence-v1"
+    assert out["cost"]["tokens"] is None  # unknown stays null
+    assert out["cost"]["useful_yield"] == 1.0
+    assert out["worker_summary"].startswith("run ")
+    assert len(out["next_tasks"]) == 10 and len(out["ideas"]) == 2
+
+
+def test_holdout_opacity():
+    """Validator holds a check candidates never see; still enforced."""
+    logged = []
+    def hidden(c):
+        if c.get("mechanism") == "fake":
+            return {"verdict": "FAIL", "reasons": ["holdout: route class banned"]}
+        return {"verdict": "PASS", "reasons": []}
+    v = seeker.seek(PROBLEM, [FakeBackend()], hidden, logged.append)
+    # the fake-sourced candidate fails a rule stated nowhere in the contract;
+    # local-mechanism candidates still pass -> winner is not sol-0
+    by_id = {r["candidate"]: r for r in v["results"]}
+    assert by_id["sol-0"]["verdict"] == "FAIL"
+    assert any("holdout" in x for x in by_id["sol-0"]["reasons"])
+    assert v["winner"] in ("sol-1", "sol-2")
+    # ...yet the candidates themselves carry no trace of the rule
+    assert all("holdout" not in json.dumps(c) for c in v["candidates"])

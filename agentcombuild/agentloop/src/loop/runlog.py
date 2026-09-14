@@ -1,6 +1,6 @@
 """Run records: every run is data. Shape enforced at append, not by trust.
 
-next10 holds EXACTLY 10 (forces prioritization). visionary holds >=1
+next10 holds 1-10 tasks (up-to-10 anti-filler rule). visionary holds >=1
 (forces endgame thinking). working claims name validations; failures name
 fixtures so no later run re-walks the dead route.
 """
@@ -48,8 +48,8 @@ def check_record(rec):
                   and w.get("fixture"), reasons,
                   "not_working[%d] needs claim+failure+fixture" % i)
         nx = rec.get("next10", [])
-        _need(isinstance(nx, list) and len(nx) == 10, reasons,
-              "next10 must hold exactly 10 (got %s)"
+        _need(isinstance(nx, list) and 1 <= len(nx) <= 10, reasons,
+              "next10 must hold 1-10 tasks (got %s)"
               % (len(nx) if isinstance(nx, list) else "?"))
         for i, t in enumerate(nx if isinstance(nx, list) else []):
             ok = isinstance(t, dict) and t.get("task") and t.get("justification") \

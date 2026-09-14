@@ -24,6 +24,24 @@ def _mechanism_of(hit):
     return str(hit.get("mechanism") or hit.get("source") or "?").lower()
 
 
+def causes(problem, hits):
+    """RESEARCH EVIDENCE -> CAUSE HYPOTHESES (devplan §6). One cause per
+    distinct mechanism, citing supporting hit refs. Causes explain; they
+    never prove (proof comes from TEST)."""
+    out, seen = [], set()
+    for h in hits:
+        mech = _mechanism_of(h)
+        if mech in seen:
+            continue
+        seen.add(mech)
+        out.append({"cause_id": "cause:%s" % mech,
+                    "statement": "blocker <%s> is caused by <%s-class> failure"
+                    % (problem.get("invariant_id", "?"), mech),
+                    "mechanism": mech,
+                    "supporting": [h.get("url", "") or h.get("backend", "?")]})
+    return out
+
+
 def propose(problem, hits):
     """Exactly 3 full candidates with materially distinct mechanisms
     (repair vs replace vs remove — never three timeout tweaks). Rich schema:
@@ -116,7 +134,12 @@ def seek(problem, backends, validate_fn, log_fn, priors=None):
         problem.get("context", ""), hits,
         "seeker run", run_id=problem.get("run_id", ""))
     states.append("DISCOVERY")
+    cause_list = causes(problem, hits)
+    cause_by_mech = {c["mechanism"]: c["cause_id"] for c in cause_list}
     ranked = order(propose(problem, hits), priors)
+    for c, _ in ranked:
+        c["cause_id"] = cause_by_mech.get(c.get("mechanism", ""),
+                                          "cause:local")
     attempts, results, logged = [], [], 0
     for n, (c, _) in enumerate(ranked):
         states.append("ATTEMPT")
@@ -156,6 +179,7 @@ def seek(problem, backends, validate_fn, log_fn, priors=None):
                    if r["verdict"] == "PASS"), None)
     return {"invariant": problem.get("invariant_id"), "states": states,
             "research": res_record, "research_errors": errors,
+            "causes": cause_list,
             "candidates": [c for c, _ in ranked], "attempts": attempts,
             "results": results, "winner": winner, "logged": logged,
             "blocker_hint": None if winner else "open-blocker"}

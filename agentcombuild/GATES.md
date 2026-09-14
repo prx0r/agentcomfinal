@@ -12,7 +12,7 @@ adds L1; L2+ are specified here so later attempts don't reinvent them.
 | `specgate-v1` | spec_verdict | plan valid: goal + acceptance, every feature has acceptance + declared kind+ref evidence |
 | `evidence-declared-v1` | features[] | every feature carries ≥1 {kind, ref} evidence |
 | `two-sources-v1` | sources[] | ≥2 distinct source ids |
-| `score-threshold-v1` | value, min | project value ≥ min |
+| `score-threshold-v1` | value, min | RETIRED from canonical path (devplan §3): heuristic scores are priorities, never proof. Kept in frozen ab1 only; canonical compiler ranks via `autobuild/compiler/seesaw.py` (proposal, no verdict). |
 | `no-duplicate-v1` | items[] | ids unique |
 | `plugin-lint-v1` (specgate.check_plugin) | plugin spec | name+version, tools with name+description, provider{name,tos} for third-party/auth tools |
 

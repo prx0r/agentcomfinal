@@ -22,7 +22,7 @@ def main():
         "src/loop/runlog.py", "src/loop/research.py", "src/loop/seeker.py",
         "src/loop/compile.py", "src/loop/intel.py", "src/loop/policy.py",
         "src/loop/knowledge.py", "src/loop/blocker.py",
-        "src/loop/tracing.py", "tests/test_loop.py",
+        "src/loop/tracing.py", "src/loop/reconcile.py", "tests/test_loop.py",
         "tests/test_tracing_live.py",
         "../autobuild0/vendor_docs/openai-agents/PROVENANCE.md"])
     bans = reviewkit.grep_ban_py(ADIR, [

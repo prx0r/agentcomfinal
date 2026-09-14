@@ -329,6 +329,37 @@ def test_holdout_opacity():
     assert all("holdout" not in json.dumps(c) for c in v["candidates"])
 
 
+def test_reconcile_matched_and_divergent():
+    from loop import reconcile
+    local = [{"trace_id": "trace_ok", "verdict": "GO"},
+             {"trace_id": "trace_bad", "verdict": "GO"}]
+    exported = [
+        {"object": "trace.span", "id": "s1", "trace_id": "trace_ok",
+         "parent_id": None, "started_at": "t", "ended_at": "t",
+         "span_data": {}, "error": None},
+        {"object": "trace.span", "id": "s2", "trace_id": "trace_bad",
+         "parent_id": None, "started_at": "t", "ended_at": "t",
+         "span_data": {}, "error": {"message": "boom"}}]
+    rep = reconcile.reconcile(exported, local)
+    assert "trace_ok" in rep["matched"]
+    assert "trace_bad" in rep["error_mismatch"]
+    rep2 = reconcile.reconcile(exported, [{"trace_id": "trace_ok",
+                                           "verdict": "GO"}])
+    assert "trace_bad" in rep2["missing_local"]  # orphan telemetry
+    ok, report = reconcile.cross_check_run({"trace_id": "trace_ok",
+                                            "verdict": "GO"}, exported[:1], [])
+    assert ok and report["trace_id"] == "trace_ok"
+
+
+def test_causes_cited_by_candidates():
+    v = seeker.seek(PROBLEM, [FakeBackend()], lambda c: {"verdict": "FAIL", "reasons": []}, lambda e: None)
+    assert len(v["causes"]) >= 1
+    by_mech = {c["mechanism"]: c["cause_id"] for c in v["causes"]}
+    for c in v["candidates"]:
+        if c["mechanism"] in by_mech:
+            assert c["cause_id"] == by_mech[c["mechanism"]]
+
+
 # ---- provider-native telemetry ----
 
 def test_trace_id_shape():

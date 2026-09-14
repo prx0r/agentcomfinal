@@ -38,5 +38,8 @@ step "agentloop suite"
 step "agentloop review"
 (cd "$ROOT/agentloop" && python3 review/check.py) && ok "agentloop review" || no "agentloop review"
 
+step "core suite (E0 canonical)"
+(cd "$ROOT/.." && PYTHONPATH=/agentcomfinal python3 -m pytest core/tests/ -q) && ok "core suite" || no "core suite"
+
 echo "--- chain: $pass ok, $miss miss ---"
 [ "$miss" -eq 0 ]

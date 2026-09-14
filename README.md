@@ -43,3 +43,13 @@ See `AUDIT.md §7` for merge plan. Do not commit secrets — R2/GitHub tokens st
 - **Agent harness (working):** `agentcombuild/agentloop/` — RUN records, seeker, research backends, compiler, generated policy, 27/27 green
 - **Attempts 4–10:** hypotheses stubbed, see `agentcombuild/DEV_PLAN.md §5`
 - **Click go:** `bash agentcombuild/GO.sh` — simulated chain (reviews + suites + demos + redteam)
+
+## Canonical endstate (E0, per `agentcombuild/agentcomdevplan.md`)
+
+- **Ownership:** `CANONICAL.md` — nine modules, one owner each
+- **AgentCom core:** `core/` (ids, 8-root lineage, scheduler, portfolio)
+- **Contracts:** `contracts/` (strategic/campaign/actuality/trajectory/promotion schemas)
+- **Autobuild:** `autobuild/` (compiler incl. demoted seesaw + fixed priority, actuality incl. execution envelopes, registry)
+- **Adapters:** `adapters/` (real qp/atask/seed0/gitgoblin/seesaw — references, never clones)
+- **Lanes + trajectory:** `experiments/policies/`, `trajectory/` (L0–L5 ladder)
+- **History:** `agentcombuild/autobuild{1,2,3}` frozen; future experiments run as Seed0 lanes

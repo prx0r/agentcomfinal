@@ -12,12 +12,12 @@
     {
       "id": "records",
       "status": "PASS",
-      "note": "35 passed"
+      "note": "37 passed"
     },
     {
       "id": "suite-green",
       "status": "PASS",
-      "note": "35/0"
+      "note": "37/0"
     },
     {
       "id": "hygiene",
@@ -27,11 +27,11 @@
   ],
   "tests": {
     "ok": true,
-    "passed": 35,
+    "passed": 37,
     "failed": 0,
     "tail": [
-      "...................................                                      [100%]",
-      "35 passed, 1 skipped in 0.09s"
+      ".....................................                                    [100%]",
+      "37 passed, 1 skipped in 0.09s"
     ]
   },
   "files": [
@@ -89,6 +89,10 @@
     },
     {
       "path": "src/loop/tracing.py",
+      "ok": true
+    },
+    {
+      "path": "src/loop/reconcile.py",
       "ok": true
     },
     {

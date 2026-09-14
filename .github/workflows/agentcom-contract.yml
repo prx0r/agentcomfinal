@@ -1,0 +1,68 @@
+name: agentcom-contract
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  keyless:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Core + compiler + contracts + formats
+        run: PYTHONPATH=$GITHUB_WORKSPACE python3 -m pytest core/tests/ autobuild/compiler/ trajectory/test_formats.py contracts/ -q
+        working-directory: ${{ github.workspace }}
+      - name: ab1 suite
+        run: python3 -m pytest tests/ -q
+        working-directory: ${{ github.workspace }}/agentcombuild/autobuild1
+      - name: ab2 suite
+        run: PYTHONPATH=../autobuild1/src:src python3 -m pytest tests/ -q
+        working-directory: ${{ github.workspace }}/agentcombuild/autobuild2
+      - name: ab3 suite
+        run: PYTHONPATH=../autobuild1/src:src python3 -m pytest tests/ -q
+        working-directory: ${{ github.workspace }}/agentcombuild/autobuild3
+      - name: agentloop suite
+        run: PYTHONPATH=../autobuild1/src:src python3 -m pytest tests/ -q
+        working-directory: ${{ github.workspace }}/agentcombuild/agentloop
+      - name: openai-native offline suite (real)
+        run: PYTHONPATH=src:$GITHUB_WORKSPACE/agentcombuild/agentloop/src:$GITHUB_WORKSPACE python3 -m pytest tests/test_openai_native.py -q
+        working-directory: ${{ github.workspace }}/experiments/openai_native
+      - name: redteam
+        run: python3 autobuild0/redteam_ab12.py
+        working-directory: ${{ github.workspace }}/agentcombuild
+      - name: secret scan (live-pattern tokens, fixtures excluded by length)
+        run: |
+          ! grep -rnE --include='*.py' --include='*.json' \
+            -e 'sk-[A-Za-z0-9]{20,}' -e 'ghp_[A-Za-z0-9]{36}' -e 'pina_[A-Za-z0-9]{20,}' \
+            core adapters autobuild contracts trajectory experiments agentcombuild/autobuild0 agentcombuild/agentloop/src \
+            | grep -v -e 'fakelymadeup' -e '<redacted' -e 'SECRET_MARKERS' -e '"sk-"' -e "'sk-'" || true
+          # fail only on unallowlisted hits outside tests/demos
+          hits=$(grep -rnE --include='*.py' -e 'sk-[A-Za-z0-9]{20,}' -e 'ghp_[A-Za-z0-9]{36}' -e 'pina_[A-Za-z0-9]{20,}' core adapters autobuild contracts trajectory experiments 2>/dev/null | grep -v -e tests/ -e fakelymadeup -e '<redacted' -e SECRET_MARKERS || true)
+          if [ -n "$hits" ]; then echo "$hits"; exit 1; fi
+          echo "secret scan clean"
+
+  wire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned SDK surface (keyless)
+        run: pip install "openai-agents==0.22.2" mcp pytest
+      - name: Live wire tests (no key — export paths no-op)
+        run: python3 -m pytest tests/test_tracing_live.py -q
+        working-directory: ${{ github.workspace }}/agentcombuild/agentloop
+        env:
+          PYTHONPATH: ${{ github.workspace }}/agentcombuild/agentloop/src:${{ github.workspace }}/agentcombuild/autobuild1/src:${{ github.workspace }}
+      - name: SDK policy test
+        run: python3 -m pytest test_sdk_policy.py -q
+        working-directory: ${{ github.workspace }}/experiments/policies
+      - name: MCP + SDK wire tests
+        run: python3 -m pytest tests/test_wire_live.py -q
+        working-directory: ${{ github.workspace }}/experiments/openai_native
+        env:
+          PYTHONPATH: ${{ github.workspace }}/experiments/openai_native/src:${{ github.workspace }}/agentcombuild/agentloop/src:${{ github.workspace }}

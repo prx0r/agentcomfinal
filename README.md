@@ -54,4 +54,4 @@ See `AUDIT.md §7` for merge plan. Do not commit secrets — R2/GitHub tokens st
 - **Adapters:** `adapters/` (real qp/atask/seed0/gitgoblin/seesaw/cg — references, never clones)
 - **Lanes + trajectory:** `experiments/policies/`, `trajectory/` (L0–L5 ladder, duality bank, ATIF/memory/OTel bridges)
 - **History:** `agentcombuild/autobuild{1,2,3}` frozen; future experiments run as Seed0 lanes
-- **OpenAI-native (working sim):** `experiments/openai_native/` — BusinessBundle compiler, Skill-from-policy, session binder, MCP gateways, vault split, two-belt approvals, acceptance chain with real QP receipt, 19/19 green
+- **OpenAI-native (working sim):** `experiments/openai_native/` — BusinessBundle compiler, Skill-from-policy, session binder, MCP gateways, vault split, two-belt approvals, acceptance chain with real QP receipt, 20/20 green

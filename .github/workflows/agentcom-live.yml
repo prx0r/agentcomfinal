@@ -1,0 +1,23 @@
+name: agentcom-live
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Live probe target (read-only first)"
+        default: "provider-read"
+        required: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Live probe (skeleton — no credentials configured yet)
+        run: |
+          echo "No live credentials configured. This workflow exists so the"
+          echo "F2 live legs have a home that is visibly manual-only."
+          echo "It must NEVER block or be required by agentcom-contract."
+          echo "target=${{ inputs.target }}"

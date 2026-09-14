@@ -1,0 +1,26 @@
+{
+  "id": "lead-reply-one",
+  "goal": {
+    "statement": "Reply to one real lead with a qualified booking offer",
+    "acceptance": ["reply delivered to lead-123", "outcome read back within 24h"]
+  },
+  "features": [
+    {
+      "id": "qualify-lead",
+      "description": "Score lead-123 against qualification rubric",
+      "acceptance": ["score recorded with reasons"],
+      "evidence": [{"kind": "rubric", "ref": "notes:qualify-rubric"}, {"kind": "lead-record", "ref": "crm:lead-123"}]
+    },
+    {
+      "id": "send-lead-reply",
+      "description": "Send one bounded booking-offer reply to lead-123",
+      "acceptance": ["reply delivered", "no second send without new grant"],
+      "evidence": [{"kind": "template", "ref": "notes:reply-template"}, {"kind": "lead-record", "ref": "crm:lead-123"}],
+      "consequential": true,
+      "capability": "email.send",
+      "moat": {"exclusivity": 2, "externality": 3, "feedback": 2, "network": 1, "trust": 3, "ai_beta": 1},
+      "cost": 1,
+      "software_substitutable": false
+    }
+  ]
+}

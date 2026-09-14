@@ -29,9 +29,14 @@ python -m pytest packages/campaign-control-plane -q
 
 See `AUDIT.md §7` for merge plan. Do not commit secrets — R2/GitHub tokens stay in env only.
 
-## Autobuild program
+## Autobuild program (`agentcombuild/` — the factory)
 
-- **Plan:** `DEV_PLAN.md` — zip review, qp/atask principles, frozen protocols, attempt roadmap, validation criteria
-- **Shared refs:** `autobuild0/` — local repo inventory, schema index, qp principles
-- **Attempt 1 (working):** `autobuild1/` — stdlib oneshot, 17/17 tests green
-- **Attempts 2–10:** hypotheses stubbed, see `DEV_PLAN.md §5`
+- **Idea:** `agentcombuild/agentcomidea.md` — founding brief
+- **Criteria:** `agentcombuild/agentcomcriteria.md` — binary rubric, seed0 style
+- **Gates:** `agentcombuild/GATES.md` — full gate catalog L0–L4
+- **Plan:** `agentcombuild/DEV_PLAN.md` — zip review, qp/atask principles, protocols, roadmap
+- **Shared refs:** `agentcombuild/autobuild0/` — repo inventory, schema index, qp principles, reviewkit
+- **Attempt 1 (working):** `agentcombuild/autobuild1/` — stdlib oneshot, 17/17 green
+- **Attempt 2 (working):** `agentcombuild/autobuild2/` — signed receipts + grant gates, 13/13 green
+- **Attempts 3–10:** hypotheses stubbed, see `agentcombuild/DEV_PLAN.md §5`
+- **Click go:** `bash agentcombuild/GO.sh` — simulated chain (reviews + suites + demos)

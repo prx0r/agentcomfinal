@@ -1,0 +1,110 @@
+{
+  "attempt": "autobuild1",
+  "date": "2026-09-14",
+  "scope": [
+    "B4",
+    "C2-partial",
+    "W5-partial",
+    "H2-partial",
+    "G5-deferred",
+    "suite-green"
+  ],
+  "overall": "PASS WITH DEBT",
+  "criteria": [
+    {
+      "id": "B4",
+      "status": "PASS",
+      "note": "no QP fabrication in src"
+    },
+    {
+      "id": "C2-partial",
+      "status": "PARTIAL",
+      "note": "receipt+chain lineage present; 7-root lineage is ab4+ scope"
+    },
+    {
+      "id": "W5-partial",
+      "status": "PARTIAL",
+      "note": "no outcome/readback object in ab1; rule specified in GATES.md L3"
+    },
+    {
+      "id": "H2-partial",
+      "status": "PARTIAL",
+      "note": "runs emit receipts; KnowledgeContribution is attempt 5+ scope"
+    },
+    {
+      "id": "G5-deferred",
+      "status": "DEFERRED",
+      "note": "receipts unsigned V0 by design; signing is autobuild2"
+    },
+    {
+      "id": "suite-green",
+      "status": "PASS",
+      "note": "17 passed, 0 failed"
+    }
+  ],
+  "tests": {
+    "ok": true,
+    "passed": 17,
+    "failed": 0,
+    "tail": [
+      ".................                                                        [100%]",
+      "17 passed in 0.04s"
+    ]
+  },
+  "files": [
+    {
+      "path": "SPEC.md",
+      "ok": true
+    },
+    {
+      "path": "VALIDATION.md",
+      "ok": true
+    },
+    {
+      "path": "VALIDATION.json",
+      "ok": true
+    },
+    {
+      "path": "src/ab1/canonical.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab1/specgate.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab1/seesaw.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab1/gates.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab1/receipts.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab1/store.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab1/cli.py",
+      "ok": true
+    },
+    {
+      "path": "tests/test_ab1.py",
+      "ok": true
+    },
+    {
+      "path": "examples/breadup_plan.json",
+      "ok": true
+    },
+    {
+      "path": "examples/breadup_evidence.json",
+      "ok": true
+    }
+  ],
+  "banned_hits": [],
+  "fails": []
+}

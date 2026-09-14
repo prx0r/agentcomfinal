@@ -1,0 +1,115 @@
+{
+  "attempt": "autobuild2",
+  "date": "2026-09-14",
+  "scope": [
+    "G1",
+    "G2",
+    "G5",
+    "T1-simulated",
+    "ab1-no-regression",
+    "suite-green"
+  ],
+  "overall": "PASS WITH DEBT",
+  "criteria": [
+    {
+      "id": "G1",
+      "status": "PASS",
+      "note": "13-test matrix incl. REFUSED w/o grant"
+    },
+    {
+      "id": "G2",
+      "status": "PASS",
+      "note": "wrong-scope REFUSED"
+    },
+    {
+      "id": "G5",
+      "status": "PASS",
+      "note": "demo signed receipt verifies"
+    },
+    {
+      "id": "T1-simulated",
+      "status": "PARTIAL",
+      "note": "simulated: no receipt => no advance; live QP adapter is ab3"
+    },
+    {
+      "id": "ab1-no-regression",
+      "status": "PASS",
+      "note": "ab1 suite 17 passed"
+    },
+    {
+      "id": "suite-green",
+      "status": "PASS",
+      "note": "13 passed, 0 failed"
+    },
+    {
+      "id": "no-qp-fabrication",
+      "status": "PASS",
+      "note": "clean"
+    }
+  ],
+  "tests": {
+    "ok": true,
+    "passed": 13,
+    "failed": 0,
+    "tail": [
+      ".............                                                            [100%]",
+      "13 passed in 0.22s"
+    ]
+  },
+  "files": [
+    {
+      "path": "SPEC.md",
+      "ok": true
+    },
+    {
+      "path": "VALIDATION.md",
+      "ok": true
+    },
+    {
+      "path": "VALIDATION.json",
+      "ok": true
+    },
+    {
+      "path": "src/ab2/_vendored_ed25519.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab2/crypto.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab2/grants.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab2/gates2.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab2/build.py",
+      "ok": true
+    },
+    {
+      "path": "src/ab2/cli.py",
+      "ok": true
+    },
+    {
+      "path": "tests/test_ab2.py",
+      "ok": true
+    },
+    {
+      "path": "examples/lead_plan.json",
+      "ok": true
+    },
+    {
+      "path": "examples/lead_evidence.json",
+      "ok": true
+    },
+    {
+      "path": "examples/demo_seed.hex",
+      "ok": true
+    }
+  ],
+  "banned_hits": [],
+  "fails": []
+}

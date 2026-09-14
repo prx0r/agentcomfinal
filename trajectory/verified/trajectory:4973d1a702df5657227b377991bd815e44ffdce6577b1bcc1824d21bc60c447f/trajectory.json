@@ -1,0 +1,43 @@
+{
+  "actuality_after": {
+    "suite": "TRUE"
+  },
+  "actuality_before": {
+    "suite": "UNKNOWN"
+  },
+  "attempts": [
+    {
+      "action": {
+        "description": "/usr/bin/python3 -m pytest autobuild/compiler/ trajectory/test_formats.py contracts/ -q"
+      },
+      "attempt_id": "ATT-0",
+      "cost": {
+        "duration_ms": 468,
+        "tokens": null
+      },
+      "observed_effect": {
+        "reasons": [
+          "...................                                                      [100%]",
+          "19 passed in 0.14s"
+        ],
+        "verdict": "PASS"
+      }
+    }
+  ],
+  "components": [],
+  "contract_root": "contract:suite-green-compiler",
+  "cost": {
+    "human_minutes": 0,
+    "tokens": null,
+    "usd": 0,
+    "wall_ms": 468
+  },
+  "economic_outcome": null,
+  "level": "L0-observation",
+  "model": "",
+  "plan_root": "plan:bank-session",
+  "policy_id": "policy.direct",
+  "problem_class": "",
+  "qp_receipts": [],
+  "trajectory_id": "trajectory:4973d1a702df5657227b377991bd815e44ffdce6577b1bcc1824d21bc60c447f"
+}

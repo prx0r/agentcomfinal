@@ -1,0 +1,128 @@
+{
+  "contract_root": "contract:48677d76de7c1bc22e4f5f7ba0acc9e4cb7d36f9c6a912e9e54236dc8acf5fe8",
+  "plan_root": "plan:b5da79a9c8e1bd90bcd1fb4135a5fc665524d5526d5f18b45972b7db65f1c858",
+  "claim": "one real inbound lead receives one bounded booking reply",
+  "leaves": [
+    {
+      "id": "business-identity-verified",
+      "probe": "company.lookup",
+      "evidence_schema": {
+        "type": "object",
+        "required": [
+          "business_id"
+        ]
+      },
+      "judge": {
+        "engine": "cel",
+        "expression": "e.business_id != ''"
+      },
+      "freshness_s": 86400,
+      "evidence_class": "direct",
+      "authority": "none"
+    },
+    {
+      "id": "delegated-authority-exists",
+      "probe": "grant.describe",
+      "evidence_schema": {
+        "type": "object",
+        "required": [
+          "grant_id"
+        ]
+      },
+      "judge": {
+        "engine": "cel",
+        "expression": "e.grant_valid == true"
+      },
+      "freshness_s": 3600,
+      "evidence_class": "direct",
+      "authority": "grant"
+    },
+    {
+      "id": "incoming-lead-observed",
+      "probe": "cmail.read",
+      "evidence_schema": {
+        "type": "object",
+        "required": [
+          "lead_id"
+        ]
+      },
+      "judge": {
+        "engine": "cel",
+        "expression": "e.lead_id != ''"
+      },
+      "freshness_s": 600,
+      "evidence_class": "direct",
+      "authority": "none"
+    },
+    {
+      "id": "response-constructed",
+      "probe": "artifact.exists",
+      "evidence_schema": {
+        "type": "object",
+        "required": [
+          "artifact"
+        ]
+      },
+      "judge": {
+        "engine": "cel",
+        "expression": "e.complete == true"
+      },
+      "freshness_s": 3600,
+      "evidence_class": "direct",
+      "authority": "none"
+    },
+    {
+      "id": "outbound-sent",
+      "probe": "company.send_email",
+      "evidence_schema": {
+        "type": "object",
+        "required": [
+          "status"
+        ]
+      },
+      "judge": {
+        "engine": "cel",
+        "expression": "e.status == 202"
+      },
+      "freshness_s": 600,
+      "evidence_class": "direct",
+      "authority": "grant"
+    },
+    {
+      "id": "readback-agrees",
+      "probe": "provider.readback",
+      "evidence_schema": {
+        "type": "object",
+        "required": [
+          "created_id",
+          "found_id"
+        ]
+      },
+      "judge": {
+        "engine": "cel",
+        "expression": "e.found_id == e.created_id"
+      },
+      "freshness_s": 300,
+      "evidence_class": "external_readback",
+      "authority": "none"
+    },
+    {
+      "id": "outcome-observed",
+      "probe": "provider.outcome",
+      "evidence_schema": {
+        "type": "object",
+        "required": [
+          "outcome"
+        ]
+      },
+      "judge": {
+        "engine": "cel",
+        "expression": "e.outcome != ''"
+      },
+      "freshness_s": 86400,
+      "evidence_class": "external_readback",
+      "authority": "none"
+    }
+  ],
+  "unprovable": []
+}

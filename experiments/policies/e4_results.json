@@ -1,0 +1,134 @@
+{
+  "contract_root": "contract:6ae3c110ed1975b6223ed705f506fdc06fd309920ada49a95593553070075237",
+  "tournament": {
+    "contract_root": "contract:6ae3c110ed1975b6223ed705f506fdc06fd309920ada49a95593553070075237",
+    "ranking": [
+      [
+        "gitgoblin-first",
+        true
+      ],
+      [
+        "seeker3",
+        true
+      ],
+      [
+        "direct",
+        false
+      ]
+    ],
+    "winner": "gitgoblin-first",
+    "failures": [
+      {
+        "lane": "direct",
+        "detail": "send-only, no readback"
+      }
+    ],
+    "tournament_id": "tournament:afe9fc9828898caae1237ba20d505b8834c74dca9756e908a1edaae6741892ae"
+  },
+  "disqualified": [
+    {
+      "lane": "rogue",
+      "reason": "contract-mismatch"
+    }
+  ],
+  "trajectories": {
+    "direct": {
+      "contract_root": "contract:6ae3c110ed1975b6223ed705f506fdc06fd309920ada49a95593553070075237",
+      "plan_root": "plan:e4-direct",
+      "problem_class": "",
+      "policy_id": "policy.direct",
+      "model": "",
+      "components": [],
+      "attempts": [
+        {
+          "lane": "direct",
+          "detail": "send-only, no readback"
+        }
+      ],
+      "actuality_before": {
+        "readback": "UNKNOWN"
+      },
+      "actuality_after": {
+        "readback": "UNKNOWN"
+      },
+      "qp_receipts": [],
+      "economic_outcome": null,
+      "cost": {
+        "tokens": 50,
+        "wall_ms": 100,
+        "usd": 0.01,
+        "human_minutes": 0
+      },
+      "level": "L0-observation",
+      "trajectory_id": "trajectory:031691f3b5ac3c5e9cb57e72a2648d8c719ac83ea1c8c8c4966a7f69f0f31450"
+    },
+    "seeker3": {
+      "contract_root": "contract:6ae3c110ed1975b6223ed705f506fdc06fd309920ada49a95593553070075237",
+      "plan_root": "plan:e4-seeker3",
+      "problem_class": "",
+      "policy_id": "policy.seeker3",
+      "model": "",
+      "components": [],
+      "attempts": [
+        {
+          "lane": "seeker3",
+          "detail": "retry-with-readback"
+        }
+      ],
+      "actuality_before": {
+        "readback": "UNKNOWN"
+      },
+      "actuality_after": {
+        "readback": "TRUE"
+      },
+      "qp_receipts": [],
+      "economic_outcome": null,
+      "cost": {
+        "tokens": 400,
+        "wall_ms": 500,
+        "usd": 0.05,
+        "human_minutes": 0
+      },
+      "level": "L0-observation",
+      "trajectory_id": "trajectory:b7519637e6f7eeb790af78f0fbce57587ed31ada3f963b5f4c263f50b2b08afd"
+    },
+    "gitgoblin-first": {
+      "contract_root": "contract:6ae3c110ed1975b6223ed705f506fdc06fd309920ada49a95593553070075237",
+      "plan_root": "plan:e4-gitgoblin-first",
+      "problem_class": "",
+      "policy_id": "policy.gitgoblinfirst",
+      "model": "",
+      "components": [],
+      "attempts": [
+        {
+          "lane": "gitgoblin-first",
+          "detail": "prebuild-hit:8"
+        }
+      ],
+      "actuality_before": {
+        "readback": "UNKNOWN"
+      },
+      "actuality_after": {
+        "readback": "TRUE"
+      },
+      "qp_receipts": [],
+      "economic_outcome": null,
+      "cost": {
+        "tokens": 100,
+        "wall_ms": 200,
+        "usd": 0.02,
+        "human_minutes": 0
+      },
+      "level": "L0-observation",
+      "trajectory_id": "trajectory:e41559c6111e9cad9c2e318531d242c68c9a5c0331d888909ca7e996d65a8f76"
+    }
+  },
+  "lessons": {
+    "generated_at": 1789373479.0875869,
+    "min_seeds": 2,
+    "clusters": 2,
+    "proposals": [],
+    "global_lessons": []
+  },
+  "mode": "SIMULATED"
+}

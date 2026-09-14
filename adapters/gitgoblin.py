@@ -15,20 +15,30 @@ import os
 import re
 import subprocess
 
-GG_ROOT = "/home/ubuntu/gitgoblin"
+from adapters import _env
+
+GG_DEFAULT = "/home/ubuntu/gitgoblin"
 LOCAL_ROOTS = ("/agentcomfinal/packages", "/agentcomfinal/autobuild",
                "/agentcomfinal/core", "/agentcomfinal/adapters",
                "/home/ubuntu/gg-as/gitgoblin")
 
 
+def root():
+    return _env.require_dir(
+        _env.repo_root("AGENTCOM_GITGOBLIN_ROOT", GG_DEFAULT), "gitgoblin")
+
+
 def version():
     try:
-        rev = subprocess.run(["git", "-C", GG_ROOT, "rev-parse", "HEAD"],
+        r = root()
+        rev = subprocess.run(["git", "-C", r, "rev-parse", "HEAD"],
                              capture_output=True, text=True,
                              timeout=10).stdout.strip()
+        available = True
     except Exception:  # noqa: BLE001
-        rev = "unknown"
-    return {"repo": GG_ROOT, "rev": rev,
+        r, rev, available = _env.repo_root("AGENTCOM_GITGOBLIN_ROOT",
+                                           GG_DEFAULT), "unknown", False
+    return {"repo": r, "rev": rev, "available": available,
             "remote_search": "MCP search_entities(query, entity_type, "
                              "sector, limit) / REST GET /v1/search "
                              "(needs live service)"}

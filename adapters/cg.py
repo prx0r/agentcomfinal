@@ -10,23 +10,35 @@ import os
 import subprocess
 import sys
 
-CG_ROOT = "/home/ubuntu/cg"
+from adapters import _env
+
+CG_DEFAULT = "/home/ubuntu/cg"
+
+
+def root():
+    return _env.require_dir(
+        _env.repo_root("AGENTCOM_CG_ROOT", CG_DEFAULT), "cg")
 
 
 def version():
     try:
-        rev = subprocess.run(["git", "-C", CG_ROOT, "rev-parse", "HEAD"],
+        r = root()
+        rev = subprocess.run(["git", "-C", r, "rev-parse", "HEAD"],
                              capture_output=True, text=True,
                              timeout=10).stdout.strip()
+        available = True
     except Exception:  # noqa: BLE001
-        rev = "unknown"
-    return {"repo": CG_ROOT, "rev": rev, "kernel": "cogymkernel",
+        r, rev, available = _env.repo_root("AGENTCOM_CG_ROOT",
+                                           CG_DEFAULT), "unknown", False
+    return {"repo": r, "rev": rev, "available": available,
+            "kernel": "cogymkernel",
             "receipt": "content-addressed RunReceipt"}
 
 
 def _import():
-    if CG_ROOT not in sys.path:
-        sys.path.insert(0, CG_ROOT)
+    r = root()
+    if r not in sys.path:
+        sys.path.insert(0, r)
     import cogym_kernel  # noqa: E402
     return cogym_kernel
 

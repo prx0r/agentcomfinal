@@ -9,24 +9,39 @@ import json
 import os
 import subprocess
 
-ATASK_PY = "/home/ubuntu/atask/atask.py"
+from adapters import _env
+
+ATASK_DEFAULT_ROOT = "/home/ubuntu/atask"
+
+
+def root():
+    return _env.require_dir(
+        _env.repo_root("AGENTCOM_ATASK_ROOT", ATASK_DEFAULT_ROOT), "atask")
+
+
+def cli():
+    return _env.require_file(os.path.join(root(), "atask.py"), "atask")
 
 
 def version():
     try:
-        rev = subprocess.run(["git", "-C", "/home/ubuntu/atask",
+        cli()
+        rev = subprocess.run(["git", "-C", root(),
                               "rev-parse", "HEAD"], capture_output=True,
                              text=True, timeout=10).stdout.strip()
+        available = True
     except Exception:  # noqa: BLE001
-        rev = "unknown"
-    return {"cli": ATASK_PY, "rev": rev}
+        rev, available = "unknown", False
+    return {"cli": os.path.join(_env.repo_root(
+        "AGENTCOM_ATASK_ROOT", ATASK_DEFAULT_ROOT), "atask.py"),
+            "rev": rev, "available": available}
 
 
 def _run(sandbox, *args):
-    p = subprocess.run(["python3", ATASK_PY, "--dir",
+    p = subprocess.run(["python3", cli(), "--dir",
                         os.path.join(sandbox, ".atask")] + list(args),
                        capture_output=True, text=True, timeout=60,
-                       cwd="/home/ubuntu/atask")
+                       cwd=root())
     return p.returncode, (p.stdout or "") + (p.stderr or "")
 
 

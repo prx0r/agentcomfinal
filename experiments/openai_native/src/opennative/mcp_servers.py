@@ -68,19 +68,38 @@ def _business_lookup(params, deps):
             "verification": "SIMULATED"}
 
 
+def _is_missing_backend(exc):
+    try:
+        from adapters._env import BackendMissing
+        return isinstance(exc, BackendMissing)
+    except Exception:  # noqa: BLE001 - fall back to name check
+        return "BackendMissing" in type(exc).__name__
+
+
 def _qp_authorize(params, deps):
     qp = deps["qp"]
     action = params.get("action", {})
     if isinstance(action, str):
         action = {"capability": action}
-    return qp.authorize(action, params.get("grant", {}),
-                        params.get("facts", {}), params.get("now", ""))
+    try:
+        return qp.authorize(action, params.get("grant", {}),
+                            params.get("facts", {}), params.get("now", ""))
+    except Exception as exc:  # noqa: BLE001 - missing authority denies
+        if _is_missing_backend(exc):
+            return {"authorized": False,
+                    "reason": "authority-backend-missing"}
+        raise
 
 
 def _qp_verify(params, deps):
     qp = deps["qp"]
-    r = qp.verify_settlement(params.get("receipt", {}),
-                             params.get("evidence", []))
+    try:
+        r = qp.verify_settlement(params.get("receipt", {}),
+                                 params.get("evidence", []))
+    except Exception as exc:  # noqa: BLE001
+        if _is_missing_backend(exc):
+            return {"valid": False, "reason": "authority-backend-missing"}
+        raise
     return {"valid": bool(r.get("ok")), "reason": r.get("reason", "")}
 
 

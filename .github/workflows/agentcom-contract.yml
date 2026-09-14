@@ -7,11 +7,30 @@ on:
 jobs:
   keyless:
     runs-on: ubuntu-latest
+    env:
+      AGENTCOM_QP_ROOT: ${{ github.workspace }}/deps/qp
+      AGENTCOM_ATASK_ROOT: ${{ github.workspace }}/deps/atask
+      AGENTCOM_SEED0_ROOT: ${{ github.workspace }}/deps/seed0
+      AGENTCOM_CG_ROOT: ${{ github.workspace }}/deps/cg
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install test runner
+        run: pip install pytest
+      - name: Clone pinned dependency repos (shallow, blobs on demand)
+        run: |
+          mkdir -p deps
+          git clone --quiet --filter=blob:none --no-checkout https://github.com/prx0r/qp deps/qp
+          git -C deps/qp checkout --quiet 21588f7d9a48f9b3093f553be181a46338e4de4a
+          git clone --quiet --filter=blob:none --no-checkout https://github.com/prx0r/atask deps/atask
+          git -C deps/atask checkout --quiet 6ed5bc3479a97c76f86674c325185520348e443d
+          git clone --quiet --filter=blob:none --no-checkout https://github.com/prx0r/seed0 deps/seed0
+          git -C deps/seed0 checkout --quiet 94c2337221cbafeb2017db1b24c5207121146dbf
+          git clone --quiet --filter=blob:none --no-checkout https://github.com/prx0r/cg deps/cg
+          git -C deps/cg checkout --quiet e374b0b4d9f454ab32b3ac9480581c82d9adb82e
+          git -C deps/qp rev-parse HEAD && git -C deps/atask rev-parse HEAD
       - name: Core + compiler + contracts + formats
         run: PYTHONPATH=$GITHUB_WORKSPACE python3 -m pytest core/tests/ autobuild/compiler/ trajectory/test_formats.py contracts/ -q
         working-directory: ${{ github.workspace }}
@@ -46,6 +65,11 @@ jobs:
 
   wire:
     runs-on: ubuntu-latest
+    env:
+      AGENTCOM_QP_ROOT: ${{ github.workspace }}/deps/qp
+      AGENTCOM_ATASK_ROOT: ${{ github.workspace }}/deps/atask
+      AGENTCOM_SEED0_ROOT: ${{ github.workspace }}/deps/seed0
+      AGENTCOM_CG_ROOT: ${{ github.workspace }}/deps/cg
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -53,6 +77,11 @@ jobs:
           python-version: "3.12"
       - name: Install pinned SDK surface (keyless)
         run: pip install "openai-agents==0.22.2" mcp pytest
+      - name: Clone pinned dependency repos (shallow, blobs on demand)
+        run: |
+          mkdir -p deps
+          git clone --quiet --filter=blob:none --no-checkout https://github.com/prx0r/qp deps/qp
+          git -C deps/qp checkout --quiet 21588f7d9a48f9b3093f553be181a46338e4de4a
       - name: Live wire tests (no key — export paths no-op)
         run: python3 -m pytest tests/test_tracing_live.py -q
         working-directory: ${{ github.workspace }}/agentcombuild/agentloop

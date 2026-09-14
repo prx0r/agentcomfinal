@@ -328,3 +328,50 @@ def test_cg_runs_scripted_openai_lane():
     assert r["run_id"].startswith("run_")
     assert r["scenario"]["contract_root"] == "cr:lane-1"
     assert r["metrics"]["tools"] == 1
+
+
+def _purge_backend_modules():
+    import sys as _sys
+    for mod in [m for m in _sys.modules
+                if m == "qp_acom" or m.startswith("qp_acom.")
+                or m.startswith("seed0_") or m == "cogym_kernel"
+                or m.startswith("cogym_kernel.")]:
+        del _sys.modules[mod]
+
+
+def test_missing_backends_degrade_loudly(monkeypatch):
+    """No sibling repo -> NOT_CONFIGURED states, never tracebacks. The
+    authority gate answers REFUSE (fail closed), not Errno."""
+    import sys as _sys
+    _sys.path.insert(0, "/agentcomfinal/experiments/openai_native/src")
+    from adapters import _env
+    from adapters import atask as _atask
+    from adapters import cg as _cg
+    from adapters import qp as _qp
+    from adapters import seed0 as _seed
+    from opennative import mcp_servers
+    monkeypatch.setenv("AGENTCOM_QP_ROOT", "/nonexistent-qp")
+    monkeypatch.setenv("AGENTCOM_ATASK_ROOT", "/nonexistent-atask")
+    monkeypatch.setenv("AGENTCOM_SEED0_ROOT", "/nonexistent-seed0")
+    monkeypatch.setenv("AGENTCOM_CG_ROOT", "/nonexistent-cg")
+    _purge_backend_modules()
+    assert _qp.version()["available"] is False
+    assert _atask.version()["available"] is False
+    assert _seed.version()["available"] is False
+    assert _cg.version()["available"] is False
+    with pytest.raises(_env.BackendMissing):
+        _qp.make_claim("s?", "d")
+    with pytest.raises(_env.BackendMissing):
+        _seed.candidate_lessons([])
+    with pytest.raises(_env.BackendMissing):
+        _cg.smoke()
+    _purge_backend_modules()
+    r = mcp_servers.call(
+        "qp.authorize",
+        {"action": {"capability": "email.send"}, "grant": {},
+         "facts": {}, "now": "2026-09-14T00:00:00Z"})
+    assert r == {"authorized": False,
+                 "reason": "authority-backend-missing"}
+    r = mcp_servers.call("qp.verify", {"receipt": {}, "evidence": []})
+    assert r == {"valid": False, "reason": "authority-backend-missing"}
+    _purge_backend_modules()

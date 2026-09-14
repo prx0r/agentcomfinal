@@ -10,17 +10,26 @@ import os
 import subprocess
 import sys
 
-QP_ROOT = "/home/ubuntu/qp"
+from adapters import _env
+
+QP_DEFAULT = "/home/ubuntu/qp"
 PKG = "qp_acom"
 
 
+def root():
+    return _env.repo_root("AGENTCOM_QP_ROOT", QP_DEFAULT)
+
+
 def _pkg():
-    if PKG in sys.modules:
+    if PKG in sys.modules and getattr(
+            sys.modules[PKG], "__agentcom_root__", None) == root():
         return sys.modules[PKG]
+    _env.require_dir(os.path.join(root(), "acom"), "qp")
     spec = importlib.util.spec_from_file_location(
-        PKG, os.path.join(QP_ROOT, "acom", "__init__.py"),
-        submodule_search_locations=[os.path.join(QP_ROOT, "acom")])
+        PKG, os.path.join(root(), "acom", "__init__.py"),
+        submodule_search_locations=[os.path.join(root(), "acom")])
     pkg = importlib.util.module_from_spec(spec)
+    pkg.__agentcom_root__ = root()
     sys.modules[PKG] = pkg
     spec.loader.exec_module(pkg)
     return pkg
@@ -32,7 +41,7 @@ def _mod(name):
     if full in sys.modules:
         return sys.modules[full]
     spec = importlib.util.spec_from_file_location(
-        full, os.path.join(QP_ROOT, "acom", name + ".py"))
+        full, os.path.join(root(), "acom", name + ".py"))
     mod = importlib.util.module_from_spec(spec)
     sys.modules[full] = mod
     spec.loader.exec_module(mod)
@@ -41,12 +50,15 @@ def _mod(name):
 
 def version():
     try:
-        rev = subprocess.run(["git", "-C", QP_ROOT, "rev-parse", "HEAD"],
+        _env.require_dir(os.path.join(root(), "acom"), "qp")
+        rev = subprocess.run(["git", "-C", root(), "rev-parse", "HEAD"],
                              capture_output=True, text=True,
                              timeout=10).stdout.strip()
+        available = True
     except Exception:  # noqa: BLE001
-        rev = "unknown"
-    return {"repo": QP_ROOT, "rev": rev, "protocol": "acom/0.1",
+        rev, available = "unknown", False
+    return {"repo": root(), "rev": rev, "available": available,
+            "protocol": "acom/0.1",
             "schema": "https://pog.town/schemas/acom-0.1.json"}
 
 

@@ -11,24 +11,36 @@ import importlib.util
 import os
 import subprocess
 
-SEED0_ROOT = "/home/ubuntu/seed0"
+from adapters import _env
+
+SEED0_DEFAULT = "/home/ubuntu/seed0"
 POLICIES = ("policy.direct", "policy.seeker3", "policy.gitgoblin_first",
             "policy.test_first", "policy.redteam_first", "policy.repair_first",
             "policy.replace_component")
 
 
+def root():
+    return _env.require_dir(
+        _env.repo_root("AGENTCOM_SEED0_ROOT", SEED0_DEFAULT), "seed0")
+
+
 def version():
     try:
-        rev = subprocess.run(["git", "-C", SEED0_ROOT, "rev-parse", "HEAD"],
+        r = root()
+        rev = subprocess.run(["git", "-C", r, "rev-parse", "HEAD"],
                              capture_output=True, text=True,
                              timeout=10).stdout.strip()
+        available = True
     except Exception:  # noqa: BLE001
-        rev = "unknown"
-    return {"repo": SEED0_ROOT, "rev": rev, "policies": list(POLICIES)}
+        r, rev, available = _env.repo_root("AGENTCOM_SEED0_ROOT",
+                                           SEED0_DEFAULT), "unknown", False
+    return {"repo": r, "rev": rev, "available": available,
+            "policies": list(POLICIES)}
 
 
 def _mod(name):
-    path = os.path.join(SEED0_ROOT, name + ".py")
+    path = os.path.join(root(), name + ".py")
+    _env.require_file(path, "seed0")
     spec = importlib.util.spec_from_file_location("seed0_" + name, path)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
@@ -45,7 +57,7 @@ def tournament_cmd(seed_dirs, model=""):
     """Reference to a real tournament run (executed by the operator, not
     imported — tournaments run untrusted seed code with timeouts). Returns
     the argv; AgentCom files the resulting tournament_*.jsonl as evidence."""
-    cmd = ["python3", os.path.join(SEED0_ROOT, "tournament.py")] + list(seed_dirs)
+    cmd = ["python3", os.path.join(root(), "tournament.py")] + list(seed_dirs)
     if model:
         cmd += ["--model", model]
     return cmd

@@ -33,5 +33,10 @@ step "ab3 demo"
 step "redteam"
 (cd "$ROOT" && python3 autobuild0/redteam_ab12.py > /dev/null) && ok "redteam" || no "redteam"
 
+step "agentloop suite"
+(cd "$ROOT/agentloop" && PYTHONPATH=../autobuild1/src:src python3 -m pytest tests/ -q) && ok "agentloop suite" || no "agentloop suite"
+step "agentloop review"
+(cd "$ROOT/agentloop" && python3 review/check.py) && ok "agentloop review" || no "agentloop review"
+
 echo "--- chain: $pass ok, $miss miss ---"
 [ "$miss" -eq 0 ]
